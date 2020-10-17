@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, BrowserRouter as Router, Link } from "react-router-dom";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 
 import "./index.scss";
 import ListPage from "./pages/List";
@@ -7,7 +7,7 @@ import NewComplaintPage from "./pages/NewComplaint";
 import SearchComplaintPage from "./pages/SearchComplaint";
 
 import "./i18n";
-import LanguageSelect from "./components/LanguageSelect";
+//import LanguageSelect from "./components/LanguageSelect";
 import TopBar from "./@egovernments/components/js/TopBar";
 import AppContainer from "./@egovernments/components/js/AppContainer";
 
