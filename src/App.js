@@ -8,25 +8,30 @@ import SearchComplaintPage from "./pages/SearchComplaint";
 
 import "./i18n";
 import LanguageSelect from "./components/LanguageSelect";
+import TopBar from "./@egovernments/components/js/TopBar";
+import AppContainer from "./@egovernments/components/js/AppContainer";
 
-const Header = () => (
-  <>
-    <div className="column">
-      <Link to="/">Home</Link> -&nbsp;
-      <Link to="/new">New</Link> -&nbsp;
-      <Link to="/search">Search</Link> &nbsp;
-      <LanguageSelect />
-    </div>
-  </>
-);
+// const Header = () => (
+//   <>
+//     <div className="column">
+//       <Link to="/">Home</Link> -&nbsp;
+//       <Link to="/new">New</Link> -&nbsp;
+//       <Link to="/search">Search</Link> &nbsp;
+//       <LanguageSelect />
+//     </div>
+//   </>
+// );
 
 const App = () => {
   return (
     <Router>
-      <Header />
-      <Route exact path="/" component={ListPage} />
-      <Route path="/new" component={NewComplaintPage} />
-      <Route path="/search" component={SearchComplaintPage} />
+      <TopBar />
+      <AppContainer>
+        <Route exact path="/" component={ListPage} />
+        <Route path="/new" component={NewComplaintPage} />
+        <Route path="/search" component={SearchComplaintPage} />
+        <Route path="/create-complaint" component={SearchComplaintPage} />
+      </AppContainer>
     </Router>
   );
 };

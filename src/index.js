@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 // import './index.scss';
+import "./@egovernments/components/css/index.css";
 import PGRApp from "./ModuleApp";
 const deltaConfig = {
   "pgr-new-complaint": [
