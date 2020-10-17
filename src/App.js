@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Route, BrowserRouter as Router, Link } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+import "./index.scss";
+import ListPage from "./pages/List";
+import NewComplaintPage from "./pages/NewComplaint";
+import SearchComplaintPage from "./pages/SearchComplaint";
+
+import "./i18n";
+import LanguageSelect from "./components/LanguageSelect";
+
+const Header = () => (
+  <>
+    <div className="column">
+      <Link to="/">Home</Link> -&nbsp;
+      <Link to="/new">New</Link> -&nbsp;
+      <Link to="/search">Search</Link> &nbsp;
+      <LanguageSelect />
     </div>
+  </>
+);
+
+const App = () => {
+  return (
+    <Router>
+      <Header />
+      <Route exact path="/" component={ListPage} />
+      <Route path="/new" component={NewComplaintPage} />
+      <Route path="/search" component={SearchComplaintPage} />
+    </Router>
   );
-}
+};
 
 export default App;

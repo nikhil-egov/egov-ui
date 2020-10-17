@@ -1,0 +1,102 @@
+$govuk-assets-path: "~govuk-frontend/govuk/assets/";
+@import "node_modules/govuk-frontend/govuk/all";
+
+$font-family: "GDS Transport", Arial, sans-serif;
+
+.egov-width-container {
+  @extend .govuk-width-container;
+  clear: both;
+}
+
+.egov-btn {
+  @extend .govuk-button;
+}
+.egov-heading {
+  @extend .govuk-heading-l;
+}
+
+.egov-form-group {
+  @extend .govuk-form-group;
+}
+
+.egov-label {
+  @extend .govuk-label;
+}
+
+.egov-input {
+  @extend .govuk-input;
+}
+
+.egov-two-thirds {
+  @extend .govuk-\!-width-two-thirds;
+}
+
+.repeat-group {
+  background-color: lightgray;
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+
+.column {
+  display: flex;
+  flex-direction: row;
+  position: sticky;
+  top: 0;
+}
+
+.loader {
+  font-family: $font-family;
+  &:before {
+    content: "";
+    background: #000000cc;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  &:after {
+    content: "Loading...";
+    position: fixed;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    z-index: 1001;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+}
+
+table.result {
+  &, & th, & td {
+    border: 1px solid black;
+  border-collapse: collapse;
+  }
+  & th, & td {
+    padding: 1rem 2rem;
+  }
+}
+
+.badge {
+  padding: 5px 25px;
+    border-radius: 14px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .58px;
+    line-height: 17px;
+  &.green {
+    background-color: rgb(76, 175, 80);;
+  } 
+
+  &.orange {
+    background-color: rgb(238, 167, 58);
+  }
+
+  &.red {
+    background-color: rgb(244, 67, 54);;
+  }
+}
