@@ -19,7 +19,6 @@ const SearchComplaint = () => {
   const [show, setshow] = useState(false);
 
   const onSubmit = (data) => {
-    console.log("search", data);
     setshow(!show);
   };
 

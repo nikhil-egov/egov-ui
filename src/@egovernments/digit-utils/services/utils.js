@@ -11,18 +11,60 @@ Axios.interceptors.response.use((res) => {
   return res;
 });
 
+const requestInfo = {
+  apiId: "Rainmaker",
+  action: "",
+  did: 1,
+  key: "",
+  msgId: "20170310130900|en_IN",
+  requesterId: "",
+  ts: 1513579888683,
+  ver: ".01",
+  authToken: Storage.get("token"),
+};
+
+const userService = {
+  userInfo: {
+    id: 23349,
+    uuid: "530968f3-76b3-4fd1-b09d-9e22eb1f85df",
+    userName: "9404052047",
+    name: "Aniket T",
+    mobileNumber: "9404052047",
+    emailId: "xc@gmail.com",
+    locale: null,
+    type: "CITIZEN",
+    roles: [
+      {
+        name: "Citizen",
+        code: "CITIZEN",
+        tenantId: "pb",
+      },
+    ],
+    active: true,
+    tenantId: "pb",
+  },
+};
+
 export const Request = async ({
   method = "POST",
   url,
   data = {},
   useCache = false,
   params = {},
+  auth,
+  userService,
 }) => {
   let key = "";
   if (method.toUpperCase() === "POST") {
     data.RequestInfo = {
       apiId: "Rainmaker",
     };
+    if (auth) {
+      data.RequestInfo = { ...data.RequestInfo, ...requestInfo };
+    }
+    if (userService) {
+      data.RequestInfo = { ...data.RequestInfo, ...userService };
+    }
   }
   if (useCache) {
     key = `${method.toUpperCase()}.${url}.${JSON.stringify(
@@ -37,12 +79,10 @@ export const Request = async ({
   } else {
     params._ = Date.now();
   }
-
   const res = await Axios({ method, url, data, params });
   if (useCache) {
     Storage.set(key, res.data);
   }
-
   return res.data;
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 
-const CreateComplaint = () => {
+const CreateComplaintPage = () => {
   return <div></div>;
 };
 
-export default CreateComplaint;
+export default CreateComplaintPage;

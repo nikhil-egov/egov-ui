@@ -1,6 +1,10 @@
 import { combineReducers } from "redux";
 import ConfigActionTypes from "../../@egovernments/digit-utils/enums/ConfigActionTypes";
-import { FETCH_LOCALITIES, CHANGE_LANGUAGE } from "../actions/types";
+import {
+  FETCH_LOCALITIES,
+  CHANGE_LANGUAGE,
+  FETCH_COMPLAINTS,
+} from "../actions/types";
 
 const configReducer = (defaultConfig) => (state = defaultConfig, action) => {
   switch (action.type) {
@@ -63,7 +67,6 @@ const localeReducer = (defaultLocales) => (state = defaultLocales, action) => {
 };
 
 const currentLanguageReducer = (state = {}, action) => {
-  console.log("lang action", action);
   switch (action.type) {
     case CHANGE_LANGUAGE:
       return { ...state, language: action.payload };
@@ -86,6 +89,22 @@ const stateInfoReducer = (defaultStateInfo) => (
   return state;
 };
 
+const businessServiceReducer = (defaultStateInfo) => (
+  state = defaultStateInfo,
+  action
+) => {
+  return state;
+};
+
+const complaintsReducer = (state = [], action) => {
+  switch (action.type) {
+    case FETCH_COMPLAINTS:
+      return { ...state, list: action.payload.complaints };
+    default:
+      return state;
+  }
+};
+
 const getRootReducer = (defaultStore) =>
   combineReducers({
     config: configReducer(defaultStore.config),
@@ -97,6 +116,8 @@ const getRootReducer = (defaultStore) =>
     languages: languageReducer(defaultStore.languages),
     cityCode: cityCodeReducer(defaultStore.cityCode),
     stateInfo: stateInfoReducer(defaultStore.stateInfo),
+    businessService: businessServiceReducer(defaultStore.businessServices),
+    complaints: complaintsReducer,
   });
 
 export default getRootReducer;
