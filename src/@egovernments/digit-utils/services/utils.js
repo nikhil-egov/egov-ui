@@ -20,10 +20,10 @@ const requestInfo = {
   requesterId: "",
   ts: 1513579888683,
   ver: ".01",
-  authToken: Storage.get("token"),
+  authToken: Storage.get("citizen.token"),
 };
 
-const userService = {
+const userServiceData = {
   userInfo: {
     id: 23349,
     uuid: "530968f3-76b3-4fd1-b09d-9e22eb1f85df",
@@ -63,9 +63,10 @@ export const Request = async ({
       data.RequestInfo = { ...data.RequestInfo, ...requestInfo };
     }
     if (userService) {
-      data.RequestInfo = { ...data.RequestInfo, ...userService };
+      data.RequestInfo = { ...data.RequestInfo, ...userServiceData };
     }
   }
+
   if (useCache) {
     key = `${method.toUpperCase()}.${url}.${JSON.stringify(
       params,

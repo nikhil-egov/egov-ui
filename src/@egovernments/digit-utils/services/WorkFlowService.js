@@ -10,4 +10,13 @@ export const WorkflowService = {
       params: { tenantId: stateCode, businessServices },
       auth: true,
     }),
+
+  getByBusinessId: (stateCode = "pb", businessIds) =>
+    Request({
+      url: Urls.WorkFlowProcessSearch,
+      useCache: false,
+      method: "POST",
+      params: { tenantId: stateCode, businessIds: businessIds, history: true },
+      auth: true,
+    }),
 };

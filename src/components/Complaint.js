@@ -7,8 +7,9 @@ import { ComplaintStatusToLocalisationKeyMapping } from "../@egovernments/digit-
 
 const Complaint = (props) => {
   let { data } = props;
-  const history = useHistory();
   let { serviceCode, serviceRequestId, applicationStatus } = data;
+
+  const history = useHistory();
   const { t } = useTranslation();
 
   const handleClick = () => {

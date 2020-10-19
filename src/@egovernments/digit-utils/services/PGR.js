@@ -1,5 +1,5 @@
 import Urls from "./urls";
-import { GetCitiesWithi18nKeys, GetEgovLocations, Request } from "./utils";
+import { Request } from "./utils";
 
 export const PGRService = {
   search: (stateCode = "pb", fiters = {}) =>

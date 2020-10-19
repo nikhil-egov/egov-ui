@@ -4,6 +4,8 @@ import {
   FETCH_LOCALITIES,
   CHANGE_LANGUAGE,
   FETCH_COMPLAINTS,
+  FETCH_ALL_BUSINESSS_SERVICES,
+  FETCH_BUSINESS_SERVICE_BY_ID,
 } from "../actions/types";
 
 const configReducer = (defaultConfig) => (state = defaultConfig, action) => {
@@ -89,11 +91,19 @@ const stateInfoReducer = (defaultStateInfo) => (
   return state;
 };
 
-const businessServiceReducer = (defaultStateInfo) => (
-  state = defaultStateInfo,
-  action
-) => {
-  return state;
+const businessServiceReducer = (state = {}, action) => {
+  console.log("action;;;", action);
+  switch (action.type) {
+    case FETCH_ALL_BUSINESSS_SERVICES:
+      return { ...state, businessServices: action.payload };
+    case FETCH_BUSINESS_SERVICE_BY_ID:
+      return {
+        ...state,
+        businessService: action.payload.businessServiceDetails,
+      };
+    default:
+      return state;
+  }
 };
 
 const complaintsReducer = (state = [], action) => {
@@ -116,7 +126,8 @@ const getRootReducer = (defaultStore) =>
     languages: languageReducer(defaultStore.languages),
     cityCode: cityCodeReducer(defaultStore.cityCode),
     stateInfo: stateInfoReducer(defaultStore.stateInfo),
-    businessService: businessServiceReducer(defaultStore.businessServices),
+    // businessService: businessServiceReducer(defaultStore.businessServices),
+    businessService: businessServiceReducer,
     complaints: complaintsReducer,
   });
 

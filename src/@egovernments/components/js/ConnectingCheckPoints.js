@@ -3,7 +3,6 @@ import React from "react";
 export const CheckPoint = (props) => {
   return (
     <div className={props.isCompleted ? "checkpoint-done" : "checkpoint"}>
-      <h2></h2>
       <header>
         {props.label}
         {props.info ? <p>{props.info}</p> : null}
