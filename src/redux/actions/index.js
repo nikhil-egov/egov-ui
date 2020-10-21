@@ -2,6 +2,7 @@ import { FETCH_LOCALITIES } from "./types";
 import { LocalizationService } from "../../@egovernments/digit-utils/services/Localization";
 import { LocationService } from "../../@egovernments/digit-utils/services/Location";
 import { LocalityService } from "../../@egovernments/digit-utils/services/Localities";
+import createComplaint from "./complaint";
 
 export const fetchLocalities = (city) => async (dispatch, getState) => {
   city = city.toLowerCase();
@@ -31,3 +32,5 @@ export const updateLocalizationResources = () => async (dispatch, getState) => {
     tenantId: "pb",
   });
 };
+
+export { createComplaint };

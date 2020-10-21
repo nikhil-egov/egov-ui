@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import ConfigActionTypes from "../../@egovernments/digit-utils/enums/ConfigActionTypes";
 import { FETCH_LOCALITIES, CHANGE_LANGUAGE } from "../actions/types";
-
+import complaintReducer from "./complaintReducer";
 const configReducer = (defaultConfig) => (state = defaultConfig, action) => {
   switch (action.type) {
     case ConfigActionTypes.CONFIG_UPDATE:
@@ -97,6 +97,7 @@ const getRootReducer = (defaultStore) =>
     languages: languageReducer(defaultStore.languages),
     cityCode: cityCodeReducer(defaultStore.cityCode),
     stateInfo: stateInfoReducer(defaultStore.stateInfo),
+    complaintSubmitResponse: complaintReducer,
   });
 
 export default getRootReducer;

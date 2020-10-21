@@ -6,10 +6,16 @@ Axios.interceptors.request.use((req) => {
   return req;
 });
 
-Axios.interceptors.response.use((res) => {
-  document.body.classList.remove("loader");
-  return res;
-});
+Axios.interceptors.response.use(
+  (res) => {
+    document.body.classList.remove("loader");
+    return res;
+  },
+  (err) => {
+    document.body.classList.remove("loader");
+    return err;
+  }
+);
 
 export const Request = async ({
   method = "POST",

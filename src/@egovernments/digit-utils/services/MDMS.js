@@ -60,6 +60,7 @@ export const MdmsService = {
     }),
   getDataByCriteria: async (mdmsDetails) => {
     const moduleCode = "PGR";
+    console.log(mdmsDetails.details);
     const { MdmsRes } = await MdmsService.call(mdmsDetails.details);
     return transformResponse(mdmsDetails.type, MdmsRes, moduleCode);
   },

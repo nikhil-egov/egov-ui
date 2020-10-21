@@ -13,6 +13,7 @@ const Dropdown = (props) => {
   function onSelect(selectedOption) {
     setSelectedOption(selectedOption);
     setDropdownStatus(false);
+    props.select(selectedOption);
   }
 
   return (
