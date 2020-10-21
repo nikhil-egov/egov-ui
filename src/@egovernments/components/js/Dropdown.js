@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ArrowDown from "../svg/arrowdown.svg";
 
 const Dropdown = (props) => {
   const [dropdownStatus, setDropdownStatus] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+
+  useEffect(() => {
+    if (props.set) {
+      setSelectedOption(props.set);
+    }
+  }, [props.set]);
 
   function dropdownSwitch() {
     var current = dropdownStatus;
@@ -33,9 +39,9 @@ const Dropdown = (props) => {
       </div>
       {dropdownStatus && (
         <div className="options-card">
-          {props.option.map((option) => {
+          {props.option.map((option, index) => {
             return (
-              <p key={option} onClick={() => onSelect(option)}>
+              <p key={index} onClick={() => onSelect(option)}>
                 {option}
               </p>
             );

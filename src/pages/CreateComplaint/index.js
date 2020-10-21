@@ -126,6 +126,7 @@ const CreateComplaint = ({ match, history }) => {
 
   const submitComplaint = async (details) => {
     setDetails(details);
+
     await dispatch(createComplaint());
   };
 

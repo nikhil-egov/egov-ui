@@ -5,6 +5,7 @@ import { LocalityService } from "../../@egovernments/digit-utils/services/Locali
 import createComplaint from "./complaint";
 
 export const fetchLocalities = (city) => async (dispatch, getState) => {
+  const City = city;
   city = city.toLowerCase();
   const { stateInfo } = getState();
   let response = await LocationService.getLocalities({
@@ -13,7 +14,7 @@ export const fetchLocalities = (city) => async (dispatch, getState) => {
   let localityList = LocalityService.get(response.TenantBoundary[0]);
   dispatch({
     type: FETCH_LOCALITIES,
-    payload: { localityList },
+    payload: { localityList, City },
   });
 };
 

@@ -49,6 +49,7 @@ const localityReducer = (state = [], action) => {
       return {
         ...state,
         localityList: action.payload.localityList,
+        city: action.payload.City,
       };
     default:
       return state;

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Card from "../../@egovernments/components/js/Card";
 import CardHeader from "../../@egovernments/components/js/CardHeader";
 import CardSubHeader from "../../@egovernments/components/js/CardSubHeader";
@@ -26,13 +26,17 @@ const Address = (props) => {
     });
   }
   const dispatch = useDispatch();
-  const getLocalities = useCallback((city) => dispatch(fetchLocalities(city)), [
-    dispatch,
-  ]);
-  function selectCity(city) {
+
+  useEffect(() => {
+    if (appState.localities.city) {
+      setSelectedCity(appState.localities.city);
+    }
+    return setSelectedCity(appState.localities.city);
+  }, [appState.localities]);
+
+  async function selectCity(city) {
     // let city = appState.cities.find(o => o.name === select);
-    getLocalities(city);
-    setSelectedCity(city);
+    await dispatch(fetchLocalities(city));
   }
   function selectLocalities(locality) {
     setSelectedLocality(locality);
@@ -49,7 +53,12 @@ const Address = (props) => {
         Choose the locality/mohalla of the complaint from the list given below.
       </CardText>
       <CardLabel>City *</CardLabel>
-      <Dropdown isMandatory={true} option={cities} select={selectCity} />
+      <Dropdown
+        isMandatory
+        option={cities}
+        select={selectCity}
+        set={appState.localities.city}
+      />
       <CardLabel>Moholla *</CardLabel>
       {/* <RadioButtons options={["Ajit Nagar", "Patel Nagar"]}/> */}
       <Dropdown isMandatory option={localities} select={selectLocalities} />
