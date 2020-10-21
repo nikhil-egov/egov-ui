@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import BackButton from "../../@egovernments/components/js/BackButton";
 import ComplaintType from "./ComplaintType";
 import UserOnboarding from "../UserOnboarding/index";
@@ -11,8 +12,9 @@ import Landmark from "./Landmark";
 import UploadPhotos from "./UploadPhotos";
 import Details from "./Details";
 import Submission from "./Submission";
+import { createComplaint } from "../../redux/actions/index";
 
-const CreateComplaint = ({ match }) => {
+const CreateComplaint = ({ match, history }) => {
   const complaintParams = {
     RequestInfo: {
       apiId: "Rainmaker",
@@ -91,10 +93,23 @@ const CreateComplaint = ({ match }) => {
     },
   };
 
+  const dispatch = useDispatch();
+  const appState = useSelector((state) => state);
   const [createComplaintParams, setComplaintParams] = useState(complaintParams);
   const [pincode, setPincode] = useState(null);
   const [city, setCity] = useState(null);
   const [locality, setLocality] = useState(null);
+  const [landmark, setLandmark] = useState(null);
+  const [details, setDetails] = useState(null);
+
+  useEffect(() => {
+    if (
+      appState.complaintSubmitResponse &&
+      appState.complaintSubmitResponse.responseInfo
+    ) {
+      history.push("/create-complaint/submission");
+    }
+  }, [appState.complaintSubmitResponse]);
 
   const savePincode = (val) => {
     setPincode(val);
@@ -105,17 +120,32 @@ const CreateComplaint = ({ match }) => {
     setLocality(locality);
   };
 
+  const saveLandmark = (landmark) => {
+    setLandmark(landmark);
+  };
+
+  const submitComplaint = async (details) => {
+    setDetails(details);
+    await dispatch(createComplaint());
+  };
+
   return (
     <React.Fragment>
       <BackButton />
-      <Route path={match.url + "/onboarding"} component={UserOnboarding} />
+      <Route
+        path={match.url + "/onboarding"}
+        component={(props) => <UserOnboarding />}
+      />
       <Route
         exact
         path={match.url + "/"}
         component={(props) => <ComplaintType />}
       />
-      <Route path={match.url + "/subtype"} component={SubType} />
-      <Route path={match.url + "/location"} component={LocationSearch} />
+      <Route path={match.url + "/subtype"} component={(props) => <SubType />} />
+      <Route
+        path={match.url + "/location"}
+        component={(props) => <LocationSearch />}
+      />
       <Route
         path={match.url + "/pincode"}
         component={(props) => <Pincode save={(val) => savePincode(val)} />}
@@ -124,10 +154,33 @@ const CreateComplaint = ({ match }) => {
         path={match.url + "/address"}
         component={(props) => <Address save={saveAddress} />}
       />
-      <Route path={match.url + "/landmark"} component={Landmark} />
-      <Route path={match.url + "/upload-photos"} component={UploadPhotos} />
-      <Route path={match.url + "/details"} component={Details} />
-      <Route path={match.url + "/submission"} component={Submission} />
+      <Route
+        path={match.url + "/landmark"}
+        component={(props) => <Landmark save={saveLandmark} />}
+      />
+      <Route
+        path={match.url + "/upload-photos"}
+        component={(props) => <UploadPhotos />}
+      />
+      <Route
+        path={match.url + "/details"}
+        component={(props) => <Details submitComplaint={submitComplaint} />}
+      />
+      <Route
+        path={match.url + "/submission"}
+        component={(props) => <Submission />}
+      />
+      <p
+        onClick={() => {
+          console.log(createComplaintParams);
+          console.log(pincode);
+          console.log(city);
+          console.log(locality);
+          console.log(landmark);
+        }}
+      >
+        show state
+      </p>
     </React.Fragment>
   );
 };

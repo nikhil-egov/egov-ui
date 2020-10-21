@@ -6,12 +6,12 @@ import CardText from "../../@egovernments/components/js/CardText";
 import CardLabel from "../../@egovernments/components/js/CardLabel";
 import Dropdown from "../../@egovernments/components/js/Dropdown";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
-import RadioButtons from "../../@egovernments/components/js/RadioButtons";
+// import RadioButtons from "../../@egovernments/components/js/RadioButtons";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchLocalities } from "../../redux/actions";
 
-const Address = () => {
+const Address = (props) => {
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedLocality, setSelectedLocality] = useState(null);
   const appState = useSelector((state) => state);
@@ -37,6 +37,10 @@ const Address = () => {
   function selectLocalities(locality) {
     setSelectedLocality(locality);
   }
+
+  function save() {
+    props.save(selectedCity, selectedLocality);
+  }
   return (
     <Card>
       <CardSubHeader>Complaint's Location</CardSubHeader>
@@ -49,7 +53,7 @@ const Address = () => {
       <CardLabel>Moholla *</CardLabel>
       {/* <RadioButtons options={["Ajit Nagar", "Patel Nagar"]}/> */}
       <Dropdown isMandatory option={localities} select={selectLocalities} />
-      <Link to="/create-complaint/landmark">
+      <Link to="/create-complaint/landmark" onClick={save}>
         <SubmitBar label="Next" />
       </Link>
       <p onClick={() => console.log(appState)}>appsate</p>
