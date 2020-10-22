@@ -19,7 +19,7 @@ const BannerPicker = ({ appState }) => {
       />
     );
   } else {
-    return <Banner message="Complaint Submitted" successful={false} />;
+    return <Banner message="Complaint Not Submitted" successful={false} />;
   }
 };
 

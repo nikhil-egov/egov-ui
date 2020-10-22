@@ -15,6 +15,16 @@ import Submission from "./Submission";
 import { createComplaint } from "../../redux/actions/index";
 
 const CreateComplaint = ({ match, history }) => {
+  const dispatch = useDispatch();
+  const appState = useSelector((state) => state);
+  const [pincode, setPincode] = useState(null);
+  const [city, setCity] = useState(null);
+  const [locality, setLocality] = useState(null);
+  const [landmark, setLandmark] = useState(null);
+  const [details, setDetails] = useState(null);
+
+  const citAuth = "750f59c3-a8e0-4295-ad39-0f8439457dd8";
+  var localityCode = "";
   const complaintParams = {
     RequestInfo: {
       apiId: "Rainmaker",
@@ -44,7 +54,7 @@ const CreateComplaint = ({ match, history }) => {
         active: true,
         tenantId: "pb",
       },
-      authToken: "{{citAuth}}",
+      authToken: citAuth,
     },
     service: {
       tenantId: "pb.amritsar",
@@ -59,22 +69,22 @@ const CreateComplaint = ({ match, history }) => {
         doorNo: "2",
         plotNo: "10",
         landmark: "Near City Hall",
-        city: "Amritsar",
-        district: "Amritsar",
-        region: "Amritsar",
+        city: city,
+        district: city,
+        region: city,
         state: "Punjab",
         country: "India",
-        pincode: "111111",
+        pincode: pincode,
         buildingName: "Safalya",
         street: "10th main",
         locality: {
-          code: "SUN01",
-          name: "Ajit Nagar",
+          code: locality !== null ? locality.code : "",
+          name: locality !== null ? locality.name : "",
         },
         geoLocation: {
-          latitude: 21,
-          longitude: 56,
-          additionalDetails: {},
+          // latitude: 21,
+          // longitude: 56,
+          // additionalDetails: {},
         },
       },
     },
@@ -83,24 +93,17 @@ const CreateComplaint = ({ match, history }) => {
       assignes: [],
       comments: "Stright light is not working",
       verificationDocuments: [
-        {
-          documentType: "PHOTO",
-          fileStore: "b0c5a846-c75a-11ea-87d0-0242ac130003",
-          documentUid: "",
-          additionalDetails: {},
-        },
+        // {
+        //   documentType: "PHOTO",
+        //   fileStore: "b0c5a846-c75a-11ea-87d0-0242ac130003",
+        //   documentUid: "",
+        //   additionalDetails: {},
+        // },
       ],
     },
   };
 
-  const dispatch = useDispatch();
-  const appState = useSelector((state) => state);
   const [createComplaintParams, setComplaintParams] = useState(complaintParams);
-  const [pincode, setPincode] = useState(null);
-  const [city, setCity] = useState(null);
-  const [locality, setLocality] = useState(null);
-  const [landmark, setLandmark] = useState(null);
-  const [details, setDetails] = useState(null);
 
   useEffect(() => {
     if (
@@ -126,7 +129,6 @@ const CreateComplaint = ({ match, history }) => {
 
   const submitComplaint = async (details) => {
     setDetails(details);
-
     await dispatch(createComplaint());
   };
 
@@ -178,6 +180,7 @@ const CreateComplaint = ({ match, history }) => {
           console.log(city);
           console.log(locality);
           console.log(landmark);
+          console.log(details);
         }}
       >
         show state

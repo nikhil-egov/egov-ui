@@ -15,31 +15,34 @@ const Address = (props) => {
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedLocality, setSelectedLocality] = useState(null);
   const appState = useSelector((state) => state);
-  const cities = [];
-  var localities = [];
-  appState.cities.map((city) => {
-    cities.push(city.name);
-  });
-  if (appState.localities.localityList) {
-    appState.localities.localityList.map((locality) => {
-      localities.push(locality.name);
-    });
-  }
   const dispatch = useDispatch();
 
+  const cities = [];
+  var localities = [];
+
   useEffect(() => {
+    appState.cities.map((city) => {
+      cities.push(city.name);
+    });
+    if (appState.localities.localityList) {
+      appState.localities.localityList.map((locality) => {
+        localities.push(locality.name);
+      });
+    }
+
     if (appState.localities.city) {
       setSelectedCity(appState.localities.city);
     }
-    return setSelectedCity(appState.localities.city);
-  }, [appState.localities]);
+  });
 
   async function selectCity(city) {
-    // let city = appState.cities.find(o => o.name === select);
     await dispatch(fetchLocalities(city));
   }
   function selectLocalities(locality) {
-    setSelectedLocality(locality);
+    let localityDetails = appState.localities.localityList.find(
+      (o) => o.name === locality
+    );
+    setSelectedLocality(localityDetails);
   }
 
   function save() {
