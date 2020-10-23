@@ -6,6 +6,10 @@ import SubmitBar from "../../@egovernments/components/js/SubmitBar";
 import UploadImages from "../../@egovernments/components/js/UploadImages";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import {
+  Filestorage,
+  Filefetch,
+} from "../../@egovernments/digit-utils/services/Filestorage";
 
 const Pincode = (props) => {
   const [image, setImage] = useState(null);
@@ -20,18 +24,19 @@ const Pincode = (props) => {
   }
   async function imageDisp() {
     console.log(image);
-    const formData = new FormData();
+    // const formData = new FormData();
 
-    formData.append("file", image, image.name);
-    formData.append("tenantId", "pb.amritsar");
-    formData.append("module", "property-upload");
-    var config = {
-      method: "post",
-      url: "/filestore/v1/files",
-      data: formData,
-    };
+    // formData.append("file", image, image.name);
+    // formData.append("tenantId", "pb.amritsar");
+    // formData.append("module", "property-upload");
+    // var config = {
+    //   method: "post",
+    //   url: "/filestore/v1/files",
+    //   data: formData,
+    // };
 
-    const response = await Axios(config);
+    // const response = await Axios(config);
+    const response = await Filestorage(image);
     console.log(response.data);
     if (uploadedImages === null) {
       var arr = [];
@@ -46,16 +51,18 @@ const Pincode = (props) => {
   async function submit() {
     console.log(uploadedImages);
     if (uploadedImages.length !== 0) {
-      var config = {
-        method: "get",
-        url: "/filestore/v1/files/url",
-        params: {
-          tenantId: "pb.amritsar",
-          fileStoreIds: uploadedImages.join(","),
-        },
-      };
+      // var config = {
+      //   method: "get",
+      //   url: "/filestore/v1/files/url",
+      //   params: {
+      //     tenantId: "pb.amritsar",
+      //     fileStoreIds: uploadedImages.join(","),
+      //   },
+      // };
 
-      const res = await Axios(config);
+      // const res = await Axios(config);
+
+      const res = await Filefetch(uploadedImages, "pb.amritsar");
       console.log(res.data);
       await Promise.all(
         Object.keys(res.data).map((pos) => {
