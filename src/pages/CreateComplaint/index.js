@@ -22,6 +22,8 @@ const CreateComplaint = ({ match, history }) => {
   const [locality, setLocality] = useState(null);
   const [landmark, setLandmark] = useState(null);
   const [details, setDetails] = useState(null);
+  const [complaintType, setComplaintType] = useState("NoStreetlight");
+  const [serviceDefsArray, setServiceDefsArray] = useState(null);
 
   const citAuth = "750f59c3-a8e0-4295-ad39-0f8439457dd8";
   var localityCode = "";
@@ -132,6 +134,14 @@ const CreateComplaint = ({ match, history }) => {
     await dispatch(createComplaint());
   };
 
+  const saveComplaintType = (type) => {
+    setComplaintType(type);
+  };
+
+  const serviceDefs = (defs) => {
+    setServiceDefsArray(defs);
+  };
+
   return (
     <React.Fragment>
       <BackButton />
@@ -142,9 +152,19 @@ const CreateComplaint = ({ match, history }) => {
       <Route
         exact
         path={match.url + "/"}
-        component={(props) => <ComplaintType />}
+        component={(props) => (
+          <ComplaintType save={saveComplaintType} serviceDefs={serviceDefs} />
+        )}
       />
-      <Route path={match.url + "/subtype"} component={(props) => <SubType />} />
+      <Route
+        path={match.url + "/subtype"}
+        component={(props) => (
+          <SubType
+            complaintType={complaintType}
+            serviceDefs={serviceDefsArray}
+          />
+        )}
+      />
       <Route
         path={match.url + "/location"}
         component={(props) => <LocationSearch />}
@@ -181,6 +201,8 @@ const CreateComplaint = ({ match, history }) => {
           console.log(locality);
           console.log(landmark);
           console.log(details);
+          console.log(complaintType);
+          console.log(serviceDefsArray);
         }}
       >
         show state

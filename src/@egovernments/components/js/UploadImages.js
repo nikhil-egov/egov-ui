@@ -6,6 +6,17 @@ const MiniUpload = (props) => {
   return (
     <div className="upload-img-container">
       <img src={camera} className="upload-camera-img" alt="upload" />
+      <input
+        type="file"
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          opacity: "0",
+        }}
+        accept="image/*"
+        onChange={props.onUpload}
+      />
     </div>
   );
 };
@@ -32,8 +43,19 @@ const UploadImages = (props) => {
     );
   } else {
     return (
-      <div className="upload-wrap" onClick={props.onUpload}>
+      <div className="upload-wrap">
         <img src={camera} alt="upload" />
+        <input
+          type="file"
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            opacity: "0",
+          }}
+          accept="image/*"
+          onChange={props.onUpload}
+        />
       </div>
     );
   }

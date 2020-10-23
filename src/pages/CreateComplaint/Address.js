@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../../@egovernments/components/js/Card";
 import CardHeader from "../../@egovernments/components/js/CardHeader";
 import CardSubHeader from "../../@egovernments/components/js/CardSubHeader";
@@ -21,19 +21,16 @@ const Address = (props) => {
   var localities = [];
 
   useEffect(() => {
-    appState.cities.map((city) => {
-      cities.push(city.name);
-    });
+    appState.cities.map((city) => cities.push(city.name));
     if (appState.localities.localityList) {
-      appState.localities.localityList.map((locality) => {
-        localities.push(locality.name);
-      });
+      appState.localities.localityList.map((locality) =>
+        localities.push(locality.name)
+      );
     }
-
     if (appState.localities.city) {
       setSelectedCity(appState.localities.city);
     }
-  });
+  }, [localities, cities]);
 
   async function selectCity(city) {
     await dispatch(fetchLocalities(city));

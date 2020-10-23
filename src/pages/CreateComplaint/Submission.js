@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Card from "../../@egovernments/components/js/Card";
 import Banner from "../../@egovernments/components/js/Banner";
 import CardText from "../../@egovernments/components/js/CardText";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const BannerPicker = ({ appState }) => {
@@ -14,7 +14,10 @@ const BannerPicker = ({ appState }) => {
     return (
       <Banner
         message="Complaint Submitted"
-        complaintNumber={appState.complaintSubmitResponse.responseInfo.msgId}
+        complaintNumber={
+          appState.complaintSubmitResponse.ServiceWrappers[0].service
+            .serviceRequestId
+        }
         successful={true}
       />
     );
@@ -25,7 +28,6 @@ const BannerPicker = ({ appState }) => {
 
 const Submission = (props) => {
   const appState = useSelector((state) => state);
-
   return (
     <Card>
       <BannerPicker appState={appState} />
