@@ -13,6 +13,7 @@ const MiniUpload = (props) => {
           width: "100%",
           height: "100%",
           opacity: "0",
+          top: "0",
         }}
         accept="image/*"
         onChange={props.onUpload}
@@ -52,6 +53,7 @@ const UploadImages = (props) => {
             width: "100%",
             height: "100%",
             opacity: "0",
+            top: "0",
           }}
           accept="image/*"
           onChange={props.onUpload}
