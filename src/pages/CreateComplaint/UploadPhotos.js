@@ -11,68 +11,10 @@ import {
 } from "../../@egovernments/digit-utils/services/Filestorage";
 
 const Pincode = (props) => {
-  var thumbnails = [];
   const [image, setImage] = useState(null);
   const [uploadedImagesThumbs, setUploadedImagesThumbs] = useState(null);
   const [uploadedImagesIds, setUploadedImagesIds] = useState(null);
   const [rerender, setRerender] = useState(1);
-
-  function getImage(e) {
-    setImage(e.target.files[0]);
-  }
-
-  function deleteImage(img) {
-    var deleteImageKey;
-    uploadedImagesThumbs.flatMap((o, index) => {
-      if (o.image === img) {
-        deleteImageKey = [o.key, index];
-      }
-    });
-    console.log("deleete image key object", deleteImageKey);
-    var index = uploadedImagesIds.findIndex((key) => key == deleteImageKey[0]);
-    console.log("index of element to delete", index);
-    if (index > -1) {
-      var arr = uploadedImagesIds;
-      console.log("array before", arr);
-      arr.splice(index, 1);
-      console.log("array after", arr);
-      setUploadedImagesIds(arr);
-    }
-
-    var arr2 = uploadedImagesThumbs;
-    arr2.splice(deleteImageKey[1], 1);
-    setUploadedImagesThumbs(arr2);
-    setRerender(rerender + 1);
-  }
-  async function uploadImage() {
-    const response = await Filestorage(image);
-    if (uploadedImagesIds === null) {
-      var arr = [];
-    } else {
-      arr = uploadedImagesIds;
-    }
-    arr = [...arr, response.data.files[0].fileStoreId];
-    setUploadedImagesIds(arr);
-  }
-
-  async function submit() {
-    if (uploadedImagesIds !== null) {
-      const res = await Filefetch(
-        [uploadedImagesIds[uploadedImagesIds.length - 1]],
-        "pb.amritsar"
-      );
-      var keys = Object.keys(res.data);
-      var index = keys.findIndex((key) => key == "fileStoreIds");
-      if (index > -1) {
-        keys.splice(index, 1);
-      }
-      if (uploadedImagesThumbs !== null) {
-        thumbnails = uploadedImagesThumbs;
-      }
-      thumbnails.push({ image: res.data[keys[0]].split(",")[2], key: keys[0] });
-      setUploadedImagesThumbs(thumbnails);
-    }
-  }
 
   useEffect(() => {
     if (image) {
@@ -88,6 +30,72 @@ const Pincode = (props) => {
       }
     })();
   }, [uploadedImagesIds]);
+
+  function addUploadedImageIds(imageIdData) {
+    if (uploadedImagesIds === null) {
+      var arr = [];
+    } else {
+      arr = uploadedImagesIds;
+    }
+    return [...arr, imageIdData.data.files[0].fileStoreId];
+  }
+
+  function addImageThumbnails(thumbnailsData) {
+    var keys = Object.keys(thumbnailsData.data);
+    var index = keys.findIndex((key) => key == "fileStoreIds");
+    if (index > -1) {
+      keys.splice(index, 1);
+    }
+    var thumbnails = [];
+    if (uploadedImagesThumbs !== null) {
+      thumbnails = uploadedImagesThumbs;
+    }
+    setUploadedImagesThumbs([
+      ...thumbnails,
+      { image: thumbnailsData.data[keys[0]].split(",")[2], key: keys[0] },
+    ]);
+  }
+
+  function getImage(e) {
+    setImage(e.target.files[0]);
+  }
+
+  async function uploadImage() {
+    const response = await Filestorage(image);
+    setUploadedImagesIds(addUploadedImageIds(response));
+  }
+
+  async function submit() {
+    if (uploadedImagesIds !== null) {
+      const res = await Filefetch(
+        [uploadedImagesIds[uploadedImagesIds.length - 1]],
+        "pb.amritsar"
+      );
+      addImageThumbnails(res);
+    }
+  }
+
+  function deleteImage(img) {
+    var deleteImageKey;
+    uploadedImagesThumbs.flatMap((o, index) => {
+      if (o.image === img) {
+        deleteImageKey = [o.key, index];
+      }
+    });
+
+    var index = uploadedImagesIds.findIndex((key) => key == deleteImageKey[0]);
+
+    if (index > -1) {
+      var arr = uploadedImagesIds;
+      arr.splice(index, 1);
+      setUploadedImagesIds(arr);
+    }
+
+    var thumbs = uploadedImagesThumbs;
+    thumbs.splice(deleteImageKey[1], 1);
+    setUploadedImagesThumbs(thumbs);
+    setRerender(rerender + 1);
+  }
 
   return (
     <Card>
@@ -107,10 +115,6 @@ const Pincode = (props) => {
           uploadedImagesThumbs ? uploadedImagesThumbs.map((o) => o.image) : []
         }
       />
-
-      <button onClick={() => console.log(uploadedImagesIds)}>
-        show image upload ids
-      </button>
 
       <Link
         to="/create-complaint/details"
