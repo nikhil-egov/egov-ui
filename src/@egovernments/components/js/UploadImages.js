@@ -15,6 +15,7 @@ const MiniUpload = (props) => {
           opacity: "0",
           top: "0",
         }}
+        id="miniupload"
         accept="image/*"
         onChange={props.onUpload}
       />
@@ -31,7 +32,7 @@ const UploadImages = (props) => {
             <div key={index}>
               <img
                 src={deleteBtn}
-                onClick={props.onDelete}
+                onClick={() => props.onDelete(thumbnail)}
                 className="delete"
                 alt="delete"
               />
@@ -39,7 +40,9 @@ const UploadImages = (props) => {
             </div>
           );
         })}
-        {props.thumbnails.length < 3 ? <MiniUpload /> : null}
+        {props.thumbnails.length < 3 ? (
+          <MiniUpload onUpload={props.onUpload} />
+        ) : null}
       </div>
     );
   } else {
@@ -55,6 +58,7 @@ const UploadImages = (props) => {
             opacity: "0",
             top: "0",
           }}
+          id="upload"
           accept="image/*"
           onChange={props.onUpload}
         />

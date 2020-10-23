@@ -24,6 +24,7 @@ const CreateComplaint = ({ match, history }) => {
   const [details, setDetails] = useState(null);
   const [complaintType, setComplaintType] = useState("NoStreetlight");
   const [serviceDefsArray, setServiceDefsArray] = useState(null);
+  const [uploadedImageIds, setUploadedImageIds] = useState([]);
 
   const citAuth = "750f59c3-a8e0-4295-ad39-0f8439457dd8";
   var localityCode = "";
@@ -142,6 +143,10 @@ const CreateComplaint = ({ match, history }) => {
     setServiceDefsArray(defs);
   };
 
+  const saveImagesUrl = (imageUrls) => {
+    setUploadedImageIds(imageUrls);
+  };
+
   return (
     <React.Fragment>
       <BackButton />
@@ -183,7 +188,7 @@ const CreateComplaint = ({ match, history }) => {
       />
       <Route
         path={match.url + "/upload-photos"}
-        component={(props) => <UploadPhotos />}
+        component={(props) => <UploadPhotos save={saveImagesUrl} />}
       />
       <Route
         path={match.url + "/details"}
@@ -203,6 +208,7 @@ const CreateComplaint = ({ match, history }) => {
           console.log(details);
           console.log(complaintType);
           console.log(serviceDefsArray);
+          console.log(uploadedImageIds);
         }}
       >
         show state

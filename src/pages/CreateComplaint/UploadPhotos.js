@@ -5,99 +5,117 @@ import CardText from "../../@egovernments/components/js/CardText";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
 import UploadImages from "../../@egovernments/components/js/UploadImages";
 import { Link } from "react-router-dom";
-import Axios from "axios";
 import {
   Filestorage,
   Filefetch,
 } from "../../@egovernments/digit-utils/services/Filestorage";
 
 const Pincode = (props) => {
+  var thumbnails = [];
   const [image, setImage] = useState(null);
   const [uploadedImagesThumbs, setUploadedImagesThumbs] = useState(null);
-  var thumbnails = [];
-  const [uploadedImages, setUploadedImages] = useState(null);
-  function upload() {
-    console.log("upload");
-  }
+  const [uploadedImagesIds, setUploadedImagesIds] = useState(null);
+  const [rerender, setRerender] = useState(1);
+
   function getImage(e) {
     setImage(e.target.files[0]);
   }
-  async function imageDisp() {
-    console.log(image);
-    // const formData = new FormData();
 
-    // formData.append("file", image, image.name);
-    // formData.append("tenantId", "pb.amritsar");
-    // formData.append("module", "property-upload");
-    // var config = {
-    //   method: "post",
-    //   url: "/filestore/v1/files",
-    //   data: formData,
-    // };
+  function deleteImage(img) {
+    var deleteImageKey;
+    uploadedImagesThumbs.flatMap((o, index) => {
+      if (o.image === img) {
+        deleteImageKey = [o.key, index];
+      }
+    });
+    console.log("deleete image key object", deleteImageKey);
+    var index = uploadedImagesIds.findIndex((key) => key == deleteImageKey[0]);
+    console.log("index of element to delete", index);
+    if (index > -1) {
+      var arr = uploadedImagesIds;
+      console.log("array before", arr);
+      arr.splice(index, 1);
+      console.log("array after", arr);
+      setUploadedImagesIds(arr);
+    }
 
-    // const response = await Axios(config);
+    var arr2 = uploadedImagesThumbs;
+    arr2.splice(deleteImageKey[1], 1);
+    setUploadedImagesThumbs(arr2);
+    setRerender(rerender + 1);
+  }
+  async function uploadImage() {
     const response = await Filestorage(image);
-    console.log(response.data);
-    if (uploadedImages === null) {
+    if (uploadedImagesIds === null) {
       var arr = [];
     } else {
-      arr = uploadedImages;
+      arr = uploadedImagesIds;
     }
-    arr.push(response.data.files[0].fileStoreId);
-    setUploadedImages(arr);
-    console.log(uploadedImages);
+    arr = [...arr, response.data.files[0].fileStoreId];
+    setUploadedImagesIds(arr);
   }
 
   async function submit() {
-    console.log(uploadedImages);
-    if (uploadedImages.length !== 0) {
-      // var config = {
-      //   method: "get",
-      //   url: "/filestore/v1/files/url",
-      //   params: {
-      //     tenantId: "pb.amritsar",
-      //     fileStoreIds: uploadedImages.join(","),
-      //   },
-      // };
-
-      // const res = await Axios(config);
-
-      const res = await Filefetch(uploadedImages, "pb.amritsar");
-      console.log(res.data);
-      await Promise.all(
-        Object.keys(res.data).map((pos) => {
-          if (pos !== "fileStoreIds") {
-            thumbnails.push(res.data[pos].split(",")[2]);
-          }
-        })
+    if (uploadedImagesIds !== null) {
+      const res = await Filefetch(
+        [uploadedImagesIds[uploadedImagesIds.length - 1]],
+        "pb.amritsar"
       );
+      var keys = Object.keys(res.data);
+      var index = keys.findIndex((key) => key == "fileStoreIds");
+      if (index > -1) {
+        keys.splice(index, 1);
+      }
+      if (uploadedImagesThumbs !== null) {
+        thumbnails = uploadedImagesThumbs;
+      }
+      thumbnails.push({ image: res.data[keys[0]].split(",")[2], key: keys[0] });
       setUploadedImagesThumbs(thumbnails);
     }
   }
 
-  // useEffect(()=>{
-  //   if(thumbnails.length>0){
-  //     console.log(thumbnails)
+  useEffect(() => {
+    if (image) {
+      uploadImage();
+    }
+  }, [image]);
 
-  //   }
-  // },[thumbnails])
+  useEffect(() => {
+    (async () => {
+      if (uploadedImagesIds !== null) {
+        await submit();
+        setRerender(rerender + 1);
+      }
+    })();
+  }, [uploadedImagesIds]);
+
   return (
     <Card>
       <CardHeader>Upload Complaint Photos</CardHeader>
+
       <CardText>
         Click on the icon below to upload the complaint photos as evidence. You
         can capture photos directly through your camera or upload from your
         Gallery. If you do not have complaint photo, you can skip the continue
         for next step.
       </CardText>
-      <UploadImages onUpload={getImage} thumbnails={uploadedImagesThumbs} />
-      {/* {uploadedImagesThumbs && <UploadImages thumbnails={uploadedImagesThumbs}/>}       */}
-      <button onClick={imageDisp}>upload</button>
-      <button onClick={() => console.log(uploadedImages)}>Show upload</button>
-      <button onClick={() => console.log(thumbnails)}>Show thumbs</button>
-      <br></br>
-      <button onClick={submit}>submit images</button>
-      <Link to="/create-complaint/details">
+
+      <UploadImages
+        onUpload={getImage}
+        onDelete={deleteImage}
+        thumbnails={
+          uploadedImagesThumbs ? uploadedImagesThumbs.map((o) => o.image) : []
+        }
+      />
+
+      <button onClick={() => console.log(uploadedImagesIds)}>
+        show image upload ids
+      </button>
+
+      <Link
+        to="/create-complaint/details"
+        onClick={() => props.save(uploadedImagesIds)}
+      >
         <SubmitBar label="Next" />
       </Link>
     </Card>
