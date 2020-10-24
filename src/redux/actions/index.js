@@ -2,6 +2,7 @@ import {
   FETCH_COMPLAINTS,
   FETCH_BUSINESS_SERVICE_BY_ID,
   FETCH_LOCALITIES,
+  UPDATE_COMPLAINT,
 } from "./types";
 import { LocalizationService } from "../../@egovernments/digit-utils/services/Localization";
 import { LocationService } from "../../@egovernments/digit-utils/services/Location";
@@ -38,6 +39,20 @@ export const searchComplaints = (filters = {}) => async (
   });
 };
 
+export const updateComplaints = (data) => async (dispatch, getState) => {
+  console.log("getState:--->", getState());
+  console.log("data------>", data);
+  const { cityCode } = getState();
+  console.log("stateInfo", cityCode);
+  let ServiceWrappers = await PGRService.update(data, cityCode);
+  console.log("ServiceWrappers:", ServiceWrappers);
+
+  dispatch({
+    type: UPDATE_COMPLAINT,
+    payload: {},
+  });
+};
+
 //on language change update localization resource with language selected(i18n store)
 export const updateLocalizationResources = () => async (dispatch, getState) => {
   let city = "amritsar"; // TODO: fetch it from store
@@ -58,7 +73,6 @@ export const fetchBusinessServiceById = (businessId) => async (
   dispatch,
   getState
 ) => {
-  console.log("getState:", getState());
   const businessServiceDetails = await WorkflowService.getByBusinessId(
     getState().cityCode,
     businessId

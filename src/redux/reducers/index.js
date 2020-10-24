@@ -6,6 +6,7 @@ import {
   FETCH_COMPLAINTS,
   FETCH_ALL_BUSINESSS_SERVICES,
   FETCH_BUSINESS_SERVICE_BY_ID,
+  UPDATE_COMPLAINT,
 } from "../actions/types";
 
 const configReducer = (defaultConfig) => (state = defaultConfig, action) => {
@@ -92,7 +93,6 @@ const stateInfoReducer = (defaultStateInfo) => (
 };
 
 const businessServiceReducer = (state = {}, action) => {
-  console.log("action;;;", action);
   switch (action.type) {
     case FETCH_ALL_BUSINESSS_SERVICES:
       return { ...state, businessServices: action.payload };
@@ -109,6 +109,8 @@ const businessServiceReducer = (state = {}, action) => {
 const complaintsReducer = (state = [], action) => {
   switch (action.type) {
     case FETCH_COMPLAINTS:
+      return { ...state, list: action.payload.complaints };
+    case UPDATE_COMPLAINT:
       return { ...state, list: action.payload.complaints };
     default:
       return state;

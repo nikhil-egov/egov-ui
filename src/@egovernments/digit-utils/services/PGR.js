@@ -22,9 +22,10 @@ export const PGRService = {
     }),
   update: (details, stateCode = "pb") =>
     Request({
-      url: Urls.MDMS,
+      url: Urls.pgr_update,
       data: details,
-      useCache: true,
+      useCache: false,
+      auth: true,
       method: "POST",
       params: { tenantId: stateCode },
     }),

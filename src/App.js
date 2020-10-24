@@ -15,6 +15,11 @@ import TopBar from "./@egovernments/components/js/TopBar";
 import Body from "./@egovernments/components/js/Body";
 
 import AppContainer from "./@egovernments/components/js/AppContainer";
+// import { ReOpen } from "./components/reopen";
+// import Reason from "./pages/ReopenComplaint/Reason";
+import ReasonPage from "./pages/ReopenComplaint/Reason";
+import AddtionalDetails from "./pages/ReopenComplaint/AddtionalDetails";
+import UploadPhoto from "./pages/ReopenComplaint/UploadPhoto";
 
 // const Header = () => (
 //   <>
@@ -41,6 +46,15 @@ const App = () => {
           <Route
             path="/complaint-details/:id"
             component={ComplaintDetailsPage}
+          />
+          <Route path="/complaint-reopen-reason/:id" component={ReasonPage} />
+          <Route
+            path="/complaint-reopen-upload-photo/:id"
+            component={UploadPhoto}
+          />
+          <Route
+            path="/complaint-reopen-addional-details/:id"
+            component={AddtionalDetails}
           />
         </AppContainer>
       </Body>

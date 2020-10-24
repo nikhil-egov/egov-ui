@@ -7,6 +7,7 @@ const Urls = {
     localities: `/egov-location/location/v11/boundarys/_search?hierarchyTypeCode=ADMIN&boundaryType=Locality`,
   },
   pgr_search: `/pgr-services/v2/request/_search`,
+  pgr_update: `/pgr-services/v2/request/_update`,
 };
 
 export default Urls;

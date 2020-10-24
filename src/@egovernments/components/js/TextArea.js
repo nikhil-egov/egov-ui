@@ -1,7 +1,7 @@
 import React from "react";
 
-const TextArea = (props) => {
-  return <textarea className="card-textarea"></textarea>;
+const TextArea = ({ onChange }) => {
+  return <textarea className="card-textarea" onChange={onChange}></textarea>;
 };
 
 export default TextArea;

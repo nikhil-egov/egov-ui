@@ -20,6 +20,7 @@ import { selectComplaints } from "../selectors/complaint";
 import { fetchBusinessServiceById, searchComplaints } from "../redux/actions";
 import { selectWorkflow } from "../selectors/processInstance";
 import useComplaintHistory from "../hooks/useComplaintHistory";
+import { Storage } from "../@egovernments/digit-utils/services/Storage";
 
 const ComplaintDetailsPage = () => {
   const LOCALIZATION_KEY_CS_COMPLAINT = "CS_COMPLAINT_DETAILS";
@@ -45,21 +46,20 @@ const ComplaintDetailsPage = () => {
   }, [getComplaint, getBusinessServiceById, id]);
 
   const state = useSelector((state) => state);
-  // console.log("state:__________>", state);
 
   const selectedComplaint = selectComplaints(state);
   const selectedWorkFlow = selectWorkflow(state);
-
-  const complaintHistory = useComplaintHistory(
-    selectedWorkFlow,
-    selectedComplaint
-  );
-
-  console.log("complaintHistory:", complaintHistory);
+  const complaintHistory = useComplaintHistory(selectedWorkFlow);
 
   let complaintDetails = {};
+
   if (selectedComplaint.length > 0) {
-    complaintDetails = selectedComplaint[0].service;
+    complaintDetails = selectedComplaint[0];
+    console.log("complaintDetails:---------->", complaintDetails);
+    Storage.set(
+      `complaint.${complaintDetails.service.serviceRequestId}`,
+      complaintDetails
+    );
   }
 
   let cityCode = () => state.cityCode.toUpperCase().replace(".", "_");
@@ -82,9 +82,10 @@ const ComplaintDetailsPage = () => {
       applicationStatus,
       auditDetails,
       address,
-    } = complaintDetails;
+    } = complaintDetails.service;
 
     let { createdTime } = auditDetails;
+
     let formattedAddress = getFormatedAddress(address);
     return {
       "Complaint No": serviceRequestId,
@@ -102,25 +103,30 @@ const ComplaintDetailsPage = () => {
         <>
           <Card>
             <CardSubHeader>
-              {t(`SERVICEDEFS.${complaintDetails.serviceCode.toUpperCase()}`)}
+              {t(
+                `SERVICEDEFS.${complaintDetails.service.serviceCode.toUpperCase()}`
+              )}
             </CardSubHeader>
             <StatusTable dataObject={getTableData()}></StatusTable>
           </Card>
-          {complaintHistory.length > 0 && (
+          {complaintHistory && complaintHistory.length > 0 && (
             <Card>
               <CardSubHeader>
                 {t(`${LOCALIZATION_KEY_CS_COMPLAINT}_COMPLAINT_TIMELINE`)}
               </CardSubHeader>
               {/* <StatusTable dataObject={getTableData()}></StatusTable> */}
               <ConnectingCheckPoints>
-                {complaintHistory.map((history) => (
-                  <CheckPoint
-                    label={history.applicationStatus}
-                    isCompleted={true}
-                  />
-                ))}
-
-                {/* <CheckPoint label="Complaint Filed" info="12/08/2020" /> */}
+                {complaintHistory.map((history, index) => {
+                  return (
+                    <CheckPoint
+                      label={t(
+                        `${LOCALIZATION_KEY_CS_COMMON}_${history.applicationStatus}`
+                      )}
+                      info={history.text}
+                      isCompleted={true}
+                    />
+                  );
+                })}
               </ConnectingCheckPoints>
             </Card>
           )}
