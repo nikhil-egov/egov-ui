@@ -40,12 +40,8 @@ export const searchComplaints = (filters = {}) => async (
 };
 
 export const updateComplaints = (data) => async (dispatch, getState) => {
-  console.log("getState:--->", getState());
-  console.log("data------>", data);
   const { cityCode } = getState();
-  console.log("stateInfo", cityCode);
   let ServiceWrappers = await PGRService.update(data, cityCode);
-  console.log("ServiceWrappers:", ServiceWrappers);
 
   dispatch({
     type: UPDATE_COMPLAINT,

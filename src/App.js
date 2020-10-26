@@ -20,6 +20,7 @@ import AppContainer from "./@egovernments/components/js/AppContainer";
 import ReasonPage from "./pages/ReopenComplaint/Reason";
 import AddtionalDetails from "./pages/ReopenComplaint/AddtionalDetails";
 import UploadPhoto from "./pages/ReopenComplaint/UploadPhoto";
+import Response from "./pages/Response";
 
 // const Header = () => (
 //   <>
@@ -56,6 +57,7 @@ const App = () => {
             path="/complaint-reopen-addional-details/:id"
             component={AddtionalDetails}
           />
+          <Route path="/response" component={Response} />
         </AppContainer>
       </Body>
     </Router>

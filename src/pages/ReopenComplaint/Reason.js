@@ -12,7 +12,6 @@ import { Storage } from "../../@egovernments/digit-utils/services/Storage";
 const ReasonPage = () => {
   const { t } = useTranslation();
   const { id } = useParams();
-  console.log("complaintId:", id);
   const TRANSLATION_KEY = "CS_REOPEN";
   const [selected, setSelected] = useState("");
 

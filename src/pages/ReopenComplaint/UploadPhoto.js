@@ -8,7 +8,6 @@ import { Link, useParams } from "react-router-dom";
 
 const UploadPhoto = () => {
   let { id } = useParams();
-  console.log("id:", id);
   return (
     <Card>
       <CardHeader>Upload Complaint Photos</CardHeader>

@@ -55,7 +55,6 @@ const ComplaintDetailsPage = () => {
 
   if (selectedComplaint.length > 0) {
     complaintDetails = selectedComplaint[0];
-    console.log("complaintDetails:---------->", complaintDetails);
     Storage.set(
       `complaint.${complaintDetails.service.serviceRequestId}`,
       complaintDetails
@@ -110,25 +109,27 @@ const ComplaintDetailsPage = () => {
             <StatusTable dataObject={getTableData()}></StatusTable>
           </Card>
           {complaintHistory && complaintHistory.length > 0 && (
-            <Card>
-              <CardSubHeader>
-                {t(`${LOCALIZATION_KEY_CS_COMPLAINT}_COMPLAINT_TIMELINE`)}
-              </CardSubHeader>
-              {/* <StatusTable dataObject={getTableData()}></StatusTable> */}
-              <ConnectingCheckPoints>
-                {complaintHistory.map((history, index) => {
-                  return (
-                    <CheckPoint
-                      label={t(
-                        `${LOCALIZATION_KEY_CS_COMMON}_${history.applicationStatus}`
-                      )}
-                      info={history.text}
-                      isCompleted={true}
-                    />
-                  );
-                })}
-              </ConnectingCheckPoints>
-            </Card>
+            <>
+              <Card>
+                <CardSubHeader>
+                  {t(`${LOCALIZATION_KEY_CS_COMPLAINT}_COMPLAINT_TIMELINE`)}
+                </CardSubHeader>
+                {/* <StatusTable dataObject={getTableData()}></StatusTable> */}
+                <ConnectingCheckPoints>
+                  {complaintHistory.map((history, index) => {
+                    return (
+                      <CheckPoint
+                        label={t(
+                          `${LOCALIZATION_KEY_CS_COMMON}_${history.applicationStatus}`
+                        )}
+                        info={history.text}
+                        isCompleted={true}
+                      />
+                    );
+                  })}
+                </ConnectingCheckPoints>
+              </Card>
+            </>
           )}
           <Card>
             <CardSubHeader>

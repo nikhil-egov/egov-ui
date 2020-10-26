@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import Card from "../../@egovernments/components/js/Card";
 import CardHeader from "../../@egovernments/components/js/CardHeader";
 import CardText from "../../@egovernments/components/js/CardText";
@@ -49,13 +49,19 @@ const AddtionalDetails = (props) => {
     };
 
     updateComplaint(complaintDetails);
-    console.log("complaintDetails:", complaintDetails);
+    return (
+      <Redirect
+        to={{
+          pathname: "/response",
+          state: { complaintDetails },
+        }}
+      />
+    );
   }
 
   function textInput(e) {
     setDetails(e.target.value);
     let reopenDetails = Storage.get(`reopen.${id}`);
-    console.log("reopenDetails:", reopenDetails);
     Storage.set(`reopen.${id}`, {
       ...reopenDetails,
       addtionalDetail: e.target.value,

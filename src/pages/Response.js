@@ -1,10 +1,11 @@
 import React from "react";
-import Card from "../../@egovernments/components/js/Card";
-import Banner from "../../@egovernments/components/js/Banner";
-import CardText from "../../@egovernments/components/js/CardText";
-import SubmitBar from "../../@egovernments/components/js/SubmitBar";
+import Card from "../@egovernments/components/js/Card";
+// import Banner from "../../@egovernments/components/js/Banner";
+import CardText from "../@egovernments/components/js/CardText";
+import SubmitBar from "../@egovernments/components/js/SubmitBar";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Banner from "../@egovernments/components/js/Banner";
 
 const BannerPicker = ({ appState }) => {
   if (
@@ -28,7 +29,6 @@ const BannerPicker = ({ appState }) => {
 
 const Response = (props) => {
   const appState = useSelector((state) => state);
-  console.log("appState::::--->", appState);
   return (
     <Card>
       <BannerPicker appState={appState} />

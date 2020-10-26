@@ -7,12 +7,10 @@ const useComplaintHistory = (processInstance) => {
 
   const getNextState = (obj) => {
     const key = obj.state.applicationStatus;
-    console.log("obj:----->", obj, key);
 
     switch (key) {
       case "PENDINGATLME":
         let assignes = obj.assignes != null && obj.assignes[0];
-        console.log("obj.assignes:---->", assignes);
         let { name, mobileNumber } = assignes;
         return (
           name &&
@@ -31,7 +29,7 @@ const useComplaintHistory = (processInstance) => {
       case "RESOLVED":
         return (
           <>
-            <ReOpen id={obj.businessId} /> <Rate />
+            <ReOpen id={obj.businessId} /> <Rate id={obj.businessId} />
           </>
         );
       default:
