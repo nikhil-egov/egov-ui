@@ -10,21 +10,39 @@ const RadioButtons = (props) => {
   return (
     <div className="radio-wrap">
       {props.options.map((option) => {
-        return (
-          <div key={option}>
-            <span className="radio-btn-wrap">
-              <input
-                className="radio-btn"
-                type="radio"
-                value={option}
-                checked={selected === option ? 1 : 0}
-                onChange={() => selectOption(option)}
-              />
-              <span className="radio-btn-checkmark"></span>
-            </span>
-            <label>{option}</label>
-          </div>
-        );
+        if (props.optionsKey) {
+          return (
+            <div key={option[props.optionsKey]}>
+              <span className="radio-btn-wrap">
+                <input
+                  className="radio-btn"
+                  type="radio"
+                  value={option}
+                  checked={selected === option ? 1 : 0}
+                  onChange={() => selectOption(option)}
+                />
+                <span className="radio-btn-checkmark"></span>
+              </span>
+              <label>{option[props.optionsKey]}</label>
+            </div>
+          );
+        } else {
+          return (
+            <div key={option}>
+              <span className="radio-btn-wrap">
+                <input
+                  className="radio-btn"
+                  type="radio"
+                  value={option}
+                  checked={selected === option ? 1 : 0}
+                  onChange={() => selectOption(option)}
+                />
+                <span className="radio-btn-checkmark"></span>
+              </span>
+              <label>{option}</label>
+            </div>
+          );
+        }
       })}
     </div>
   );

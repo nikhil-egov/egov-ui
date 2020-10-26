@@ -6,27 +6,56 @@ import CardText from "../../@egovernments/components/js/CardText";
 import RadioButtons from "../../@egovernments/components/js/RadioButtons";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
 import { Link } from "react-router-dom";
-import { LocalizationService } from "../../@egovernments/digit-utils/services/Localization";
 import { useSelector } from "react-redux";
+import { Storage } from "../../@egovernments/digit-utils/services/Storage";
 
 const SubType = (props) => {
   const appState = useSelector((state) => state);
-  const [serviceDefs, setServiceDefs] = useState(null);
-  var serviceDefLocalization = null;
+  const [subMenu, setSubMenu] = useState([]);
+  const [selected, setSelected] = useState(null);
+
+  function getServiceCode(value, definitions) {}
+
   useEffect(() => {
-    (async () => {
-      serviceDefLocalization = await LocalizationService.getLocale({
-        modules: ["rainmaker-pgr"],
-        locale: "en_IN",
-        tenantId: "pb",
-      });
-      console.log("SERVICEDEFS." + props.complaintType.toUpperCase());
-      // serviceDefLocalization.
-      setServiceDefs(serviceDefLocalization);
-      console.log(serviceDefLocalization);
-      console.log(props.serviceDefs);
-    })();
+    const subTypeKey = Storage.get("complaintType").code.split(".")[1];
+    const subMenuIds = Storage.get("serviceDefs")[
+      "RAINMAKER-PGR"
+    ].ServiceDefs.filter((def) =>
+      def.menuPath === "" ? "OTHERS" : def.menuPath.toUpperCase() === subTypeKey
+    );
+    const ServiceDefsLocalization = Storage.get("ServiceDefsLocalization");
+    let subMenu = [];
+    let subMenu2 = [];
+    subMenuIds.map((id) => {
+      subMenu = [
+        ...subMenu,
+        ServiceDefsLocalization.find(
+          (def) => def.code === "SERVICEDEFS." + id.serviceCode.toUpperCase()
+        ),
+      ];
+    });
+
+    ServiceDefsLocalization.map((def) => {
+      const searchResponse = subMenuIds.find(
+        (id) => "SERVICEDEFS." + id.serviceCode.toUpperCase() === def.code
+      );
+      if (searchResponse) {
+        subMenu2 = [...subMenu2, searchResponse];
+      }
+    });
+    console.log(subMenu2);
+
+    setSubMenu(subMenu);
   }, [appState]);
+
+  function onSelect(item) {
+    console.log(item);
+    setSelected(item);
+  }
+
+  function onSave() {
+    props.save(selected);
+  }
 
   return (
     <Card>
@@ -38,13 +67,11 @@ const SubType = (props) => {
       </CardText>
 
       <RadioButtons
-        options={[
-          "Garbage needs to be cleared",
-          "Damaged Garbage Bin",
-          "Burning of Garbage",
-        ]}
+        options={subMenu}
+        optionsKey="message"
+        selected={onSelect}
       />
-      <Link to="/create-complaint/location">
+      <Link to="/create-complaint/location" onClick={onSave}>
         <SubmitBar label="Next" />
       </Link>
     </Card>

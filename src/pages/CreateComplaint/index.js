@@ -22,11 +22,10 @@ const CreateComplaint = ({ match, history }) => {
   const [locality, setLocality] = useState(null);
   const [landmark, setLandmark] = useState(null);
   const [details, setDetails] = useState(null);
-  const [complaintType, setComplaintType] = useState("NoStreetlight");
-  const [serviceDefsArray, setServiceDefsArray] = useState(null);
+  const [complaintType, setComplaintType] = useState(null);
   const [uploadedImageIds, setUploadedImageIds] = useState([]);
 
-  const citAuth = "750f59c3-a8e0-4295-ad39-0f8439457dd8";
+  const citAuth = "37fc8b3a-ef66-4c05-aa87-5182e19b5dec";
   var localityCode = "";
   const complaintParams = {
     RequestInfo: {
@@ -60,7 +59,7 @@ const CreateComplaint = ({ match, history }) => {
       authToken: citAuth,
     },
     service: {
-      tenantId: "pb.amritsar",
+      tenantId: appState.cityCode,
       serviceCode: "StreetLightNotWorking",
       description: "StreetLight is not working",
       accountId: "7b2561e8-901b-40a2-98b7-7e627fc5b1d6",
@@ -75,7 +74,7 @@ const CreateComplaint = ({ match, history }) => {
         city: city,
         district: city,
         region: city,
-        state: "Punjab",
+        state: appState.stateInfo.name,
         country: "India",
         pincode: pincode,
         buildingName: "Safalya",
@@ -98,7 +97,7 @@ const CreateComplaint = ({ match, history }) => {
       verificationDocuments: [
         // {
         //   documentType: "PHOTO",
-        //   fileStore: "b0c5a846-c75a-11ea-87d0-0242ac130003",
+        //   fileStore: "",
         //   documentUid: "",
         //   additionalDetails: {},
         // },
@@ -132,19 +131,18 @@ const CreateComplaint = ({ match, history }) => {
 
   const submitComplaint = async (details) => {
     setDetails(details);
-    await dispatch(createComplaint());
+    console.log(complaintParams);
+    await dispatch(createComplaint(complaintParams));
   };
 
   const saveComplaintType = (type) => {
     setComplaintType(type);
   };
 
-  const serviceDefs = (defs) => {
-    setServiceDefsArray(defs);
-  };
-
   const saveImagesUrl = (imageUrls) => {
-    setUploadedImageIds(imageUrls);
+    imageUrls === null
+      ? setUploadedImageIds([])
+      : setUploadedImageIds(imageUrls);
   };
 
   return (
@@ -157,18 +155,11 @@ const CreateComplaint = ({ match, history }) => {
       <Route
         exact
         path={match.url + "/"}
-        component={(props) => (
-          <ComplaintType save={saveComplaintType} serviceDefs={serviceDefs} />
-        )}
+        component={(props) => <ComplaintType />}
       />
       <Route
         path={match.url + "/subtype"}
-        component={(props) => (
-          <SubType
-            complaintType={complaintType}
-            serviceDefs={serviceDefsArray}
-          />
-        )}
+        component={(props) => <SubType save={saveComplaintType} />}
       />
       <Route
         path={match.url + "/location"}
@@ -207,7 +198,6 @@ const CreateComplaint = ({ match, history }) => {
           console.log(landmark);
           console.log(details);
           console.log(complaintType);
-          console.log(serviceDefsArray);
           console.log(uploadedImageIds);
         }}
       >

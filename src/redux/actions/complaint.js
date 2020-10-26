@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { CREATE_COMPLAINT } from "./types";
 
-const createComplaint = () => async (dispatch, getState) => {
+const createComplaint = (complaintParams) => async (dispatch, getState) => {
   var data = JSON.stringify({
     RequestInfo: {
       apiId: "Rainmaker",
@@ -31,7 +31,7 @@ const createComplaint = () => async (dispatch, getState) => {
         active: true,
         tenantId: "pb",
       },
-      authToken: "750f59c3-a8e0-4295-ad39-0f8439457dd8",
+      authToken: "37fc8b3a-ef66-4c05-aa87-5182e19b5dec",
     },
     service: {
       tenantId: "pb.amritsar",
@@ -79,7 +79,7 @@ const createComplaint = () => async (dispatch, getState) => {
     headers: {
       "Content-Type": "application/json",
     },
-    data: data,
+    data: complaintParams,
   };
 
   const res = await Axios(config);

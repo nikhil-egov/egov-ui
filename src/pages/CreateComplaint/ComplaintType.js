@@ -8,12 +8,34 @@ import CardText from "../../@egovernments/components/js/CardText";
 import RadioButtons from "../../@egovernments/components/js/RadioButtons";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
 import { MdmsService } from "../../@egovernments/digit-utils/services/MDMS";
+import { LocalizationService } from "../../@egovernments/digit-utils/services/Localization";
+import { Storage } from "../../@egovernments/digit-utils/services/Storage";
 
 const CreateComplaint = (props) => {
   const appState = useSelector((state) => state);
   var serviceDefs = null;
   var complaintType = null;
-  const [menuPaths, setMenuPaths] = useState([]);
+  const [menu, setMenu] = useState(null);
+  const [menuLocalizationIds, setMenuLocalizationIds] = useState([]);
+  const [serviceDefsLocalization, setServiceDefsLocalization] = useState(null);
+
+  function findLocalizedValue(defintions, values) {
+    // console.log("defintions")
+    // console.log(defintions)
+    // console.log("values")
+    // console.log(values)
+    if (defintions !== null && values !== null) {
+      var LocalizedValues = [];
+      defintions.map((defintion) => {
+        const response = values.findIndex((value) => value === defintion.code);
+        if (response > -1) {
+          LocalizedValues = [...LocalizedValues, defintion];
+        }
+      });
+      return LocalizedValues;
+    }
+  }
+
   useEffect(() => {
     (async () => {
       const criteria = {
@@ -33,31 +55,63 @@ const CreateComplaint = (props) => {
       };
 
       serviceDefs = await MdmsService.getDataByCriteria(criteria);
-
-      var menu = [];
+      Storage.set("serviceDefs", serviceDefs);
+      var menuIds = [];
       await Promise.all(
         serviceDefs["RAINMAKER-PGR"].ServiceDefs.map((def) => {
-          if (!menu.find((e) => e === def.menuPath)) {
+          if (
+            !menuIds.find(
+              (e) => e === "SERVICEDEFS." + def.menuPath.toUpperCase()
+            )
+          ) {
             if (def.menuPath === "") {
-              menu.push("Others");
+              menuIds.push("SERVICEDEFS.OTHERS");
             } else {
-              menu.push(def.menuPath);
+              menuIds.push("SERVICEDEFS." + def.menuPath.toUpperCase());
             }
           }
         })
       );
-
-      setMenuPaths(menu.map((option) => option.split(/(?=[A-Z])/).join(" ")));
+      // console.log("setMenuLocalizationIds")
+      // console.log(menuIds)
+      setMenuLocalizationIds(menuIds);
     })();
   }, [appState]);
+
+  useEffect(() => {
+    if (menuLocalizationIds.length > 0) {
+      (async () => {
+        const response = await LocalizationService.getLocale({
+          modules: ["rainmaker-pgr"],
+          locale: "en_IN",
+          tenantId: "pb",
+        });
+        setServiceDefsLocalization(response);
+        // console.log("setServiceDefsLocalization")
+        // console.log(response);
+        Storage.set("ServiceDefsLocalization", response);
+      })();
+    }
+  }, [menuLocalizationIds]);
+
+  useEffect(() => {
+    if (serviceDefsLocalization) {
+      const res = findLocalizedValue(
+        serviceDefsLocalization,
+        menuLocalizationIds
+      );
+      // console.log("findLocalizedValue");
+      // console.log(res);
+      setMenu(res);
+    }
+  }, [serviceDefsLocalization]);
 
   function selected(type) {
     complaintType = type;
   }
 
   function save() {
-    complaintType = complaintType.split(" ").join("");
-    props.save(complaintType);
+    Storage.set("complaintType", complaintType);
   }
 
   return (
@@ -67,8 +121,9 @@ const CreateComplaint = (props) => {
         Select the option related to your complaint from the list given below.
         If the complaint type you are looking for is not listed select others.
       </CardText>
-
-      <RadioButtons options={menuPaths} selected={selected} />
+      {menu ? (
+        <RadioButtons options={menu} optionsKey="message" selected={selected} />
+      ) : null}
       <Link to="/create-complaint/subtype" onClick={save}>
         <SubmitBar label="Next" />
       </Link>
