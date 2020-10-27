@@ -10,7 +10,7 @@ import {
   Filefetch,
 } from "../../@egovernments/digit-utils/services/Filestorage";
 
-const Pincode = (props) => {
+const UploadPhotos = (props) => {
   const [image, setImage] = useState(null);
   const [uploadedImagesThumbs, setUploadedImagesThumbs] = useState(null);
   const [uploadedImagesIds, setUploadedImagesIds] = useState(null);
@@ -126,4 +126,4 @@ const Pincode = (props) => {
   );
 };
 
-export default Pincode;
+export default UploadPhotos;

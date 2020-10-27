@@ -8,13 +8,13 @@ import SubmitBar from "../../@egovernments/components/js/SubmitBar";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Storage } from "../../@egovernments/digit-utils/services/Storage";
+import { useTranslation } from "react-i18next";
 
 const SubType = (props) => {
+  const { t } = useTranslation();
   const appState = useSelector((state) => state);
   const [subMenu, setSubMenu] = useState([]);
   const [selected, setSelected] = useState(null);
-
-  function getServiceCode(value, definitions) {}
 
   useEffect(() => {
     const subTypeKey = Storage.get("complaintType").code.split(".")[1];
@@ -23,29 +23,34 @@ const SubType = (props) => {
     ].ServiceDefs.filter((def) =>
       def.menuPath === "" ? "OTHERS" : def.menuPath.toUpperCase() === subTypeKey
     );
-    const ServiceDefsLocalization = Storage.get("ServiceDefsLocalization");
-    let subMenu = [];
-    let subMenu2 = [];
-    subMenuIds.map((id) => {
-      subMenu = [
-        ...subMenu,
-        ServiceDefsLocalization.find(
-          (def) => def.code === "SERVICEDEFS." + id.serviceCode.toUpperCase()
-        ),
-      ];
-    });
+    // const ServiceDefsLocalization = Storage.get("ServiceDefsLocalization");
+    // let subMenu = [];
+    // let subMenu2 = [];
+    // subMenuIds.map((id) => {
+    //   subMenu = [
+    //     ...subMenu,
+    //     ServiceDefsLocalization.find(
+    //       (def) => def.code === "SERVICEDEFS." + id.serviceCode.toUpperCase()
+    //     ),
+    //   ];
+    // });
 
-    ServiceDefsLocalization.map((def) => {
-      const searchResponse = subMenuIds.find(
-        (id) => "SERVICEDEFS." + id.serviceCode.toUpperCase() === def.code
-      );
-      if (searchResponse) {
-        subMenu2 = [...subMenu2, searchResponse];
-      }
-    });
-    console.log(subMenu2);
+    // ServiceDefsLocalization.map((def) => {
+    //   const searchResponse = subMenuIds.find(
+    //     (id) => "SERVICEDEFS." + id.serviceCode.toUpperCase() === def.code
+    //   );
+    //   if (searchResponse) {
+    //     subMenu2 = [...subMenu2, searchResponse];
+    //   }
+    // });
+    // console.log(subMenu2);
 
-    setSubMenu(subMenu);
+    setSubMenu(
+      subMenuIds.map((id) => ({
+        key: id.serviceCode,
+        name: t("SERVICEDEFS." + id.serviceCode.toUpperCase()),
+      }))
+    );
   }, [appState]);
 
   function onSelect(item) {
@@ -54,7 +59,7 @@ const SubType = (props) => {
   }
 
   function onSave() {
-    props.save(selected);
+    props.save(selected.key);
   }
 
   return (
@@ -66,11 +71,7 @@ const SubType = (props) => {
         Select the option of your choice from the list given below.
       </CardText>
 
-      <RadioButtons
-        options={subMenu}
-        optionsKey="message"
-        selected={onSelect}
-      />
+      <RadioButtons options={subMenu} optionsKey="name" selected={onSelect} />
       <Link to="/create-complaint/location" onClick={onSave}>
         <SubmitBar label="Next" />
       </Link>

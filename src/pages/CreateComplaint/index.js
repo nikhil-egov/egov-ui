@@ -60,8 +60,8 @@ const CreateComplaint = ({ match, history }) => {
     },
     service: {
       tenantId: appState.cityCode,
-      serviceCode: "StreetLightNotWorking",
-      description: "StreetLight is not working",
+      serviceCode: complaintType,
+      description: details,
       accountId: "7b2561e8-901b-40a2-98b7-7e627fc5b1d6",
       additionalDetail: {},
       applicationStatus: null,

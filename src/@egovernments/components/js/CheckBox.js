@@ -4,7 +4,7 @@ import check from "../svg/check.svg";
 const CheckBox = (props) => {
   return (
     <div className="checkbox-wrap">
-      <input type="checkbox" />
+      <input type="checkbox" onChange={props.onChange} value={props.label} />
       <p className="custom-checkbox">
         <img src={check} alt="" />
       </p>

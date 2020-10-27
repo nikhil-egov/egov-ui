@@ -6,6 +6,7 @@ import ListPage from "./pages/List";
 import NewComplaintPage from "./pages/NewComplaint";
 import SearchComplaintPage from "./pages/SearchComplaint";
 import CreateComplaintPage from "./pages/CreateComplaint/index";
+import Rating from "./pages/Rating/Rating";
 
 import "./i18n";
 // import LanguageSelect from "./components/LanguageSelect";
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/new" component={NewComplaintPage} />
           <Route path="/search" component={SearchComplaintPage} />
           <Route path="/create-complaint" component={CreateComplaintPage} />
+          <Route path="/rating" component={Rating} />
         </AppContainer>
       </Body>
     </Router>

@@ -6,7 +6,7 @@ const BackButton = (props) => {
     //     <label className="back-btn-pointer">&#x25c4;</label>
     //     <p>{props.children}</p>
     // </div>
-    <div className="back-btn2">
+    <div className="back-btn2" onClick={props.back}>
       <img src={ArrowLeft} alt="Arrow Left" />
       <p>Back</p>
     </div>
