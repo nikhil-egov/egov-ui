@@ -11,8 +11,9 @@ import ComplaintDetailsPage from "./pages/ComplaintDetails";
 
 import "./i18n";
 //import LanguageSelect from "./components/LanguageSelect";
-import TopBar from "./@egovernments/components/js/TopBar";
+
 import Body from "./@egovernments/components/js/Body";
+import TopBar from "./@egovernments/components/js/TopBar";
 
 import AppContainer from "./@egovernments/components/js/AppContainer";
 // import { ReOpen } from "./components/reopen";
@@ -45,16 +46,13 @@ const App = () => {
           <Route path="/create-complaint" component={CreateComplaintPage} />
           <Route path="/complaints" component={ComplaintsPage} />
           <Route
-            path="/complaint-details/:id"
+            path="/complaint/details/:id"
             component={ComplaintDetailsPage}
           />
-          <Route path="/complaint-reopen-reason/:id" component={ReasonPage} />
+          <Route path="/reopen/reason/:id" component={ReasonPage} />
+          <Route path="/reopen/upload-photo/:id" component={UploadPhoto} />
           <Route
-            path="/complaint-reopen-upload-photo/:id"
-            component={UploadPhoto}
-          />
-          <Route
-            path="/complaint-reopen-addional-details/:id"
+            path="/reopen/addional-details/:id"
             component={AddtionalDetails}
           />
           <Route path="/response" component={Response} />

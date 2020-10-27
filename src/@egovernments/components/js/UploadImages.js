@@ -6,6 +6,19 @@ const MiniUpload = (props) => {
   return (
     <div className="upload-img-container">
       <img src={camera} className="upload-camera-img" alt="upload" />
+      <input
+        type="file"
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          opacity: "0",
+          top: "0",
+        }}
+        id="miniupload"
+        accept="image/*"
+        onChange={props.onUpload}
+      />
     </div>
   );
 };
@@ -19,7 +32,7 @@ const UploadImages = (props) => {
             <div key={index}>
               <img
                 src={deleteBtn}
-                onClick={props.onDelete}
+                onClick={() => props.onDelete(thumbnail)}
                 className="delete"
                 alt="delete"
               />
@@ -27,13 +40,28 @@ const UploadImages = (props) => {
             </div>
           );
         })}
-        {props.thumbnails.length < 3 ? <MiniUpload /> : null}
+        {props.thumbnails.length < 3 ? (
+          <MiniUpload onUpload={props.onUpload} />
+        ) : null}
       </div>
     );
   } else {
     return (
-      <div className="upload-wrap" onClick={props.onUpload}>
+      <div className="upload-wrap">
         <img src={camera} alt="upload" />
+        <input
+          type="file"
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            opacity: "0",
+            top: "0",
+          }}
+          id="upload"
+          accept="image/*"
+          onChange={props.onUpload}
+        />
       </div>
     );
   }

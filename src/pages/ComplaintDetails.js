@@ -94,10 +94,15 @@ const ComplaintDetailsPage = () => {
     };
   };
 
+  // const handleBackClick = () => {
+  //   console.log("handleBackClick", handleBackClick);
+
+  // };
+
   return (
     <>
       <BackButton>Back</BackButton>
-      <Header>My Complaints</Header>
+      <Header>Complaint summary</Header>
       {Object.keys(complaintDetails).length > 0 && (
         <>
           <Card>
@@ -108,7 +113,7 @@ const ComplaintDetailsPage = () => {
             </CardSubHeader>
             <StatusTable dataObject={getTableData()}></StatusTable>
           </Card>
-          {complaintHistory && complaintHistory.length > 0 && (
+          {complaintHistory && complaintHistory.length > 1 && (
             <>
               <Card>
                 <CardSubHeader>

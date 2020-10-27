@@ -69,5 +69,6 @@
   },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write"
-  }
+  },
+  "proxy": "https://egov-micro-dev.egovernments.org"
 }

@@ -9,8 +9,10 @@ import { LocationService } from "../../@egovernments/digit-utils/services/Locati
 import { LocalityService } from "../../@egovernments/digit-utils/services/Localities";
 import { PGRService } from "../../@egovernments/digit-utils/services/PGR";
 import { WorkflowService } from "../../@egovernments/digit-utils/services/WorkFlowService";
+import createComplaint from "./complaint";
 
 export const fetchLocalities = (city) => async (dispatch, getState) => {
+  const City = city;
   city = city.toLowerCase();
   const { stateInfo } = getState();
   let response = await LocationService.getLocalities({
@@ -19,7 +21,7 @@ export const fetchLocalities = (city) => async (dispatch, getState) => {
   let localityList = LocalityService.get(response.TenantBoundary[0]);
   dispatch({
     type: FETCH_LOCALITIES,
-    payload: { localityList },
+    payload: { localityList, City },
   });
 };
 
@@ -42,10 +44,11 @@ export const searchComplaints = (filters = {}) => async (
 export const updateComplaints = (data) => async (dispatch, getState) => {
   const { cityCode } = getState();
   let ServiceWrappers = await PGRService.update(data, cityCode);
+  console.log("ServiceWrappers:-", ServiceWrappers);
 
   dispatch({
     type: UPDATE_COMPLAINT,
-    payload: {},
+    payload: ServiceWrappers,
   });
 };
 
@@ -78,3 +81,5 @@ export const fetchBusinessServiceById = (businessId) => async (
     payload: { businessServiceDetails },
   });
 };
+
+export { createComplaint };

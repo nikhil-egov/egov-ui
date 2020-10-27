@@ -8,7 +8,7 @@ export const ReOpen = ({ id }) => {
   // };
   return (
     <>
-      <Link to={`/complaint-reopen-reason/${id}`}>Reopen</Link>
+      <Link to={`/reopen/reason/${id}`}>Reopen</Link>
     </>
   );
 };

@@ -7,17 +7,26 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Banner from "../@egovernments/components/js/Banner";
 
-const BannerPicker = ({ appState }) => {
-  if (
-    appState.complaintSubmitResponse &&
-    appState.complaintSubmitResponse.responseInfo
-  ) {
+const GetActionMessage = ({ action }) => {
+  if (action === "REOPEN") {
+    return "Complaint Reopened";
+  } else {
+    return "Complaint Submitted";
+  }
+};
+
+const BannerPicker = ({ response }) => {
+  debugger;
+  console.log("complaints:", response);
+  const { complaints } = response;
+  if (complaints && complaints.response && complaints.response.responseInfo) {
     return (
       <Banner
-        message="Complaint Submitted"
+        message={GetActionMessage(
+          complaints.response.ServiceWrappers[0].workflow
+        )}
         complaintNumber={
-          appState.complaintSubmitResponse.ServiceWrappers[0].service
-            .serviceRequestId
+          complaints.response.ServiceWrappers[0].service.serviceRequestId
         }
         successful={true}
       />
@@ -29,9 +38,10 @@ const BannerPicker = ({ appState }) => {
 
 const Response = (props) => {
   const appState = useSelector((state) => state);
+  console.log("appp state-----", appState);
   return (
     <Card>
-      <BannerPicker appState={appState} />
+      <BannerPicker response={appState} />
       <CardText>
         The notification along with complaint number is sent to your registered
         mobile number. You can track the complaint status using mobile or web

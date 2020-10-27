@@ -13,7 +13,7 @@ const Complaint = (props) => {
   const { t } = useTranslation();
 
   const handleClick = () => {
-    history.push(`/complaint-details/${serviceRequestId}`);
+    history.push(`/complaint/details/${serviceRequestId}`);
   };
   return (
     <Card>

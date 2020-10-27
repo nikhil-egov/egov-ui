@@ -6,10 +6,16 @@ Axios.interceptors.request.use((req) => {
   return req;
 });
 
-Axios.interceptors.response.use((res) => {
-  document.body.classList.remove("loader");
-  return res;
-});
+Axios.interceptors.response.use(
+  (res) => {
+    document.body.classList.remove("loader");
+    return res;
+  },
+  (err) => {
+    document.body.classList.remove("loader");
+    return err;
+  }
+);
 
 const requestInfo = {
   apiId: "Rainmaker",
@@ -81,9 +87,11 @@ export const Request = async ({
     params._ = Date.now();
   }
   const res = await Axios({ method, url, data, params });
+  console.log("res:------------", res);
   if (useCache) {
     Storage.set(key, res.data);
   }
+
   return res.data;
 };
 

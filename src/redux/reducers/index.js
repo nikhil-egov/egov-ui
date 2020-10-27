@@ -9,6 +9,8 @@ import {
   UPDATE_COMPLAINT,
 } from "../actions/types";
 
+import complaintReducer from "./complaintReducer";
+
 const configReducer = (defaultConfig) => (state = defaultConfig, action) => {
   switch (action.type) {
     case ConfigActionTypes.CONFIG_UPDATE:
@@ -56,6 +58,7 @@ const localityReducer = (state = [], action) => {
       return {
         ...state,
         localityList: action.payload.localityList,
+        city: action.payload.City,
       };
     default:
       return state;
@@ -106,17 +109,6 @@ const businessServiceReducer = (state = {}, action) => {
   }
 };
 
-const complaintsReducer = (state = [], action) => {
-  switch (action.type) {
-    case FETCH_COMPLAINTS:
-      return { ...state, list: action.payload.complaints };
-    case UPDATE_COMPLAINT:
-      return { ...state, list: action.payload.complaints };
-    default:
-      return state;
-  }
-};
-
 const getRootReducer = (defaultStore) =>
   combineReducers({
     config: configReducer(defaultStore.config),
@@ -130,7 +122,8 @@ const getRootReducer = (defaultStore) =>
     stateInfo: stateInfoReducer(defaultStore.stateInfo),
     // businessService: businessServiceReducer(defaultStore.businessServices),
     businessService: businessServiceReducer,
-    complaints: complaintsReducer,
+    complaints: complaintReducer,
+    // complaints: complaintReducer,
   });
 
 export default getRootReducer;

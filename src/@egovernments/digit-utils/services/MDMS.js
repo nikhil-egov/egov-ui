@@ -37,7 +37,7 @@ const transformResponse = (type, MdmsRes, moduleCode = "PGR") => {
     case "egovLocation":
       return GetEgovLocations(MdmsRes);
     default:
-      break;
+      return MdmsRes;
   }
 };
 
