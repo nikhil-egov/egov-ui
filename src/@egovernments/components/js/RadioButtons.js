@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const RadioButtons = (props) => {
+const RadioButtons = (props /*{ handleChange, options, selected }*/) => {
   const [selected, setSelected] = useState(null);
 
   function selectOption(value) {
@@ -9,6 +9,7 @@ const RadioButtons = (props) => {
   }
   return (
     <div className="radio-wrap">
+      {/* <<<<<<< HEAD */}
       {props.options.map((option) => {
         if (props.optionsKey) {
           return (
@@ -43,6 +44,24 @@ const RadioButtons = (props) => {
             </div>
           );
         }
+        // =======
+        //       {options.map((option) => {
+        //         return (
+        //           <div key={option}>
+        //             <span className="radio-btn-wrap">
+        //               <input
+        //                 className="radio-btn"
+        //                 type="radio"
+        //                 value={option}
+        //                 onChange={handleChange}
+        //                 checked={selected === option}
+        //               />
+        //               <span className="radio-btn-checkmark"></span>
+        //             </span>
+        //             <label>{option}</label>
+        //           </div>
+        //         );
+        // >>>>>>> 52e197fc1ef9f395d27f3a0afb1fdc22cde93c26
       })}
     </div>
   );

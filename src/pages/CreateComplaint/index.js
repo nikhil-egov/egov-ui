@@ -11,8 +11,9 @@ import Address from "./Address";
 import Landmark from "./Landmark";
 import UploadPhotos from "./UploadPhotos";
 import Details from "./Details";
-import Submission from "./Submission";
+import Response from "../Response";
 import { createComplaint } from "../../redux/actions/index";
+import { Storage } from "../../@egovernments/digit-utils/services/Storage";
 
 const CreateComplaint = ({ match, history }) => {
   const dispatch = useDispatch();
@@ -26,6 +27,8 @@ const CreateComplaint = ({ match, history }) => {
   const [uploadedImageIds, setUploadedImageIds] = useState([]);
 
   const citAuth = "37fc8b3a-ef66-4c05-aa87-5182e19b5dec";
+  Storage.set("citizen.token", citAuth);
+  window.sessionStorage.setItem("citizen.token", citAuth);
   var localityCode = "";
   const complaintParams = {
     RequestInfo: {
@@ -108,13 +111,10 @@ const CreateComplaint = ({ match, history }) => {
   const [createComplaintParams, setComplaintParams] = useState(complaintParams);
 
   useEffect(() => {
-    if (
-      appState.complaintSubmitResponse &&
-      appState.complaintSubmitResponse.responseInfo
-    ) {
+    if (appState.complaints && appState.complaints.responseInfo) {
       history.push("/create-complaint/submission");
     }
-  }, [appState.complaintSubmitResponse]);
+  }, [appState.complaints]);
 
   const savePincode = (val) => {
     setPincode(val);
@@ -187,7 +187,7 @@ const CreateComplaint = ({ match, history }) => {
       />
       <Route
         path={match.url + "/submission"}
-        component={(props) => <Submission />}
+        component={(props) => <Response />}
       />
       <p
         onClick={() => {

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 
 const Pincode = (props) => {
   const [pincode, setPincode] = useState(null);
+
   function textInput(e) {
     setPincode(e.target.value);
   }

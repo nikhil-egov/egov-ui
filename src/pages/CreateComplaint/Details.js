@@ -4,6 +4,7 @@ import CardHeader from "../../@egovernments/components/js/CardHeader";
 import CardText from "../../@egovernments/components/js/CardText";
 import TextArea from "../../@egovernments/components/js/TextArea";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
+import { Link } from "react-router-dom";
 
 const Details = (props) => {
   const [details, setDetails] = useState(null);
@@ -24,9 +25,9 @@ const Details = (props) => {
         are required to resolve complaint, provide it below:
       </CardText>
       <TextArea onChange={textInput}></TextArea>
-      <div onClick={submitComplaint}>
+      <Link to="/create-complaint/submission" onClick={submitComplaint}>
         <SubmitBar label="Submit Complaint" />
-      </div>
+      </Link>
     </Card>
   );
 };
