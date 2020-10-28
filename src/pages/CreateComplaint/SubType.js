@@ -20,11 +20,9 @@ const SubType = (props) => {
         locale: "en_IN",
         tenantId: "pb",
       });
-      console.log("SERVICEDEFS." + props.complaintType.toUpperCase());
+
       // serviceDefLocalization.
       setServiceDefs(serviceDefLocalization);
-      console.log(serviceDefLocalization);
-      console.log(props.serviceDefs);
     })();
   }, [appState]);
 

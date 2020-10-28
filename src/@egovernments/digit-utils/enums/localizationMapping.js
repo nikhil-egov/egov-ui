@@ -10,4 +10,5 @@ export const ComplaintStatusToLocalisationKeyMapping = {
   reassignrequested: "CS_COMMON_STATUS_REASSIGN_REQUESTED",
   pendingforassignment: "CS_COMMON_STATUS_PENDING_ASSIGNMENT",
   pendingatlme: "CS_COMMON_STATUS_PENDING_AT_LME",
+  pendingforreassignment: "CS_COMMON_STATUS_PENDING_FOR_REASSIGNMENT",
 };

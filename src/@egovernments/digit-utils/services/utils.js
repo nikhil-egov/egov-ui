@@ -87,7 +87,6 @@ export const Request = async ({
     params._ = Date.now();
   }
   const res = await Axios({ method, url, data, params });
-  console.log("res:------------", res);
   if (useCache) {
     Storage.set(key, res.data);
   }

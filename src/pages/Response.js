@@ -16,8 +16,6 @@ const GetActionMessage = ({ action }) => {
 };
 
 const BannerPicker = ({ response }) => {
-  debugger;
-  console.log("complaints:", response);
   const { complaints } = response;
   if (complaints && complaints.response && complaints.response.responseInfo) {
     return (
@@ -38,7 +36,6 @@ const BannerPicker = ({ response }) => {
 
 const Response = (props) => {
   const appState = useSelector((state) => state);
-  console.log("appp state-----", appState);
   return (
     <Card>
       <BannerPicker response={appState} />

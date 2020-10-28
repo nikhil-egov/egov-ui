@@ -18,11 +18,8 @@ const AddtionalDetails = ({ match, history }) => {
   const dispatch = useDispatch();
   const appState = useSelector((state) => state);
 
-  console.log("appState------->", appState);
-
   useEffect(() => {
     const { response } = appState.complaints;
-    console.log("complaints---->", appState.complaints);
     if (response && response.responseInfo.status === "successful") {
       history.push("/response");
     }
@@ -59,7 +56,6 @@ const AddtionalDetails = ({ match, history }) => {
     complaintDetails.service.additionalDetail = {
       REOPEN_REASON: reopenDetails.reason,
     };
-    console.log("complaintDetails:", complaintDetails);
     updateComplaint(complaintDetails);
 
     // return (
