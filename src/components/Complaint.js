@@ -3,12 +3,13 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import Card from "../@egovernments/components/js/Card";
 import CardCaption from "../@egovernments/components/js/CardCaption";
-import { ComplaintStatusToLocalisationKeyMapping } from "../@egovernments/digit-utils/enums/localizationMapping";
 import { ConvertTimestampToDate } from "../@egovernments/digit-utils/services/date";
 
 const Complaint = (props) => {
   let { data } = props;
   let { serviceCode, serviceRequestId, applicationStatus } = data;
+
+  const CS_COMMON = "CS_COMMON";
 
   const history = useHistory();
   const { t } = useTranslation();
@@ -51,7 +52,7 @@ const Complaint = (props) => {
         </div>
 
         <div style={{ marginTop: "1rem" }}>
-          <div>Complaint No.</div>
+          <div>{t(`${CS_COMMON}_COMPLAINT_NO`)}</div>
           <CardCaption>{serviceRequestId}</CardCaption>
         </div>
         <div style={{ marginTop: "1rem" }}>
@@ -61,11 +62,8 @@ const Complaint = (props) => {
             "applicationStatus.toLowerCase():",
             applicationStatus.toLowerCase()
           )} */}
-          {t(
-            ComplaintStatusToLocalisationKeyMapping[
-              applicationStatus.toLowerCase()
-            ]
-          )}
+
+          {t(`${CS_COMMON}_${applicationStatus}`)}
         </div>
       </div>
     </Card>

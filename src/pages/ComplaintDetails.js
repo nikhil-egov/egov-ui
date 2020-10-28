@@ -22,6 +22,7 @@ import { selectWorkflow } from "../selectors/processInstance";
 import useComplaintHistory from "../hooks/useComplaintHistory";
 import { Storage } from "../@egovernments/digit-utils/services/Storage";
 import { ConvertTimestampToDate } from "../@egovernments/digit-utils/services/date";
+import LanguageSelect from "../components/LanguageSelect";
 
 const ComplaintDetailsPage = () => {
   const LOCALIZATION_KEY_CS_COMPLAINT = "CS_COMPLAINT_DETAILS";
@@ -89,7 +90,9 @@ const ComplaintDetailsPage = () => {
     let formattedAddress = getFormatedAddress(address);
     return {
       "Complaint No": serviceRequestId,
-      "Complaint Status": applicationStatus,
+      "Complaint Status": t(
+        `${LOCALIZATION_KEY_CS_COMMON}_${applicationStatus}`
+      ),
       "Filed Date": ConvertTimestampToDate(createdTime),
       Address: formattedAddress,
     };
@@ -103,7 +106,8 @@ const ComplaintDetailsPage = () => {
   return (
     <>
       <BackButton>Back</BackButton>
-      <Header>Complaint summary</Header>
+      <Header>{t("CS_HEADER_COMPLAINT_SUMMARY")}</Header>
+      <LanguageSelect />
       {Object.keys(complaintDetails).length > 0 && (
         <>
           <Card>
