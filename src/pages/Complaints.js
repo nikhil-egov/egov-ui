@@ -10,6 +10,7 @@ const ComplaintsPage = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const complaints = state.complaints.list;
+  console.log("complaints:-", complaints);
   const getComplaints = useCallback(() => dispatch(searchComplaints()), [
     dispatch,
   ]);

@@ -51,6 +51,16 @@ const SubType = (props) => {
         name: t("SERVICEDEFS." + id.serviceCode.toUpperCase()),
       }))
     );
+    // (async () => {
+    //   serviceDefLocalization = await LocalizationService.getLocale({
+    //     modules: ["rainmaker-pgr"],
+    //     locale: "en_IN",
+    //     tenantId: "pb",
+    //   });
+
+    //   // serviceDefLocalization.
+    //   setServiceDefs(serviceDefLocalization);
+    // })();
   }, [appState]);
 
   function onSelect(item) {

@@ -11,7 +11,6 @@ import {
 } from "../@egovernments/digit-utils/services/Filestorage";
 
 const ImageUploaderHandler = (props) => {
-  console.log("props:>>>>>>>>>>>>>", props);
   const [image, setImage] = useState(null);
   const [uploadedImagesThumbs, setUploadedImagesThumbs] = useState(null);
   const [uploadedImagesIds, setUploadedImagesIds] = useState(null);
@@ -103,7 +102,6 @@ const ImageUploaderHandler = (props) => {
     // <Card>
     <>
       <CardHeader>{props.header}</CardHeader>
-      {console.log("uploadedImagesIds:--->", uploadedImagesIds)}
 
       <CardText>
         Click on the icon below to upload the complaint photos as evidence. You

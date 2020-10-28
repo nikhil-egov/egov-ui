@@ -21,6 +21,7 @@ import { fetchBusinessServiceById, searchComplaints } from "../redux/actions";
 import { selectWorkflow } from "../selectors/processInstance";
 import useComplaintHistory from "../hooks/useComplaintHistory";
 import { Storage } from "../@egovernments/digit-utils/services/Storage";
+import { ConvertTimestampToDate } from "../@egovernments/digit-utils/services/date";
 
 const ComplaintDetailsPage = () => {
   const LOCALIZATION_KEY_CS_COMPLAINT = "CS_COMPLAINT_DETAILS";
@@ -89,7 +90,7 @@ const ComplaintDetailsPage = () => {
     return {
       "Complaint No": serviceRequestId,
       "Complaint Status": applicationStatus,
-      "Filed Date": createdTime,
+      "Filed Date": ConvertTimestampToDate(createdTime),
       Address: formattedAddress,
     };
   };

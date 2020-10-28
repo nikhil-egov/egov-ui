@@ -13,6 +13,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.20.0",
+    "date-fns": "^2.16.1",
     "egov-ui-components": "link:egov-ui-components",
     "govuk-frontend": "^3.8.1",
     "govuk-react-jsx": "^4.0.2",
