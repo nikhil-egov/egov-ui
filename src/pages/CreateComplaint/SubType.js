@@ -61,7 +61,7 @@ const SubType = (props) => {
     //   // serviceDefLocalization.
     //   setServiceDefs(serviceDefLocalization);
     // })();
-  }, [appState]);
+  }, [appState, t]);
 
   function onSelect(item) {
     console.log(item);

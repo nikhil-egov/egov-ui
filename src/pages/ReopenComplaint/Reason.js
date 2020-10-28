@@ -35,7 +35,7 @@ const ReasonPage = () => {
         </CardText>
         <RadioButtons
           handleChange={onRadioChange}
-          selected={selected}
+          selected={(value) => setSelected(value)}
           options={[
             t(`${TRANSLATION_KEY}_OPTION_ONE`),
             t(`${TRANSLATION_KEY}_OPTION_TWO`),

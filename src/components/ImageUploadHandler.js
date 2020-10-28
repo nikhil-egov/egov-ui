@@ -63,7 +63,7 @@ const ImageUploaderHandler = (props) => {
     if (image) {
       uploadImage();
     }
-  }, [image, uploadImage]);
+  }, [image]);
 
   useEffect(() => {
     (async () => {
@@ -73,7 +73,7 @@ const ImageUploaderHandler = (props) => {
         props.onPhotoChange(uploadedImagesIds);
       }
     })();
-  }, [uploadedImagesIds, submit, props, rerender]);
+  }, [uploadedImagesIds]);
 
   function getImage(e) {
     setImage(e.target.files[0]);
