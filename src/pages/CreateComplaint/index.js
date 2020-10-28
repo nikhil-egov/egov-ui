@@ -94,14 +94,14 @@ const CreateComplaint = ({ match, history }) => {
       action: "APPLY",
       assignes: [],
       comments: "Stright light is not working",
-      verificationDocuments: [
-        // {
-        //   documentType: "PHOTO",
-        //   fileStore: "",
-        //   documentUid: "",
-        //   additionalDetails: {},
-        // },
-      ],
+      verificationDocuments: uploadedImageIds.map((url) => {
+        return {
+          documentType: "PHOTO",
+          fileStore: url,
+          documentUid: "",
+          additionalDetails: {},
+        };
+      }),
     },
   };
 
