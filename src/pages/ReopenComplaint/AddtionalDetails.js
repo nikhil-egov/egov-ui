@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import BackButton from "../../@egovernments/components/js/BackButton";
 import Card from "../../@egovernments/components/js/Card";
 import CardHeader from "../../@egovernments/components/js/CardHeader";
@@ -8,10 +8,9 @@ import CardText from "../../@egovernments/components/js/CardText";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
 import TextArea from "../../@egovernments/components/js/TextArea";
 import { Storage } from "../../@egovernments/digit-utils/services/Storage";
-import Header from "../../components/Header";
 import { updateComplaints } from "../../redux/actions/index";
 
-const AddtionalDetails = ({ match, history }) => {
+const AddtionalDetails = ({ history }) => {
   // const [details, setDetails] = useState(null);
 
   let { id } = useParams();
@@ -23,7 +22,7 @@ const AddtionalDetails = ({ match, history }) => {
     if (response && response.responseInfo.status === "successful") {
       history.push("/response");
     }
-  }, [appState.complaints]);
+  }, [appState.complaints, history]);
 
   const updateComplaint = useCallback(
     (complaintDetails) => dispatch(updateComplaints(complaintDetails)),

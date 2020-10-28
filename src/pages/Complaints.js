@@ -5,12 +5,12 @@ import Complaint from "../components/Complaint";
 import { searchComplaints } from "../redux/actions";
 import BackButton from "../@egovernments/components/js/BackButton";
 import Header from "../@egovernments/components/js/Header";
+import LanguageSelect from "../components/LanguageSelect";
 
 const ComplaintsPage = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const complaints = state.complaints.list;
-  console.log("complaints:-", complaints);
   const getComplaints = useCallback(() => dispatch(searchComplaints()), [
     dispatch,
   ]);
@@ -23,12 +23,13 @@ const ComplaintsPage = () => {
     <>
       <BackButton>Back</BackButton>
       <Header>My Complaints</Header>
+      <LanguageSelect />
       {complaints &&
         complaints.length > 0 &&
-        complaints.map(({ service }) => (
-          <>
+        complaints.map(({ service }, index) => (
+          <div key={index}>
             <Complaint data={service} />
-          </>
+          </div>
         ))}
     </>
   );
