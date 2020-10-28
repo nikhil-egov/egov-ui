@@ -22,7 +22,7 @@ const CreateComplaint = ({ match, history }) => {
   const [city, setCity] = useState(null);
   const [locality, setLocality] = useState(null);
   const [landmark, setLandmark] = useState(null);
-  const [details, setDetails] = useState(null);
+  const [details, setDetails] = useState("");
   const [complaintType, setComplaintType] = useState(null);
   const [uploadedImageIds, setUploadedImageIds] = useState([]);
 
@@ -98,6 +98,7 @@ const CreateComplaint = ({ match, history }) => {
       assignes: [],
       comments: "Stright light is not working",
       verificationDocuments: uploadedImageIds.map((url) => {
+        console.log(url);
         return {
           documentType: "PHOTO",
           fileStore: url,
@@ -116,6 +117,16 @@ const CreateComplaint = ({ match, history }) => {
     }
   }, [appState.complaints]);
 
+  useEffect(() => {
+    (async () => {
+      console.log("ashdak");
+      if (details) {
+        console.log(JSON.stringify(complaintParams));
+        await dispatch(createComplaint(complaintParams));
+      }
+    })();
+  }, [details]);
+
   const savePincode = (val) => {
     setPincode(val);
   };
@@ -131,8 +142,6 @@ const CreateComplaint = ({ match, history }) => {
 
   const submitComplaint = async (details) => {
     setDetails(details);
-    console.log(complaintParams);
-    await dispatch(createComplaint(complaintParams));
   };
 
   const saveComplaintType = (type) => {
@@ -143,6 +152,7 @@ const CreateComplaint = ({ match, history }) => {
     imageUrls === null
       ? setUploadedImageIds([])
       : setUploadedImageIds(imageUrls);
+    console.log(imageUrls);
   };
 
   return (

@@ -2,7 +2,7 @@ import React from "react";
 
 const Body = (props) => {
   return (
-    <div className="body-container" style={{ "min-height": "100vw" }}>
+    <div className="body-container" style={{ minHeight: "100vw" }}>
       {props.children}
     </div>
   );
