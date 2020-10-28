@@ -10,7 +10,6 @@ const ComplaintsPage = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const complaints = state.complaints.list;
-  console.log("complaints:-", complaints);
   const getComplaints = useCallback(() => dispatch(searchComplaints()), [
     dispatch,
   ]);
@@ -25,10 +24,10 @@ const ComplaintsPage = () => {
       <Header>My Complaints</Header>
       {complaints &&
         complaints.length > 0 &&
-        complaints.map(({ service }) => (
-          <>
+        complaints.map(({ service }, index) => (
+          <div key={index}>
             <Complaint data={service} />
-          </>
+          </div>
         ))}
     </>
   );

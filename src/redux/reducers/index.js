@@ -3,10 +3,8 @@ import ConfigActionTypes from "../../@egovernments/digit-utils/enums/ConfigActio
 import {
   FETCH_LOCALITIES,
   CHANGE_LANGUAGE,
-  FETCH_COMPLAINTS,
   FETCH_ALL_BUSINESSS_SERVICES,
   FETCH_BUSINESS_SERVICE_BY_ID,
-  UPDATE_COMPLAINT,
 } from "../actions/types";
 
 import complaintReducer from "./complaintReducer";
