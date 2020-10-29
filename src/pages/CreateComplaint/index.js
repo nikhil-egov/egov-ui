@@ -210,9 +210,7 @@ const CreateComplaint = ({ match, history }) => {
           console.log(complaintType);
           console.log(uploadedImageIds);
         }}
-      >
-        show state
-      </p>
+      ></p>
     </React.Fragment>
   );
 };
