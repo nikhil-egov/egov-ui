@@ -10,29 +10,16 @@
     "submit": "form-submit",
     "fields": [
       {
-        "name": "complaint_type",
-        "id": "complaint_type",
+        "name": "complaint_sub_type",
+        "id": "complaint_sub_type",
         "type": "radio",
         "component": "radio-button",
         "placeholder": "",
         "required": "required",
-
         "options": [],
         "optionsData": {
-          "type": "serviceDef",
-          "details": {
-            "tenantId": "pb",
-            "moduleDetails": [
-              {
-                "moduleName": "RAINMAKER-PGR",
-                "masterDetails": [
-                  {
-                    "name": "ServiceDefs"
-                  }
-                ]
-              }
-            ]
-          }
+          "type": "sessionStorage",
+          "action": "complaint-subtype"
         }
       },
       {
@@ -41,7 +28,7 @@
         "type": "submit",
         "component": "submit-bar",
         "placeholder": "",
-        "redirectTo": "/create-complaint/subtype",
+        "redirectTo": "/upload-photos",
         "label": "Next"
       }
     ]

@@ -14,6 +14,7 @@ import Details from "./Details";
 import Response from "../Response";
 import { createComplaint } from "../../redux/actions/index";
 import { Storage } from "../../@egovernments/digit-utils/services/Storage";
+import ComplaintTypeConfig from "./ComplaintTypeConfig";
 
 const CreateComplaint = ({ match, history }) => {
   const dispatch = useDispatch();
@@ -165,7 +166,7 @@ const CreateComplaint = ({ match, history }) => {
       <Route
         exact
         path={match.url + "/"}
-        component={(props) => <ComplaintType />}
+        component={(props) => <ComplaintTypeConfig />}
       />
       <Route
         path={match.url + "/subtype"}
