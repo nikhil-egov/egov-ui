@@ -21,7 +21,6 @@ export const useData = (criteria) => {
       if (!menuIds.find((e) => e.menuPath === def.menuPath)) {
         if (def.menuPath === "") {
           menuIds.push(def);
-          console.log("menupat blank", def.menuPath, def);
           // menuIds.push("SERVICEDEFS.OTHERS");
         } else {
           menuIds.push(def);
@@ -33,13 +32,13 @@ export const useData = (criteria) => {
 
   useEffect(() => {
     async function fetchData() {
-      if (criteria.type === "serviceDef") {
+      if (criteria && criteria.type === "serviceDef") {
         let list = criteria
           ? await MdmsService.getDataByCriteria(criteria)
           : [];
         const unique = getUnique(list);
         setdata(unique);
-      } else if (criteria.type === "sessionStorage") {
+      } else if (criteria && criteria.type === "sessionStorage") {
         if (criteria.action === "complaint-subtype") {
           const menuData = handleSubmenu();
           setdata(menuData);

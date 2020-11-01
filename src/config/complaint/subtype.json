@@ -8,14 +8,16 @@
     "id": "form",
     "component": "form",
     "submit": "form-submit",
+    "redirectto": "/create-complaint/upload-photos",
+
     "fields": [
       {
         "name": "complaint_sub_type",
         "id": "complaint_sub_type",
+        "required": true,
         "type": "radio",
         "component": "radio-button",
         "placeholder": "",
-        "required": "required",
         "options": [],
         "optionsData": {
           "type": "sessionStorage",
@@ -28,7 +30,6 @@
         "type": "submit",
         "component": "submit-bar",
         "placeholder": "",
-        "redirectTo": "/upload-photos",
         "label": "Next"
       }
     ]

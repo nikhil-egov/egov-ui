@@ -4,9 +4,13 @@ const SubmitBar = (props) => {
   console.log("props SubmitBar :", props);
 
   return (
-    <div className="submit-bar" onClick={() => props.onSubmit(props)}>
+    <button
+      className="submit-bar"
+      type="submit"
+      // onClick={() => props.onSubmit && props.onSubmit(props)}
+    >
       <header>{props.label}</header>
-    </div>
+    </button>
   );
 };
 

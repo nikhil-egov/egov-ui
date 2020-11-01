@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { Storage } from "./Storage";
 
-const citAuth = "37fc8b3a-ef66-4c05-aa87-5182e19b5dec";
+const citAuth = "912f4504-31d2-4e52-8612-08ee0bf9456d";
 
 Storage.set("citizen.token", citAuth);
 window.sessionStorage.setItem("citizen.token", citAuth);

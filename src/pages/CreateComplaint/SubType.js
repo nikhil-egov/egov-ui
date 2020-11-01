@@ -12,12 +12,13 @@ import { getConfig } from "../../@egovernments/digit-utils/config";
 import Pages from "../../@egovernments/digit-utils/enums/Pages";
 import ComponentMap from "../../ComponentMap";
 import { GetFunction } from "../../FunctionRegistry";
+import { useForm } from "react-hook-form";
 
-const SubType = (props) => {
-  const { t } = useTranslation();
-
+const SubType = () => {
   const state = useSelector((state) => state.formData);
   const history = useHistory();
+
+  const { handleSubmit, register, errors } = useForm({ defaultValues: {} });
 
   const pageConfig = useSelector(
     (state) => state.config[Pages.PGR_COMPLAINT_SUBTYPE]
@@ -29,14 +30,11 @@ const SubType = (props) => {
     dispatch({ type: "UPDATE_REPEAT", payload: { field } });
   };
 
-  const onSubmit = (e) => {
-    if (e.redirectTo) {
-      history.push(e.redirectTo);
+  const onSubmit = (e, redirectTo) => {
+    console.log("submitting.....");
+    if (redirectTo) {
+      history.push(redirectTo);
     }
-  };
-
-  const handleSubmit = (e) => {
-    console.log("handle submit", e);
   };
 
   const selected = (val) => {
@@ -50,7 +48,8 @@ const SubType = (props) => {
     onChange: handleOnChange,
     handlesubmit: handleSubmit,
     selected: selected,
-    onSubmit,
+    register,
+    onSubmit: onSubmit,
   };
 
   const config = useMemo(() => {
@@ -59,16 +58,20 @@ const SubType = (props) => {
 
   return (
     <Card>
+      {console.log("config::::>>>>>>>>>>>>>>>>>>>>>>33", config)}
       <CardHeader>Choose Complaint Sub-Type</CardHeader>
       <CardText>
         The complaint type you have chosen has following complaint sub-types.
         Select the option of your choice from the list given below.
       </CardText>
-      {/* <RadioButtons options={subMenu} optionsKey="name" selected={onSelect} /> */}
-      {/* <Link to="/create-complaint/location">
-        <SubmitBar label="Next" />
-      </Link> */}
-      <Renderer config={config} />
+
+      {config && <Renderer config={config} />}
+
+      <div style={{ color: "red" }}>
+        {errors.complaint_type && errors.complaint_type.type === "required"
+          ? "Complaint type is required"
+          : ""}
+      </div>
     </Card>
   );
 };

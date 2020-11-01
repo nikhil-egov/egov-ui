@@ -16,7 +16,6 @@ const GetActionMessage = ({ action }) => {
 };
 
 const BannerPicker = ({ response }) => {
-  console.log("complaints:", response);
   const { complaints } = response;
   if (complaints && complaints.response && complaints.response.responseInfo) {
     return (

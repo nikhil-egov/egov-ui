@@ -16,7 +16,8 @@ const ComplaintTypeConfig = () => {
   const state = useSelector((state) => state.formData);
   const history = useHistory();
 
-  //   const { handleSubmit, register } = useForm({ defaultValues: {} });
+  const { handleSubmit, register, errors } = useForm({ defaultValues: {} });
+  console.log("errors:", errors);
 
   const pageConfig = useSelector(
     (state) => state.config[Pages.PGR_COMPLAINT_TYPE]
@@ -28,14 +29,11 @@ const ComplaintTypeConfig = () => {
     dispatch({ type: "UPDATE_REPEAT", payload: { field } });
   };
 
-  const onSubmit = (e) => {
-    if (e.redirectTo) {
-      history.push(e.redirectTo);
+  const onSubmit = (e, redirectTo) => {
+    console.log("submitting.....1");
+    if (redirectTo) {
+      history.push(redirectTo);
     }
-  };
-
-  const handleSubmit = (e) => {
-    console.log("handle submit", e);
   };
 
   const selected = (val) => {
@@ -49,7 +47,8 @@ const ComplaintTypeConfig = () => {
     onChange: handleOnChange,
     handlesubmit: handleSubmit,
     selected: selected,
-    onSubmit,
+    register,
+    onSubmit: onSubmit,
   };
 
   const config = useMemo(() => {
@@ -64,6 +63,11 @@ const ComplaintTypeConfig = () => {
         If the complaint type you are looking for is not listed select others.
       </CardText>
       <Renderer config={config} />
+      <div style={{ color: "red" }}>
+        {errors.complaint_type && errors.complaint_type.type === "required"
+          ? "Complaint type is required"
+          : ""}
+      </div>
     </Card>
   );
 };

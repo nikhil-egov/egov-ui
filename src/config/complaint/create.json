@@ -8,6 +8,7 @@
     "id": "form",
     "component": "form",
     "submit": "form-submit",
+    "redirectto": "/create-complaint/subtype",
     "fields": [
       {
         "name": "complaint_type",
@@ -15,8 +16,7 @@
         "type": "radio",
         "component": "radio-button",
         "placeholder": "",
-        "required": "required",
-
+        "required": true,
         "options": [],
         "optionsData": {
           "type": "serviceDef",
@@ -41,7 +41,6 @@
         "type": "submit",
         "component": "submit-bar",
         "placeholder": "",
-        "redirectTo": "/create-complaint/subtype",
         "label": "Next"
       }
     ]

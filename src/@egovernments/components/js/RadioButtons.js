@@ -3,10 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useData } from "../helpers/useData";
 
 const RadioButtons = (props /*{ handleChange, options, selected }*/) => {
-  console.log("props RadioButtons:----->", props);
+  console.log("props.register", props);
   let options = props.options;
   let data = useData(props.optionsData);
-  console.log("data received:", data);
   const [selected, setSelected] = useState(null);
   const { t } = useTranslation();
 
@@ -15,6 +14,7 @@ const RadioButtons = (props /*{ handleChange, options, selected }*/) => {
   }
 
   function selectOption(value) {
+    console.log("option.name>>>>", value);
     setSelected(value.serviceCode);
     props.selected(value);
   }
@@ -26,11 +26,18 @@ const RadioButtons = (props /*{ handleChange, options, selected }*/) => {
           <div key={option.name}>
             <span className="radio-btn-wrap">
               <input
+                name={props.name}
                 className="radio-btn"
                 type="radio"
                 value={option.name}
                 checked={selected === option.name ? 1 : 0}
                 onChange={() => selectOption(option)}
+                ref={
+                  props.register &&
+                  props.register({
+                    required: true,
+                  })
+                }
               />
               <span className="radio-btn-checkmark"></span>
             </span>
