@@ -13,38 +13,16 @@ import { useTranslation } from "react-i18next";
 const SubType = (props) => {
   const { t } = useTranslation();
   const appState = useSelector((state) => state);
+  const subType = Storage.get("complaintType");
   const [subMenu, setSubMenu] = useState([]);
-  const [selected, setSelected] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
-    const subTypeKey = Storage.get("complaintType").code.split(".")[1];
-    const subMenuIds = Storage.get("serviceDefs")[
-      "RAINMAKER-PGR"
-    ].ServiceDefs.filter((def) =>
-      def.menuPath === "" ? "OTHERS" : def.menuPath.toUpperCase() === subTypeKey
+    const subMenuIds = Storage.get("serviceDefs").filter(
+      (def) => def.menuPath === subType.key
     );
-    // const ServiceDefsLocalization = Storage.get("ServiceDefsLocalization");
-    // let subMenu = [];
-    // let subMenu2 = [];
-    // subMenuIds.map((id) => {
-    //   subMenu = [
-    //     ...subMenu,
-    //     ServiceDefsLocalization.find(
-    //       (def) => def.code === "SERVICEDEFS." + id.serviceCode.toUpperCase()
-    //     ),
-    //   ];
-    // });
-
-    // ServiceDefsLocalization.map((def) => {
-    //   const searchResponse = subMenuIds.find(
-    //     (id) => "SERVICEDEFS." + id.serviceCode.toUpperCase() === def.code
-    //   );
-    //   if (searchResponse) {
-    //     subMenu2 = [...subMenu2, searchResponse];
-    //   }
-    // });
-    // console.log(subMenu2);
-
+    console.log("subMenuIds");
+    console.log(subMenuIds);
     setSubMenu(
       subMenuIds.map((id) => ({
         key: id.serviceCode,
@@ -53,25 +31,30 @@ const SubType = (props) => {
     );
   }, [appState]);
 
-  function onSelect(item) {
+  function selected(item) {
     console.log(item);
-    setSelected(item);
+    setSelectedOption(item);
   }
 
   function onSave() {
-    props.save(selected.key);
+    props.save(selectedOption.key);
   }
 
   return (
     <Card>
-      <CardCaption>Garbage</CardCaption>
+      <CardCaption>{subType.name}</CardCaption>
       <CardHeader>Choose Complaint Sub-Type</CardHeader>
       <CardText>
         The complaint type you have chosen has following complaint sub-types.
         Select the option of your choice from the list given below.
       </CardText>
 
-      <RadioButtons options={subMenu} optionsKey="name" selected={onSelect} />
+      <RadioButtons
+        selectedOption={selectedOption}
+        options={subMenu}
+        optionsKey="name"
+        onSelect={selected}
+      />
       <Link to="/create-complaint/location" onClick={onSave}>
         <SubmitBar label="Next" />
       </Link>

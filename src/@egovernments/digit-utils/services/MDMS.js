@@ -1,5 +1,10 @@
 import Urls from "./urls";
-import { GetCitiesWithi18nKeys, GetEgovLocations, Request } from "./utils";
+import {
+  GetCitiesWithi18nKeys,
+  GetEgovLocations,
+  Request,
+  GetServiceDefinitions,
+} from "./utils";
 
 const initRequestBody = (tenantId) => ({
   MdmsCriteria: {
@@ -36,6 +41,8 @@ const transformResponse = (type, MdmsRes, moduleCode = "PGR") => {
       return GetCitiesWithi18nKeys(MdmsRes, moduleCode);
     case "egovLocation":
       return GetEgovLocations(MdmsRes);
+    case "serviceDefinitions":
+      return GetServiceDefinitions(MdmsRes);
     default:
       return MdmsRes;
   }

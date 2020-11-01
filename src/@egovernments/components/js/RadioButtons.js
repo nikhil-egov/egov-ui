@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
 const RadioButtons = (props) => {
-  const [selected, setSelected] = useState(null);
+  var selected = props.selectedOption;
 
   function selectOption(value) {
-    setSelected(value);
-    props.selected(value);
+    selected = value;
+    props.onSelect(value);
   }
   return (
     <div className="radio-wrap">

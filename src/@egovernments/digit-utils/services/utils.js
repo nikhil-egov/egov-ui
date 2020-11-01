@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { connectAdvanced } from "react-redux";
 import { Storage } from "./Storage";
 
 Axios.interceptors.request.use((req) => {
@@ -105,4 +106,13 @@ export const GetEgovLocations = (MdmsRes) => {
       i18nKey: obj.localname,
     })
   );
+};
+
+export const GetServiceDefinitions = async (MdmsRes) => {
+  return MdmsRes["RAINMAKER-PGR"].ServiceDefs.filter(
+    (serviceDef) => serviceDef.active === true
+  ).map((serviceDef) => ({
+    menuPath: serviceDef.menuPath,
+    serviceCode: serviceDef.serviceCode,
+  }));
 };
