@@ -12,6 +12,7 @@ import Landmark from "./Landmark";
 import UploadPhotos from "./UploadPhotos";
 import Details from "./Details";
 import Submission from "./Submission";
+import DynamicConfig from "./DynamicConfig";
 import { createComplaint } from "../../redux/actions/index";
 
 const CreateComplaint = ({ match, history }) => {
@@ -155,7 +156,7 @@ const CreateComplaint = ({ match, history }) => {
       <Route
         exact
         path={match.url + "/"}
-        component={(props) => <ComplaintType />}
+        component={(props) => <ComplaintType save={saveComplaintType} />}
       />
       <Route
         path={match.url + "/subtype"}
@@ -188,6 +189,10 @@ const CreateComplaint = ({ match, history }) => {
       <Route
         path={match.url + "/submission"}
         component={(props) => <Submission />}
+      />
+      <Route
+        path={match.url + "/dynamic-config"}
+        component={(props) => <DynamicConfig />}
       />
       <p
         onClick={() => {

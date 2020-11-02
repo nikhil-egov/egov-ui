@@ -6,33 +6,28 @@ import CardText from "../../@egovernments/components/js/CardText";
 import RadioButtons from "../../@egovernments/components/js/RadioButtons";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { Storage } from "../../@egovernments/digit-utils/services/Storage";
 import { useTranslation } from "react-i18next";
 
 const SubType = (props) => {
   const { t } = useTranslation();
-  const appState = useSelector((state) => state);
   const subType = Storage.get("complaintType");
   const [subMenu, setSubMenu] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
-    const subMenuIds = Storage.get("serviceDefs").filter(
+    const __subMenu__ = Storage.get("serviceDefs").filter(
       (def) => def.menuPath === subType.key
     );
-    console.log("subMenuIds");
-    console.log(subMenuIds);
     setSubMenu(
-      subMenuIds.map((id) => ({
+      __subMenu__.map((id) => ({
         key: id.serviceCode,
         name: t("SERVICEDEFS." + id.serviceCode.toUpperCase()),
       }))
     );
-  }, [appState]);
+  }, [t, subType.key]);
 
   function selected(item) {
-    console.log(item);
     setSelectedOption(item);
   }
 

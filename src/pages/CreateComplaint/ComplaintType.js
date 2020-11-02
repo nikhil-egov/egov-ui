@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Card from "../../@egovernments/components/js/Card";
 import CardHeader from "../../@egovernments/components/js/CardHeader";
@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 
 const CreateComplaint = (props) => {
   const appState = useSelector((state) => state);
+  const history = useHistory();
   const { t } = useTranslation();
   const [localMenu, setLocalMenu] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -38,19 +39,17 @@ const CreateComplaint = (props) => {
 
       const serviceDefs = await MdmsService.getDataByCriteria(criteria);
       Storage.set("serviceDefs", serviceDefs);
-      console.log("serviceDefs");
-      console.log(serviceDefs);
-      var catalyst = [];
+      var __localMenu__ = [];
       await Promise.all(
         serviceDefs.map((def) => {
-          if (!catalyst.find((e) => e.key === def.menuPath)) {
+          if (!__localMenu__.find((e) => e.key === def.menuPath)) {
             if (def.menuPath === "") {
-              catalyst.push({
+              __localMenu__.push({
                 name: t("SERVICEDEFS.OTHERS"),
                 key: def.menuPath,
               });
             } else {
-              catalyst.push({
+              __localMenu__.push({
                 name: t("SERVICEDEFS." + def.menuPath.toUpperCase()),
                 key: def.menuPath,
               });
@@ -59,16 +58,23 @@ const CreateComplaint = (props) => {
           return 0;
         })
       );
-      setLocalMenu(catalyst);
+      setLocalMenu(__localMenu__);
     })();
   }, [appState, t]);
 
   function selected(type) {
-    console.log(type);
     setSelectedOption(type);
     Storage.set("complaintType", type);
   }
 
+  function onSave() {
+    if (selectedOption.key === "") {
+      props.save({ key: "Others", name: "Others" });
+      history.push("/create-complaint/location");
+    } else {
+      history.push("/create-complaint/subtype");
+    }
+  }
   return (
     <Card>
       <CardHeader>Choose Complaint Type</CardHeader>
@@ -84,9 +90,7 @@ const CreateComplaint = (props) => {
           onSelect={selected}
         />
       ) : null}
-      <Link to="/create-complaint/subtype">
-        <SubmitBar label="Next" />
-      </Link>
+      <SubmitBar label="Next" onSubmit={onSave} />
     </Card>
   );
 };

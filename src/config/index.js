@@ -1,6 +1,7 @@
 import Pages from "../@egovernments/digit-utils/enums/Pages";
 import newComplaintConfig from "./new-complaint.json";
 import searchComplaint from "./search-complaint.json";
+import test from "./test.json";
 
 const defaultConfig = {
   [Pages.PGR_LIST]: {
@@ -32,6 +33,7 @@ const defaultConfig = {
   },
   [Pages.PGR_NEW_COMPLAINT]: newComplaintConfig,
   [Pages.PGR_SEARCH]: searchComplaint,
+  [Pages.TEST]: test,
 };
 
 export default defaultConfig;
