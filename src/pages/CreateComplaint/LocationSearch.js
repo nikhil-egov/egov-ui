@@ -4,9 +4,10 @@ import CardHeader from "../../@egovernments/components/js/CardHeader";
 import CardText from "../../@egovernments/components/js/CardText";
 import LocationSearch from "../../@egovernments/components/js/LocationSearch";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
+import LinkLabel from "../../@egovernments/components/js/LinkLabel";
 import { Link } from "react-router-dom";
 
-const CreateComplaint = () => {
+const CreateComplaint = (props) => {
   return (
     <Card>
       <CardHeader>Pin Complaint Location</CardHeader>
@@ -19,6 +20,11 @@ const CreateComplaint = () => {
 
       <Link to="/create-complaint/pincode">
         <SubmitBar label="Next" />
+        {props.skip ? (
+          <LinkLabel style={{ textAlign: "center" }}>
+            Skip and Continue
+          </LinkLabel>
+        ) : null}
       </Link>
     </Card>
   );
