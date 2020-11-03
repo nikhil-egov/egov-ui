@@ -25,7 +25,6 @@ export const Renderer = React.forwardRef(({ config }, ref) => {
   const renderComponents = (items) => {
     return items.map((item) => {
       const { Component, fields, ...props } = item;
-
       if (fields && fields.length > 1) {
         return (
           <Fragment key={props.name || props.id}>

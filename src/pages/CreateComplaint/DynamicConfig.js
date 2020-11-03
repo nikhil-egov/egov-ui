@@ -10,10 +10,22 @@ const DynamicConfig = (props) => {
   const configState = useSelector((state) => state.config);
   const appState = useSelector((state) => state);
   console.log("configState", configState);
-  const text = "header";
+
+  function abcd() {
+    console.log("im here");
+  }
+
+  function onSubmit() {
+    console.log("im here");
+  }
+
   const configParams = {
     config: configState[Pages.TEST],
-    text,
+    appState,
+    onChange: abcd,
+    handlesubmit: abcd,
+    selected: abcd,
+    onSubmit,
   };
 
   const config = useMemo(() => {

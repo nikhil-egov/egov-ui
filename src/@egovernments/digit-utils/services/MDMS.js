@@ -3,7 +3,7 @@ import {
   GetCitiesWithi18nKeys,
   GetEgovLocations,
   Request,
-  GetServiceDefinitions,
+  GetServiceDefWithLocalization,
 } from "./utils";
 
 const initRequestBody = (tenantId) => ({
@@ -41,8 +41,8 @@ const transformResponse = (type, MdmsRes, moduleCode = "PGR") => {
       return GetCitiesWithi18nKeys(MdmsRes, moduleCode);
     case "egovLocation":
       return GetEgovLocations(MdmsRes);
-    case "serviceDefinitions":
-      return GetServiceDefinitions(MdmsRes);
+    case "serviceDef":
+      return GetServiceDefWithLocalization(MdmsRes);
     default:
       return MdmsRes;
   }

@@ -1,10 +1,16 @@
 import React from "react";
 
 const SubmitBar = (props) => {
+  // console.log("props SubmitBar :", props);
+
   return (
-    <div className="submit-bar" onClick={props.onSubmit}>
+    <button
+      className="submit-bar"
+      type="submit"
+      // onClick={() => props.onSubmit && props.onSubmit(props)}
+    >
       <header>{props.label}</header>
-    </div>
+    </button>
   );
 };
 

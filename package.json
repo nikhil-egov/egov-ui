@@ -13,6 +13,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.20.0",
+    "date-fns": "^2.16.1",
     "egov-ui-components": "link:egov-ui-components",
     "govuk-frontend": "^3.8.1",
     "govuk-react-jsx": "^4.0.2",
@@ -33,7 +34,7 @@
     "safe-eval": "^0.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3006 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

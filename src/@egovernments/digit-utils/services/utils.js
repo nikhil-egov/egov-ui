@@ -2,6 +2,11 @@ import Axios from "axios";
 import { connectAdvanced } from "react-redux";
 import { Storage } from "./Storage";
 
+const citAuth = "912f4504-31d2-4e52-8612-08ee0bf9456d";
+
+Storage.set("citizen.token", citAuth);
+window.sessionStorage.setItem("citizen.token", citAuth);
+
 Axios.interceptors.request.use((req) => {
   document.body.classList.add("loader");
   return req;
@@ -18,19 +23,62 @@ Axios.interceptors.response.use(
   }
 );
 
+const requestInfo = {
+  apiId: "Rainmaker",
+  action: "",
+  did: 1,
+  key: "",
+  msgId: "20170310130900|en_IN",
+  requesterId: "",
+  ts: 1513579888683,
+  ver: ".01",
+  authToken: Storage.get("citizen.token"),
+};
+
+const userServiceData = {
+  userInfo: {
+    id: 23349,
+    uuid: "530968f3-76b3-4fd1-b09d-9e22eb1f85df",
+    userName: "9404052047",
+    name: "Aniket T",
+    mobileNumber: "9404052047",
+    emailId: "xc@gmail.com",
+    locale: null,
+    type: "CITIZEN",
+    roles: [
+      {
+        name: "Citizen",
+        code: "CITIZEN",
+        tenantId: "pb",
+      },
+    ],
+    active: true,
+    tenantId: "pb",
+  },
+};
+
 export const Request = async ({
   method = "POST",
   url,
   data = {},
   useCache = false,
   params = {},
+  auth,
+  userService,
 }) => {
   let key = "";
   if (method.toUpperCase() === "POST") {
     data.RequestInfo = {
       apiId: "Rainmaker",
     };
+    if (auth) {
+      data.RequestInfo = { ...data.RequestInfo, ...requestInfo };
+    }
+    if (userService) {
+      data.RequestInfo = { ...data.RequestInfo, ...userServiceData };
+    }
   }
+
   if (useCache) {
     key = `${method.toUpperCase()}.${url}.${JSON.stringify(
       params,
@@ -44,7 +92,6 @@ export const Request = async ({
   } else {
     params._ = Date.now();
   }
-
   const res = await Axios({ method, url, data, params });
   if (useCache) {
     Storage.set(key, res.data);
@@ -108,11 +155,15 @@ export const GetEgovLocations = (MdmsRes) => {
   );
 };
 
-export const GetServiceDefinitions = async (MdmsRes) => {
-  return MdmsRes["RAINMAKER-PGR"].ServiceDefs.filter(
-    (serviceDef) => serviceDef.active === true
-  ).map((serviceDef) => ({
-    menuPath: serviceDef.menuPath,
-    serviceCode: serviceDef.serviceCode,
+export const GetServiceDefWithLocalization = (MdmsRes) => {
+  const serviceDef = MdmsRes["RAINMAKER-PGR"].ServiceDefs.map((obj) => ({
+    name: obj.serviceCode,
+    i18nKey:
+      obj.menuPath !== ""
+        ? "SERVICEDEFS." + obj.serviceCode.toUpperCase()
+        : "Others",
+    ...obj,
   }));
+  Storage.set("ServiceDefs", serviceDef); //TODO: move this to service, session storage key name is too big currently
+  return serviceDef;
 };

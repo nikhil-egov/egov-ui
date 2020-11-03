@@ -13,7 +13,10 @@ import UploadPhotos from "./UploadPhotos";
 import Details from "./Details";
 import Submission from "./Submission";
 import DynamicConfig from "./DynamicConfig";
+import Response from "../Response";
 import { createComplaint } from "../../redux/actions/index";
+import { Storage } from "../../@egovernments/digit-utils/services/Storage";
+import ComplaintTypeConfig from "./ComplaintTypeConfig";
 
 const CreateComplaint = ({ match, history }) => {
   const dispatch = useDispatch();
@@ -22,11 +25,13 @@ const CreateComplaint = ({ match, history }) => {
   const [city, setCity] = useState(null);
   const [locality, setLocality] = useState(null);
   const [landmark, setLandmark] = useState(null);
-  const [details, setDetails] = useState(null);
+  const [details, setDetails] = useState("");
   const [complaintType, setComplaintType] = useState(null);
   const [uploadedImageIds, setUploadedImageIds] = useState([]);
 
   const citAuth = "37fc8b3a-ef66-4c05-aa87-5182e19b5dec";
+  Storage.set("citizen.token", citAuth);
+  window.sessionStorage.setItem("citizen.token", citAuth);
   var localityCode = "";
   const complaintParams = {
     RequestInfo: {
@@ -94,8 +99,9 @@ const CreateComplaint = ({ match, history }) => {
     workflow: {
       action: "APPLY",
       assignes: [],
-      comments: "Stright light is not working",
+      comments: "Street light is not working",
       verificationDocuments: uploadedImageIds.map((url) => {
+        console.log(url);
         return {
           documentType: "PHOTO",
           fileStore: url,
@@ -109,13 +115,19 @@ const CreateComplaint = ({ match, history }) => {
   const [createComplaintParams, setComplaintParams] = useState(complaintParams);
 
   useEffect(() => {
-    if (
-      appState.complaintSubmitResponse &&
-      appState.complaintSubmitResponse.responseInfo
-    ) {
+    if (appState.complaints && appState.complaints.responseInfo) {
       history.push("/create-complaint/submission");
     }
-  }, [appState.complaintSubmitResponse]);
+  }, [appState.complaints]);
+
+  useEffect(() => {
+    (async () => {
+      if (details) {
+        console.log(JSON.stringify(complaintParams));
+        await dispatch(createComplaint(complaintParams));
+      }
+    })();
+  }, [details]);
 
   const savePincode = (val) => {
     setPincode(val);
@@ -132,8 +144,6 @@ const CreateComplaint = ({ match, history }) => {
 
   const submitComplaint = async (details) => {
     setDetails(details);
-    console.log(complaintParams);
-    await dispatch(createComplaint(complaintParams));
   };
 
   const saveComplaintType = (type) => {
@@ -144,11 +154,12 @@ const CreateComplaint = ({ match, history }) => {
     imageUrls === null
       ? setUploadedImageIds([])
       : setUploadedImageIds(imageUrls);
+    console.log(imageUrls);
   };
-
+  console.log("appState", appState);
   return (
     <React.Fragment>
-      <BackButton />
+      {!details && <BackButton />}
       <Route
         path={match.url + "/onboarding"}
         component={(props) => <UserOnboarding />}
@@ -156,7 +167,8 @@ const CreateComplaint = ({ match, history }) => {
       <Route
         exact
         path={match.url + "/"}
-        component={(props) => <ComplaintType save={saveComplaintType} />}
+        // component={(props) => <ComplaintType save={saveComplaintType} />}
+        component={(props) => <ComplaintTypeConfig />}
       />
       <Route
         path={match.url + "/subtype"}
@@ -188,7 +200,7 @@ const CreateComplaint = ({ match, history }) => {
       />
       <Route
         path={match.url + "/submission"}
-        component={(props) => <Submission />}
+        component={(props) => <Response />}
       />
       <Route
         path={match.url + "/dynamic-config"}
@@ -205,9 +217,7 @@ const CreateComplaint = ({ match, history }) => {
           console.log(complaintType);
           console.log(uploadedImageIds);
         }}
-      >
-        show state
-      </p>
+      ></p>
     </React.Fragment>
   );
 };

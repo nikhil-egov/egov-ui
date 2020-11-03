@@ -1,7 +1,26 @@
 [
     {
-        "id": "header",
-        "component": "header",
-        "text": "TEST"
+      "id": "form",
+      "component": "form",
+      "submit": "form-submit",
+      "fields": [
+        {
+          "name": "complaint_type",
+          "id": "complaint_type",
+          "type": "radio",
+          "component": "radio-button",
+  
+          "options": ["a","b","c","d"]        },
+        {
+          "name": "submit",
+          "id": "submit",
+          "type": "submit",
+          "component": "submit-bar",
+          "placeholder": "",
+          "redirectTo": "/create-complaint/subtype",
+          "label": "Next"
+        }
+      ]
     }
-]
+  ]
+  

@@ -7,16 +7,12 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const BannerPicker = ({ appState }) => {
-  if (
-    appState.complaintSubmitResponse &&
-    appState.complaintSubmitResponse.responseInfo
-  ) {
+  if (appState.complaints && appState.complaints.responseInfo) {
     return (
       <Banner
         message="Complaint Submitted"
         complaintNumber={
-          appState.complaintSubmitResponse.ServiceWrappers[0].service
-            .serviceRequestId
+          appState.complaints.ServiceWrappers[0].service.serviceRequestId
         }
         successful={true}
       />

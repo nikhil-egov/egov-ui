@@ -11,9 +11,15 @@ export const Storage = {
   get: (key) => {
     if (localStoreSupport() && key) {
       let valueInStorage = storageClass.getItem(k(key));
-      return valueInStorage && valueInStorage !== "undefined"
-        ? JSON.parse(valueInStorage)
-        : null;
+      if (valueInStorage && valueInStorage !== "undefined") {
+        try {
+          return JSON.parse(valueInStorage);
+        } catch (e) {
+          return valueInStorage;
+        }
+      } else {
+        return null;
+      }
     } else if (typeof window !== "undefined") {
       return (
         window &&
