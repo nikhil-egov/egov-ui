@@ -1,13 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Rate } from "../components/rate";
-import { ReOpen } from "../components/reopen";
+import { Link } from "react-router-dom";
 
 const useComplaintHistory = (processInstance) => {
   const [complaintHistory, setComplaintHistory] = useState([]);
 
   const getNextState = (obj) => {
     const key = obj.state.applicationStatus;
-
     switch (key) {
       case "PENDINGATLME":
         let assignes = obj.assignes != null && obj.assignes[0];
@@ -19,17 +17,18 @@ const useComplaintHistory = (processInstance) => {
               <span>
                 assigned to {name} {mobileNumber}
               </span>
-              <br />
-              {/* <>
-                <ReOpen id={obj.businessId} /> <Rate />
-              </> */}
             </>
           )
         );
       case "RESOLVED":
         return (
           <>
-            <ReOpen id={obj.businessId} /> <Rate id={obj.businessId} />
+            <Link to={`/reopen/reason/${obj.businessId}`}>
+              <span style={{ color: "#F47738" }}>RE-OPEN</span>
+            </Link>
+            <Link to={`/rating/${obj.businessId}`}>
+              &nbsp; <span style={{ color: "#F47738" }}>RATE</span>
+            </Link>
           </>
         );
       default:

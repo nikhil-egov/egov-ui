@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import BackButton from "../../@egovernments/components/js/BackButton";
-import ComplaintType from "./ComplaintType";
 import UserOnboarding from "../UserOnboarding/index";
 import SubType from "./SubType";
 import LocationSearch from "./LocationSearch";
@@ -11,7 +10,6 @@ import Address from "./Address";
 import Landmark from "./Landmark";
 import UploadPhotos from "./UploadPhotos";
 import Details from "./Details";
-import Submission from "./Submission";
 import DynamicConfig from "./DynamicConfig";
 import Response from "../Response";
 import { createComplaint } from "../../redux/actions/index";
@@ -32,7 +30,7 @@ const CreateComplaint = ({ match, history }) => {
   const citAuth = "37fc8b3a-ef66-4c05-aa87-5182e19b5dec";
   Storage.set("citizen.token", citAuth);
   window.sessionStorage.setItem("citizen.token", citAuth);
-  var localityCode = "";
+
   const complaintParams = {
     RequestInfo: {
       apiId: "Rainmaker",

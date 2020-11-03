@@ -6,7 +6,7 @@ import ListPage from "./pages/List";
 import NewComplaintPage from "./pages/NewComplaint";
 import SearchComplaintPage from "./pages/SearchComplaint";
 import CreateComplaintPage from "./pages/CreateComplaint/index";
-import Rating from "./pages/Rating/Rating";
+import RatingAndFeedBack from "./pages/Rating/Rating";
 // import CreateComplaintPage from "./pages/CreateComplaint";
 import ComplaintsPage from "./pages/Complaints";
 import ComplaintDetailsPage from "./pages/ComplaintDetails";
@@ -46,7 +46,7 @@ const App = () => {
           <Route path="/new" component={NewComplaintPage} />
           <Route path="/search" component={SearchComplaintPage} />
           <Route path="/create-complaint" component={CreateComplaintPage} />
-          <Route path="/rating" component={Rating} />
+          <Route path="/rating/:id" component={RatingAndFeedBack} />
           <Route path="/complaints" component={ComplaintsPage} />
           <Route
             path="/complaint/details/:id"

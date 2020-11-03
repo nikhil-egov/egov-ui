@@ -1,14 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import Card from "../../@egovernments/components/js/Card";
 import CardHeader from "../../@egovernments/components/js/CardHeader";
-import CardCaption from "../../@egovernments/components/js/CardCaption";
 import CardText from "../../@egovernments/components/js/CardText";
-import RadioButtons from "../../@egovernments/components/js/RadioButtons";
-import SubmitBar from "../../@egovernments/components/js/SubmitBar";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Storage } from "../../@egovernments/digit-utils/services/Storage";
-import { useTranslation } from "react-i18next";
 import { Renderer } from "../../Renderer";
 import { getConfig } from "../../@egovernments/digit-utils/config";
 import Pages from "../../@egovernments/digit-utils/enums/Pages";
@@ -90,7 +86,6 @@ const SubType = () => {
 
   return (
     <Card>
-      {console.log("config::::>>>>>>>>>>>>>>>>>>>>>>33", config)}
       <CardHeader>Choose Complaint Sub-Type</CardHeader>
       <CardText>
         The complaint type you have chosen has following complaint sub-types.
