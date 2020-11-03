@@ -5,6 +5,7 @@ import CardText from "../../@egovernments/components/js/CardText";
 import TextArea from "../../@egovernments/components/js/TextArea";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
 import { Link } from "react-router-dom";
+import LinkLabel from "../../@egovernments/components/js/LinkLabel";
 
 const Details = (props) => {
   const [details, setDetails] = useState(null);
@@ -28,6 +29,11 @@ const Details = (props) => {
       <Link to="/create-complaint/submission" onClick={submitComplaint}>
         <SubmitBar label="Submit Complaint" />
       </Link>
+      {props.skip ? (
+        <Link to="/create-complaint/submission">
+          <LinkLabel>Skip and Continue</LinkLabel>
+        </Link>
+      ) : null}
     </Card>
   );
 };

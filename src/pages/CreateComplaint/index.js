@@ -27,7 +27,7 @@ const CreateComplaint = ({ match, history }) => {
   const [complaintType, setComplaintType] = useState(null);
   const [uploadedImageIds, setUploadedImageIds] = useState([]);
 
-  const citAuth = "37fc8b3a-ef66-4c05-aa87-5182e19b5dec";
+  const citAuth = "912f4504-31d2-4e52-8612-08ee0bf9456d";
   Storage.set("citizen.token", citAuth);
   window.sessionStorage.setItem("citizen.token", citAuth);
 
@@ -121,7 +121,7 @@ const CreateComplaint = ({ match, history }) => {
   useEffect(() => {
     (async () => {
       if (details) {
-        console.log(JSON.stringify(complaintParams));
+        console.log(complaintParams);
         await dispatch(createComplaint(complaintParams));
       }
     })();
@@ -174,11 +174,13 @@ const CreateComplaint = ({ match, history }) => {
       />
       <Route
         path={match.url + "/location"}
-        component={(props) => <LocationSearch />}
+        component={(props) => <LocationSearch skip={true} />}
       />
       <Route
         path={match.url + "/pincode"}
-        component={(props) => <Pincode save={(val) => savePincode(val)} />}
+        component={(props) => (
+          <Pincode save={(val) => savePincode(val)} skip={true} />
+        )}
       />
       <Route
         path={match.url + "/address"}
@@ -190,11 +192,13 @@ const CreateComplaint = ({ match, history }) => {
       />
       <Route
         path={match.url + "/upload-photos"}
-        component={(props) => <UploadPhotos save={saveImagesUrl} />}
+        component={(props) => <UploadPhotos save={saveImagesUrl} skip={true} />}
       />
       <Route
         path={match.url + "/details"}
-        component={(props) => <Details submitComplaint={submitComplaint} />}
+        component={(props) => (
+          <Details submitComplaint={submitComplaint} skip={true} />
+        )}
       />
       <Route
         path={match.url + "/submission"}

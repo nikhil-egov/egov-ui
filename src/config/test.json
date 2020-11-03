@@ -5,8 +5,8 @@
       "submit": "form-submit",
       "fields": [
         {
-          "name": "complaint_type",
-          "id": "complaint_type",
+          "name": "test_radio_view",
+          "id": "test_radio_view",
           "type": "radio",
           "component": "radio-button",
   

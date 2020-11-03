@@ -4,6 +4,7 @@ import CardHeader from "../../@egovernments/components/js/CardHeader";
 import CardText from "../../@egovernments/components/js/CardText";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
 import UploadImages from "../../@egovernments/components/js/UploadImages";
+import LinkLabel from "../../@egovernments/components/js/LinkLabel";
 import { Link } from "react-router-dom";
 import {
   Filestorage,
@@ -122,6 +123,11 @@ const UploadPhotos = (props) => {
       >
         <SubmitBar label="Next" />
       </Link>
+      {props.skip ? (
+        <Link to="/create-complaint/details">
+          <LinkLabel>Skip and Continue</LinkLabel>
+        </Link>
+      ) : null}
     </Card>
   );
 };

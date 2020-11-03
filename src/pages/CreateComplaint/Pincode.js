@@ -6,6 +6,7 @@ import CardText from "../../@egovernments/components/js/CardText";
 import CardLabel from "../../@egovernments/components/js/CardLabel";
 import Textinput from "../../@egovernments/components/js/Textinput";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
+import LinkLabel from "../../@egovernments/components/js/LinkLabel";
 import { Link } from "react-router-dom";
 
 const Pincode = (props) => {
@@ -32,6 +33,11 @@ const Pincode = (props) => {
       >
         <SubmitBar label="Next" />
       </Link>
+      {props.skip ? (
+        <Link to="/create-complaint/address">
+          <LinkLabel>Skip and Continue</LinkLabel>
+        </Link>
+      ) : null}
     </Card>
   );
 };
