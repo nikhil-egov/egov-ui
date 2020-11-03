@@ -167,8 +167,8 @@ const CreateComplaint = ({ match, history }) => {
       <Route
         exact
         path={match.url + "/"}
-        // component={(props) => <ComplaintType save={saveComplaintType} />}
-        component={(props) => <ComplaintTypeConfig />}
+        component={(props) => <ComplaintType save={saveComplaintType} />}
+        // component={(props) => <ComplaintTypeConfig />}
       />
       <Route
         path={match.url + "/subtype"}
