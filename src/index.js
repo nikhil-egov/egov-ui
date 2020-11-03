@@ -115,14 +115,7 @@ const deltaConfig = {
           component: "radio-button",
           placeholder: "",
           required: true,
-          options: [
-            {
-              name: "AnimalShelter",
-              i18nKey: "Animal Shelter",
-              serviceCode: "AnimalShelter",
-              menuPath: "AnimalShelter",
-            },
-          ],
+          options: [],
           __action__: "INSERT_AFTER",
           __property__: "complaint_sub_type",
         },

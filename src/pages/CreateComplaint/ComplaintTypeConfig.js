@@ -30,7 +30,7 @@ const ComplaintTypeConfig = () => {
   };
 
   const onSubmit = (e, redirectTo) => {
-    console.log("submitting.....1");
+    console.log("submitting.....complaint type");
     if (redirectTo) {
       history.push(redirectTo);
     }
