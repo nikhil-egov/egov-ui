@@ -65,7 +65,6 @@ const Address = (props) => {
       <Link to="/create-complaint/landmark" onClick={save}>
         <SubmitBar label="Next" />
       </Link>
-      <p onClick={() => console.log(appState)}>appsate</p>
     </Card>
   );
 };

@@ -125,7 +125,9 @@ const UploadPhotos = (props) => {
       </Link>
       {props.skip ? (
         <Link to="/create-complaint/details">
-          <LinkLabel>Skip and Continue</LinkLabel>
+          <div className="skipButton">
+            <LinkLabel>Skip and Continue</LinkLabel>
+          </div>
         </Link>
       ) : null}
     </Card>

@@ -17,7 +17,7 @@
           "type": "submit",
           "component": "submit-bar",
           "placeholder": "",
-          "redirectTo": "/create-complaint/subtype",
+          "redirectTo": "/create-complaint/",
           "label": "Next"
         }
       ]

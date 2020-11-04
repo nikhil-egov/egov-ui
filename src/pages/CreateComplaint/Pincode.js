@@ -35,7 +35,9 @@ const Pincode = (props) => {
       </Link>
       {props.skip ? (
         <Link to="/create-complaint/address">
-          <LinkLabel>Skip and Continue</LinkLabel>
+          <div className="skipButton">
+            <LinkLabel>Skip and Continue</LinkLabel>
+          </div>
         </Link>
       ) : null}
     </Card>

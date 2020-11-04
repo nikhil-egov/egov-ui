@@ -21,7 +21,7 @@ const CreateComplaint = (props) => {
   useEffect(() => {
     (async () => {
       const criteria = {
-        type: "serviceDefinitions",
+        type: "serviceDef",
         details: {
           tenantId: appState.stateInfo.code,
           moduleDetails: [
@@ -38,24 +38,22 @@ const CreateComplaint = (props) => {
       };
 
       const serviceDefs = await MdmsService.getDataByCriteria(criteria);
+      console.log("servicedefs", serviceDefs);
       Storage.set("serviceDefs", serviceDefs);
       var __localMenu__ = [];
       await Promise.all(
         serviceDefs.map((def) => {
           if (!__localMenu__.find((e) => e.key === def.menuPath)) {
-            if (def.menuPath === "") {
-              __localMenu__.push({
-                name: t("SERVICEDEFS.OTHERS"),
-                key: def.menuPath,
-              });
-            } else {
-              __localMenu__.push({
-                name: t("SERVICEDEFS." + def.menuPath.toUpperCase()),
-                key: def.menuPath,
-              });
-            }
+            def.menuPath === ""
+              ? __localMenu__.push({
+                  name: t("SERVICEDEFS.OTHERS"),
+                  key: def.menuPath,
+                })
+              : __localMenu__.push({
+                  name: t("SERVICEDEFS." + def.menuPath.toUpperCase()),
+                  key: def.menuPath,
+                });
           }
-          return 0;
         })
       );
       setLocalMenu(__localMenu__);

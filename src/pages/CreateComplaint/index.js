@@ -156,7 +156,6 @@ const CreateComplaint = ({ match, history }) => {
       : setUploadedImageIds(imageUrls);
     console.log(imageUrls);
   };
-  console.log("appState", appState);
   return (
     <React.Fragment>
       {!details && <BackButton />}

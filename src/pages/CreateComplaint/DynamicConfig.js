@@ -21,7 +21,7 @@ const DynamicConfig = (props) => {
 
   const configParams = {
     config: configState[Pages.TEST],
-    appState,
+    state: appState,
     onChange: abcd,
     handlesubmit: abcd,
     selected: abcd,

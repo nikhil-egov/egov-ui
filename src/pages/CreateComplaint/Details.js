@@ -31,7 +31,9 @@ const Details = (props) => {
       </Link>
       {props.skip ? (
         <Link to="/create-complaint/submission">
-          <LinkLabel>Skip and Continue</LinkLabel>
+          <div className="skipButton">
+            <LinkLabel>Skip and Continue</LinkLabel>
+          </div>
         </Link>
       ) : null}
     </Card>

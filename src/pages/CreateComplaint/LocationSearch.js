@@ -21,9 +21,11 @@ const CreateComplaint = (props) => {
       <Link to="/create-complaint/pincode">
         <SubmitBar label="Next" />
         {props.skip ? (
-          <LinkLabel style={{ textAlign: "center" }}>
-            Skip and Continue
-          </LinkLabel>
+          <div className="skipButton">
+            <LinkLabel style={{ textAlign: "center" }}>
+              Skip and Continue
+            </LinkLabel>
+          </div>
         ) : null}
       </Link>
     </Card>
