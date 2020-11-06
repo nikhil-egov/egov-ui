@@ -21,7 +21,7 @@ const RadioButtons = (props /*{ handleChange, options, selected }*/) => {
 
   return (
     <div className="radio-wrap">
-      {options.map((option) => {
+      {options.map((option, index) => {
         return (
           <div key={option.name}>
             <span className="radio-btn-wrap">

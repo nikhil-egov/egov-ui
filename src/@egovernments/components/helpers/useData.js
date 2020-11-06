@@ -17,7 +17,7 @@ export const useData = (criteria) => {
 
   const getUnique = useCallback((list) => {
     let menuIds = [];
-    list.map((def) => {
+    list.forEach((def) => {
       if (!menuIds.find((e) => e.menuPath === def.menuPath)) {
         if (def.menuPath === "") {
           menuIds.push(def);
@@ -46,6 +46,6 @@ export const useData = (criteria) => {
       }
     }
     fetchData();
-  }, [criteria]);
+  }, [criteria, getUnique, handleSubmenu]);
   return data;
 };

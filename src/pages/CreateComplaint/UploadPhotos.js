@@ -43,7 +43,7 @@ const UploadPhotos = (props) => {
 
   function addImageThumbnails(thumbnailsData) {
     var keys = Object.keys(thumbnailsData.data);
-    var index = keys.findIndex((key) => key == "fileStoreIds");
+    var index = keys.findIndex((key) => key === "fileStoreIds");
     if (index > -1) {
       keys.splice(index, 1);
     }
@@ -84,7 +84,7 @@ const UploadPhotos = (props) => {
       }
     });
 
-    var index = uploadedImagesIds.findIndex((key) => key == deleteImageKey[0]);
+    var index = uploadedImagesIds.findIndex((key) => key === deleteImageKey[0]);
 
     if (index > -1) {
       var arr = uploadedImagesIds;

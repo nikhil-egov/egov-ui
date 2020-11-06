@@ -110,7 +110,7 @@ const CreateComplaint = ({ match, history }) => {
     },
   };
 
-  const [createComplaintParams, setComplaintParams] = useState(complaintParams);
+  //const [createComplaintParams, setComplaintParams] = useState(complaintParams);
 
   useEffect(() => {
     if (appState.complaints && appState.complaints.responseInfo) {
@@ -210,7 +210,7 @@ const CreateComplaint = ({ match, history }) => {
       />
       <p
         onClick={() => {
-          console.log(createComplaintParams);
+          //console.log(createComplaintParams);
           console.log(pincode);
           console.log(city);
           console.log(locality);

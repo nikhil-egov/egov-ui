@@ -46,13 +46,13 @@ const App = () => {
           <Route path="/new" component={NewComplaintPage} />
           <Route path="/search" component={SearchComplaintPage} />
           <Route path="/create-complaint" component={CreateComplaintPage} />
-          <Route path="/rating/:id" component={RatingAndFeedBack} />
+          <Route path="/rate/:id" component={RatingAndFeedBack} />
           <Route path="/complaints" component={ComplaintsPage} />
           <Route
             path="/complaint/details/:id"
             component={ComplaintDetailsPage}
           />
-          <Route path="/reopen/reason/:id" component={ReasonPage} />
+          <Route path="/reopen/:id" component={ReasonPage} />
           <Route path="/reopen/upload-photo/:id" component={UploadPhoto} />
           <Route
             path="/reopen/addional-details/:id"
