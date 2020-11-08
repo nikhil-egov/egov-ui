@@ -1,84 +1,48 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useData } from "../helpers/useData";
+import React from "react";
 
-const RadioButtons = (props /*{ handleChange, options, selected }*/) => {
-  // console.log("props.register", props);
-  let options = props.options;
-  let data = useData(props.optionsData);
-  const [selected, setSelected] = useState(null);
-  const { t } = useTranslation();
-
-  if (data.length > 0) {
-    options = data;
-  }
+const RadioButtons = (props) => {
+  var selected = props.selectedOption;
 
   function selectOption(value) {
-    // console.log("option.name>>>>", value);
-    setSelected(value.serviceCode);
-    props.selected(value);
+    selected = value;
+    props.onSelect(value);
   }
-
   return (
     <div className="radio-wrap">
-      {options.map((option, index) => {
-        return (
-          <div key={option.name}>
-            <span className="radio-btn-wrap">
-              <input
-                name={props.name}
-                className="radio-btn"
-                type="radio"
-                value={option.name}
-                checked={selected === option.name ? 1 : 0}
-                onChange={() => selectOption(option)}
-                ref={
-                  props.register &&
-                  props.register({
-                    required: true,
-                  })
-                }
-              />
-              <span className="radio-btn-checkmark"></span>
-            </span>
-            <label>{t(option.i18nKey)}</label>
-          </div>
-        );
-        // } else {
-        //   return (
-        //     <div key={option}>
-        //       <span className="radio-btn-wrap">
-        //         <input
-        //           className="radio-btn"
-        //           type="radio"
-        //           value={option}
-        //           checked={selected === option ? 1 : 0}
-        //           onChange={() => selectOption(option)}
-        //         />
-        //         <span className="radio-btn-checkmark"></span>
-        //       </span>
-        //       <label>{option}</label>
-        //     </div>
-        //   );
-        // }
-        // =======
-        //       {options.map((option) => {
-        //         return (
-        //           <div key={option}>
-        //             <span className="radio-btn-wrap">
-        //               <input
-        //                 className="radio-btn"
-        //                 type="radio"
-        //                 value={option}
-        //                 onChange={handleChange}
-        //                 checked={selected === option}
-        //               />
-        //               <span className="radio-btn-checkmark"></span>
-        //             </span>
-        //             <label>{option}</label>
-        //           </div>
-        //         );
-        // >>>>>>> 52e197fc1ef9f395d27f3a0afb1fdc22cde93c26
+      {props.options.map((option) => {
+        if (props.optionsKey) {
+          return (
+            <div key={option[props.optionsKey]}>
+              <span className="radio-btn-wrap">
+                <input
+                  className="radio-btn"
+                  type="radio"
+                  value={option}
+                  checked={selected === option ? 1 : 0}
+                  onChange={() => selectOption(option)}
+                />
+                <span className="radio-btn-checkmark"></span>
+              </span>
+              <label>{option[props.optionsKey]}</label>
+            </div>
+          );
+        } else {
+          return (
+            <div key={option}>
+              <span className="radio-btn-wrap">
+                <input
+                  className="radio-btn"
+                  type="radio"
+                  value={option}
+                  checked={selected === option ? 1 : 0}
+                  onChange={() => selectOption(option)}
+                />
+                <span className="radio-btn-checkmark"></span>
+              </span>
+              <label>{option}</label>
+            </div>
+          );
+        }
       })}
     </div>
   );

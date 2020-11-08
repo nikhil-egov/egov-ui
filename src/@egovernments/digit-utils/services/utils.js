@@ -156,14 +156,18 @@ export const GetEgovLocations = (MdmsRes) => {
 };
 
 export const GetServiceDefWithLocalization = (MdmsRes) => {
-  const serviceDef = MdmsRes["RAINMAKER-PGR"].ServiceDefs.map((obj) => ({
-    name: obj.serviceCode,
-    i18nKey:
-      obj.menuPath !== ""
-        ? "SERVICEDEFS." + obj.serviceCode.toUpperCase()
-        : "Others",
-    ...obj,
-  }));
+  const serviceDef = MdmsRes["RAINMAKER-PGR"].ServiceDefs.map((def) =>
+    def.active
+      ? {
+          name: def.serviceCode,
+          i18nKey:
+            def.menuPath !== ""
+              ? "SERVICEDEFS." + def.serviceCode.toUpperCase()
+              : "Others",
+          ...def,
+        }
+      : null
+  ).filter((o) => o != null);
   Storage.set("ServiceDefs", serviceDef); //TODO: move this to service, session storage key name is too big currently
   return serviceDef;
 };

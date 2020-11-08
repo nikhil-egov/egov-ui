@@ -54,7 +54,6 @@ const RatingAndFeedBack = () => {
   return (
     <React.Fragment>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {console.log("rating::::::::::", rating)}
         <Card>
           <CardHeader>Help Us Help You</CardHeader>
           <CardLabel>How would you rate your experience with us?</CardLabel>

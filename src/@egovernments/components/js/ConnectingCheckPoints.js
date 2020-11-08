@@ -13,7 +13,6 @@ export const CheckPoint = (props) => {
 };
 
 export const ConnectingCheckPoints = (props) => {
-  console.log("props::::::", props);
   if (props.children.length >= 2) {
     return (
       <React.Fragment>

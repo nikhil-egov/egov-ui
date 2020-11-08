@@ -21,7 +21,7 @@ const CreateComplaint = (props) => {
   useEffect(() => {
     (async () => {
       const criteria = {
-        type: "serviceDefinitions",
+        type: "serviceDef",
         details: {
           tenantId: appState.stateInfo.code,
           moduleDetails: [
@@ -43,19 +43,16 @@ const CreateComplaint = (props) => {
       await Promise.all(
         serviceDefs.map((def) => {
           if (!__localMenu__.find((e) => e.key === def.menuPath)) {
-            if (def.menuPath === "") {
-              __localMenu__.push({
-                name: t("SERVICEDEFS.OTHERS"),
-                key: def.menuPath,
-              });
-            } else {
-              __localMenu__.push({
-                name: t("SERVICEDEFS." + def.menuPath.toUpperCase()),
-                key: def.menuPath,
-              });
-            }
+            def.menuPath === ""
+              ? __localMenu__.push({
+                  name: t("SERVICEDEFS.OTHERS"),
+                  key: def.menuPath,
+                })
+              : __localMenu__.push({
+                  name: t("SERVICEDEFS." + def.menuPath.toUpperCase()),
+                  key: def.menuPath,
+                });
           }
-          return 0;
         })
       );
       setLocalMenu(__localMenu__);
@@ -79,8 +76,9 @@ const CreateComplaint = (props) => {
     <Card>
       <CardHeader>{t("CS_ADDCOMPLAINT_COMPLAINT_TYPE_PLACEHOLDER")}</CardHeader>
       <CardText>
-        Select the option related to your complaint from the list given below.
-        If the complaint type you are looking for is not listed select others.
+        {/* Select the option related to your complaint from the list given below.
+        If the complaint type you are looking for is not listed select others. */}
+        {t("CS_COMPLAINT_TYPE_TEXT")}
       </CardText>
       {localMenu ? (
         <RadioButtons

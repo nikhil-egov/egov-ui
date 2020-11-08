@@ -10,12 +10,14 @@ import SubmitBar from "../../@egovernments/components/js/SubmitBar";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchLocalities } from "../../redux/actions";
+import { useTranslation } from "react-i18next";
 
 const Address = (props) => {
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedLocality, setSelectedLocality] = useState(null);
   const appState = useSelector((state) => state);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const cities = [];
   var localities = [];
@@ -47,25 +49,25 @@ const Address = (props) => {
   }
   return (
     <Card>
-      <CardSubHeader>Complaint's Location</CardSubHeader>
-      <CardHeader>Provide Complaint Address</CardHeader>
+      <CardSubHeader>{t("CS_ADDCOMPLAINT_COMPLAINT_LOCATION")}</CardSubHeader>
+      <CardHeader>{t("CS_ADDCOMPLAINT_PROVIDE_COMPLAINT_ADDRESS")}</CardHeader>
       <CardText>
-        Choose the locality/mohalla of the complaint from the list given below.
+        {/* Choose the locality/mohalla of the complaint from the list given below. */}
+        {t("CS_CHOOSE_CITY_MOHALLA_TEXT")}
       </CardText>
-      <CardLabel>City *</CardLabel>
+      <CardLabel>{t("MYCITY_CODE_LABEL")} *</CardLabel>
       <Dropdown
         isMandatory
         option={cities}
         select={selectCity}
         set={appState.localities.city}
       />
-      <CardLabel>Moholla *</CardLabel>
+      <CardLabel>{t("CS_CREATECOMPLAINT_MOHALLA")} *</CardLabel>
       {/* <RadioButtons options={["Ajit Nagar", "Patel Nagar"]}/> */}
       <Dropdown isMandatory option={localities} select={selectLocalities} />
       <Link to="/create-complaint/landmark" onClick={save}>
-        <SubmitBar label="Next" />
+        <SubmitBar label={t("PT_COMMONS_NEXT")} />
       </Link>
-      <p onClick={() => console.log(appState)}>appsate</p>
     </Card>
   );
 };

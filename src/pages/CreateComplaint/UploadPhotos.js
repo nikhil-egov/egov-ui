@@ -102,13 +102,14 @@ const UploadPhotos = (props) => {
 
   return (
     <Card>
-      <CardHeader>{t("CS_COMMON_UPLOAD_PHOTOS")}</CardHeader>
+      <CardHeader>{t("CS_ADDCOMPLAINT_UPLOAD_PHOTO")}</CardHeader>
 
       <CardText>
-        Click on the icon below to upload the complaint photos as evidence. You
+        {/* Click on the icon below to upload the complaint photos as evidence. You
         can capture photos directly through your camera or upload from your
         Gallery. If you do not have complaint photo, you can skip the continue
-        for next step.
+        for next step. */}
+        {t("CS_ADDCOMPLAINT_UPLOAD_PHOTO_TEXT")}
       </CardText>
 
       <UploadImages
@@ -127,7 +128,9 @@ const UploadPhotos = (props) => {
       </Link>
       {props.skip ? (
         <Link to="/create-complaint/details">
-          <LinkLabel>Skip and Continue</LinkLabel>
+          <div className="skipButton">
+            <LinkLabel>{t("CORE_COMMON_SKIP_CONTINUE")}</LinkLabel>
+          </div>
         </Link>
       ) : null}
     </Card>

@@ -15,6 +15,7 @@ import Response from "../Response";
 import { createComplaint } from "../../redux/actions/index";
 import { Storage } from "../../@egovernments/digit-utils/services/Storage";
 import ComplaintTypeConfig from "./ComplaintTypeConfig";
+import ComplaintType from "./ComplaintType";
 
 const CreateComplaint = ({ match, history }) => {
   const dispatch = useDispatch();
@@ -153,7 +154,6 @@ const CreateComplaint = ({ match, history }) => {
       : setUploadedImageIds(imageUrls);
     console.log(imageUrls);
   };
-  console.log("appState", appState);
   return (
     <React.Fragment>
       {!details && <BackButton />}
@@ -164,8 +164,8 @@ const CreateComplaint = ({ match, history }) => {
       <Route
         exact
         path={match.url + "/"}
-        // component={(props) => <ComplaintType save={saveComplaintType} />}
-        component={(props) => <ComplaintTypeConfig />}
+        component={(props) => <ComplaintType save={saveComplaintType} />}
+        // component={(props) => <ComplaintTypeConfig />}
       />
       <Route
         path={match.url + "/subtype"}

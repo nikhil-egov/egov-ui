@@ -9,19 +9,14 @@ import Pages from "../../@egovernments/digit-utils/enums/Pages";
 const DynamicConfig = (props) => {
   const configState = useSelector((state) => state.config);
   const appState = useSelector((state) => state);
-  console.log("configState", configState);
 
-  function abcd() {
-    console.log("im here");
-  }
+  function abcd() {}
 
-  function onSubmit() {
-    console.log("im here");
-  }
+  function onSubmit() {}
 
   const configParams = {
     config: configState[Pages.TEST],
-    appState,
+    state: appState,
     onChange: abcd,
     handlesubmit: abcd,
     selected: abcd,
