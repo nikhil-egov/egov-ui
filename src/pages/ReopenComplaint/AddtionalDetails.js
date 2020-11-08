@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import BackButton from "../../@egovernments/components/js/BackButton";
@@ -16,6 +17,7 @@ const AddtionalDetails = ({ history }) => {
   let { id } = useParams();
   const dispatch = useDispatch();
   const appState = useSelector((state) => state);
+  let { t } = useTranslation();
 
   useEffect(() => {
     const { response } = appState.complaints;
@@ -80,14 +82,13 @@ const AddtionalDetails = ({ history }) => {
     <>
       <BackButton>Back</BackButton>
       <Card>
-        <CardHeader>Provide Additional Details</CardHeader>
-        <CardText>
-          If you think apart from information provided till now additional
-          details are required to resolve complaint, provide it below:
-        </CardText>
+        <CardHeader>
+          {t("CS_ADDCOMPLAINT_PROVIDE_ADDITIONAL_DETAILS")}
+        </CardHeader>
+        <CardText>{t("CS_ADDCOMPLAINT_ADDITIONAL_DETAILS_TEXT")}</CardText>
         <TextArea onChange={textInput}></TextArea>
         <div onClick={reopenComplaint}>
-          <SubmitBar label="Reopen Complaint" />
+          <SubmitBar label={`${t("CS_HEADER_REOPEN_COMPLAINT")}`} />
         </div>
       </Card>
     </>

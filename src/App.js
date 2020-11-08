@@ -52,7 +52,7 @@ const App = () => {
             path="/complaint/details/:id"
             component={ComplaintDetailsPage}
           />
-          <Route path="/reopen/:id" component={ReasonPage} />
+          <Route exact path="/reopen/:id" component={ReasonPage} />
           <Route path="/reopen/upload-photo/:id" component={UploadPhoto} />
           <Route
             path="/reopen/addional-details/:id"
