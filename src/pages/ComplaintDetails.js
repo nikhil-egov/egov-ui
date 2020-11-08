@@ -111,11 +111,13 @@ const ComplaintDetailsPage = () => {
 
     let formattedAddress = getFormatedAddress(address);
     return {
-      "Complaint No": serviceRequestId,
-      "Complaint Status": t(
+      [t(`${LOCALIZATION_KEY_CS_COMMON}_COMPLAINT_NO`)]: serviceRequestId,
+      [t(`${LOCALIZATION_KEY_CS_COMMON}_COMPLAINT_STATUS`)]: t(
         `${LOCALIZATION_KEY_CS_COMMON}_${applicationStatus}`
       ),
-      "Filed Date": ConvertTimestampToDate(createdTime),
+      [t(
+        `${LOCALIZATION_KEY_CS_COMPLAINT}_SUBMISSION_DATE`
+      )]: ConvertTimestampToDate(createdTime),
       Address: formattedAddress,
     };
   };

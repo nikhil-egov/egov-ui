@@ -11,6 +11,7 @@ import Pages from "../../@egovernments/digit-utils/enums/Pages";
 import ComponentMap from "../../ComponentMap";
 import { GetFunction } from "../../FunctionRegistry";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 // const SubType = (props) => {
 //   const { t } = useTranslation();
@@ -43,6 +44,7 @@ import { useForm } from "react-hook-form";
 //       <CardCaption>{subType.name}</CardCaption>
 
 const SubType = () => {
+  const { t } = useTranslation();
   const state = useSelector((state) => state.formData);
   const history = useHistory();
 
@@ -86,7 +88,9 @@ const SubType = () => {
 
   return (
     <Card>
-      <CardHeader>Choose Complaint Sub-Type</CardHeader>
+      <CardHeader>
+        {t("CS_ADDCOMPLAINT_COMPLAINT_SUBTYPE_PLACEHOLDER")}
+      </CardHeader>
       <CardText>
         The complaint type you have chosen has following complaint sub-types.
         Select the option of your choice from the list given below.

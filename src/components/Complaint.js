@@ -9,8 +9,6 @@ const Complaint = (props) => {
   let { data } = props;
   let { serviceCode, serviceRequestId, applicationStatus } = data;
   // debugger;
-  console.log("::::::::::", data);
-
   const CS_COMMON = "CS_COMMON";
 
   const history = useHistory();
@@ -64,7 +62,6 @@ const Complaint = (props) => {
             "applicationStatus.toLowerCase():",
             applicationStatus.toLowerCase()
           )} */}
-          {console.log("applicationStatus>>>>>>>>>>>>>", applicationStatus)}
           {t(`${CS_COMMON}_${applicationStatus}`)}
         </div>
       </div>

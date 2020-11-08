@@ -10,8 +10,10 @@ import {
   Filestorage,
   Filefetch,
 } from "../../@egovernments/digit-utils/services/Filestorage";
+import { useTranslation } from "react-i18next";
 
 const UploadPhotos = (props) => {
+  const { t } = useTranslation();
   const [image, setImage] = useState(null);
   const [uploadedImagesThumbs, setUploadedImagesThumbs] = useState(null);
   const [uploadedImagesIds, setUploadedImagesIds] = useState(null);
@@ -100,7 +102,7 @@ const UploadPhotos = (props) => {
 
   return (
     <Card>
-      <CardHeader>Upload Complaint Photos</CardHeader>
+      <CardHeader>{t("CS_COMMON_UPLOAD_PHOTOS")}</CardHeader>
 
       <CardText>
         Click on the icon below to upload the complaint photos as evidence. You

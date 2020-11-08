@@ -24,7 +24,7 @@ export const PGRService = {
     Request({
       url: Urls.pgr_update,
       data: details,
-      useCache: false,
+      useCache: true,
       auth: true,
       method: "POST",
       params: { tenantId: stateCode },

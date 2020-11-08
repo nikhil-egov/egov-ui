@@ -77,7 +77,7 @@ const CreateComplaint = (props) => {
   }
   return (
     <Card>
-      <CardHeader>Choose Complaint Type</CardHeader>
+      <CardHeader>{t("CS_ADDCOMPLAINT_COMPLAINT_TYPE_PLACEHOLDER")}</CardHeader>
       <CardText>
         Select the option related to your complaint from the list given below.
         If the complaint type you are looking for is not listed select others.
@@ -90,7 +90,7 @@ const CreateComplaint = (props) => {
           onSelect={selected}
         />
       ) : null}
-      <SubmitBar label="Next" onSubmit={onSave} />
+      <SubmitBar label={t("PT_COMMONS_NEXT")} onSubmit={onSave} />
     </Card>
   );
 };
