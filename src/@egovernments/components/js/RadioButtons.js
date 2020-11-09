@@ -2,7 +2,6 @@ import React from "react";
 
 const RadioButtons = (props) => {
   var selected = props.selectedOption;
-
   function selectOption(value) {
     selected = value;
     props.onSelect(value);

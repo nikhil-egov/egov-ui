@@ -6,7 +6,7 @@ import ListPage from "./pages/List";
 import NewComplaintPage from "./pages/NewComplaint";
 import SearchComplaintPage from "./pages/SearchComplaint";
 import CreateComplaintPage from "./pages/CreateComplaint/index";
-import Rating from "./pages/Rating/Rating";
+import RatingAndFeedBack from "./pages/Rating/Rating";
 // import CreateComplaintPage from "./pages/CreateComplaint";
 import ComplaintsPage from "./pages/Complaints";
 import ComplaintDetailsPage from "./pages/ComplaintDetails";
@@ -18,8 +18,6 @@ import Body from "./@egovernments/components/js/Body";
 import TopBar from "./@egovernments/components/js/TopBar";
 
 import AppContainer from "./@egovernments/components/js/AppContainer";
-// import { ReOpen } from "./components/reopen";
-// import Reason from "./pages/ReopenComplaint/Reason";
 import ReasonPage from "./pages/ReopenComplaint/Reason";
 import AddtionalDetails from "./pages/ReopenComplaint/AddtionalDetails";
 import UploadPhoto from "./pages/ReopenComplaint/UploadPhoto";
@@ -46,13 +44,13 @@ const App = () => {
           <Route path="/new" component={NewComplaintPage} />
           <Route path="/search" component={SearchComplaintPage} />
           <Route path="/create-complaint" component={CreateComplaintPage} />
-          <Route path="/rating" component={Rating} />
+          <Route path="/rate/:id" component={RatingAndFeedBack} />
           <Route path="/complaints" component={ComplaintsPage} />
           <Route
             path="/complaint/details/:id"
             component={ComplaintDetailsPage}
           />
-          <Route path="/reopen/reason/:id" component={ReasonPage} />
+          <Route exact path="/reopen/:id" component={ReasonPage} />
           <Route path="/reopen/upload-photo/:id" component={UploadPhoto} />
           <Route
             path="/reopen/addional-details/:id"

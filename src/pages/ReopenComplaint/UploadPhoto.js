@@ -5,8 +5,10 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import ImageUploaderHandler from "../../components/ImageUploadHandler";
 import { Storage } from "../../@egovernments/digit-utils/services/Storage";
 import BackButton from "../../@egovernments/components/js/BackButton";
+import { useTranslation } from "react-i18next";
 
 const UploadPhoto = () => {
+  const { t } = useTranslation();
   let { id } = useParams();
   const [verificationDocuments, setVerificationDocuments] = useState([]);
   const history = useHistory();
@@ -35,7 +37,7 @@ const UploadPhoto = () => {
       <BackButton onClick={() => history.goBack()}>Back</BackButton>
       <Card>
         <ImageUploaderHandler
-          header="Upload Complaint Photos"
+          header={t("CS_ADDCOMPLAINT_UPLOAD_PHOTO")}
           cardText=""
           onPhotoChange={handleUpload}
         />

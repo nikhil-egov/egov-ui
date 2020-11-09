@@ -33,7 +33,6 @@ const Rating = (props) => {
       );
     }
   }
-
   return <div className="rating-star-wrap">{stars}</div>;
 };
 

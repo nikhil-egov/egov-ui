@@ -51,7 +51,6 @@ const GetCurrentUpdatableSection = (id, defaultConfigCopy) => {
     for (let i = 0; i < defaultConfigCopy.length; i++) {
       if (defaultConfigCopy[i].id === id) {
         currentUpdatableSection.push(defaultConfigCopy[i]);
-        //console.log("matched", currentUpdatableSection);
       } else if (
         configUtils.ifObjectContainsArray(defaultConfigCopy[i]).hasArray
       ) {

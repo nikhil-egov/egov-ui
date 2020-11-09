@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
@@ -22,7 +22,6 @@ import { selectWorkflow } from "../selectors/processInstance";
 import useComplaintHistory from "../hooks/useComplaintHistory";
 import { Storage } from "../@egovernments/digit-utils/services/Storage";
 import { ConvertTimestampToDate } from "../@egovernments/digit-utils/services/date";
-import LanguageSelect from "../components/LanguageSelect";
 
 const ComplaintDetailsPage = () => {
   const LOCALIZATION_KEY_CS_COMPLAINT = "CS_COMPLAINT_DETAILS";
@@ -32,6 +31,8 @@ const ComplaintDetailsPage = () => {
   let { id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const [complaintHistory, setComplaintHistory] = useState([]);
 
   const getComplaint = useCallback(
     (id) => dispatch(searchComplaints({ serviceRequestId: id })),
@@ -51,8 +52,21 @@ const ComplaintDetailsPage = () => {
   const state = useSelector((state) => state);
 
   const selectedComplaint = selectComplaints(state);
+
   const selectedWorkFlow = selectWorkflow(state);
-  const complaintHistory = useComplaintHistory(selectedWorkFlow);
+  const historyData = useComplaintHistory(selectedWorkFlow);
+
+  useEffect(() => {
+    if (historyData) {
+      Promise.all(historyData)
+        .then((values) => {
+          setComplaintHistory(values);
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    }
+  }, [historyData]);
 
   let complaintDetails = {};
 
@@ -63,7 +77,6 @@ const ComplaintDetailsPage = () => {
       complaintDetails
     );
   }
-
   let cityCode = () => state.cityCode.toUpperCase().replace(".", "_");
 
   const getFormatedAddress = ({
@@ -90,25 +103,22 @@ const ComplaintDetailsPage = () => {
 
     let formattedAddress = getFormatedAddress(address);
     return {
-      "Complaint No": serviceRequestId,
-      "Complaint Status": t(
+      [t(`${LOCALIZATION_KEY_CS_COMMON}_COMPLAINT_NO`)]: serviceRequestId,
+      [t(`${LOCALIZATION_KEY_CS_COMMON}_COMPLAINT_STATUS`)]: t(
         `${LOCALIZATION_KEY_CS_COMMON}_${applicationStatus}`
       ),
-      "Filed Date": ConvertTimestampToDate(createdTime),
+      [t(
+        `${LOCALIZATION_KEY_CS_COMPLAINT}_SUBMISSION_DATE`
+      )]: ConvertTimestampToDate(createdTime),
       Address: formattedAddress,
     };
   };
-
-  // const handleBackClick = () => {
-  //   console.log("handleBackClick", handleBackClick);
-
-  // };
 
   return (
     <>
       <BackButton onClick={() => history.goBack()}>Back</BackButton>
       <Header>{t("CS_HEADER_COMPLAINT_SUMMARY")}</Header>
-      <LanguageSelect />
+
       {Object.keys(complaintDetails).length > 0 && (
         <>
           <Card>
@@ -119,7 +129,7 @@ const ComplaintDetailsPage = () => {
             </CardSubHeader>
             <StatusTable dataObject={getTableData()}></StatusTable>
           </Card>
-          {complaintHistory && complaintHistory.length > 1 && (
+          {
             <>
               <Card>
                 <CardSubHeader>
@@ -127,21 +137,24 @@ const ComplaintDetailsPage = () => {
                 </CardSubHeader>
                 {/* <StatusTable dataObject={getTableData()}></StatusTable> */}
                 <ConnectingCheckPoints>
-                  {complaintHistory.map((history, index) => {
+                  {complaintHistory.map((history) => {
                     return (
-                      <CheckPoint
-                        label={t(
-                          `${LOCALIZATION_KEY_CS_COMMON}_${history.applicationStatus}`
-                        )}
-                        info={history.text}
-                        isCompleted={true}
-                      />
+                      <>
+                        <CheckPoint
+                          key={history.applicationStatus}
+                          label={t(
+                            `${LOCALIZATION_KEY_CS_COMMON}_${history.applicationStatus}`
+                          )}
+                          info={history.text}
+                          isCompleted={true}
+                        />
+                      </>
                     );
                   })}
                 </ConnectingCheckPoints>
               </Card>
             </>
-          )}
+          }
           <Card>
             <CardSubHeader>
               {t(`${LOCALIZATION_KEY_CS_COMMON}_COMMENTS`)}

@@ -8,7 +8,7 @@ import CardText from "../../@egovernments/components/js/CardText";
 import RadioButtons from "../../@egovernments/components/js/RadioButtons";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
 import { Storage } from "../../@egovernments/digit-utils/services/Storage";
-// import LanguageSelect from "../../components/LanguageSelect";
+import LanguageSelect from "../../components/LanguageSelect";
 
 const ReasonPage = () => {
   const { t } = useTranslation();
@@ -17,10 +17,10 @@ const ReasonPage = () => {
   const [selected, setSelected] = useState("");
   const history = useHistory();
 
-  const onRadioChange = (e) => {
+  const onRadioChange = (value) => {
     let reopenDetails = Storage.get(`reopen.${id}`);
-    Storage.set(`reopen.${id}`, { ...reopenDetails, reason: e.target.value });
-    setSelected(e.target.value);
+    Storage.set(`reopen.${id}`, { ...reopenDetails, reason: value });
+    setSelected(value);
   };
 
   return (
@@ -35,8 +35,10 @@ const ReasonPage = () => {
           {/* {t(`${TRANSLATION_KEY}_OPTION_ONE`)} */}
         </CardText>
         <RadioButtons
-          handleChange={onRadioChange}
-          selected={(value) => setSelected(value)}
+          // handleChange={onRadioChange}
+          onSelect={onRadioChange}
+          selectedOption={selected}
+          // selected={(value) => setSelected(value)}
           options={[
             t(`${TRANSLATION_KEY}_OPTION_ONE`),
             t(`${TRANSLATION_KEY}_OPTION_TWO`),

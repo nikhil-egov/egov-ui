@@ -15,7 +15,6 @@ const ModuleApp = ({ deltaConfig, stateCode, cityCode, moduleCode }) => {
     InitService.defaultData(stateCode, cityCode, moduleCode).then(
       (defaultData) => {
         const store = { config, ...defaultData };
-        // console.log("store:", store);
         setDefaultStore(store);
       }
     );

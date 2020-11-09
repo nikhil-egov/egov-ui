@@ -7,11 +7,13 @@ import { searchComplaints } from "../redux/actions";
 import BackButton from "../@egovernments/components/js/BackButton";
 import Header from "../@egovernments/components/js/Header";
 import LanguageSelect from "../components/LanguageSelect";
+import { useTranslation } from "react-i18next";
 
 const ComplaintsPage = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const history = useHistory();
+  const { t } = useTranslation();
   const complaints = state.complaints.list;
   const getComplaints = useCallback(() => dispatch(searchComplaints()), [
     dispatch,
@@ -24,7 +26,7 @@ const ComplaintsPage = () => {
   return (
     <>
       <BackButton onClick={() => history.goBack()}>Back</BackButton>
-      <Header>My Complaints</Header>
+      <Header>{t("CS_HOME_MY_COMPLAINTS")}</Header>
       <LanguageSelect />
       {complaints &&
         complaints.length > 0 &&

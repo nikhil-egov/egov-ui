@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "../../@egovernments/components/js/Card";
 import CardHeader from "../../@egovernments/components/js/CardHeader";
-import CardCaption from "../../@egovernments/components/js/CardCaption";
 import CardText from "../../@egovernments/components/js/CardText";
 import RadioButtons from "../../@egovernments/components/js/RadioButtons";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
@@ -9,6 +8,7 @@ import { Link } from "react-router-dom";
 // import { useSelector } from "react-redux";
 import { Storage } from "../../@egovernments/digit-utils/services/Storage";
 import { useTranslation } from "react-i18next";
+import CardCaption from "../../@egovernments/components/js/CardCaption";
 
 const SubType = (props) => {
   const { t } = useTranslation();
@@ -20,8 +20,6 @@ const SubType = (props) => {
     const subMenuIds = Storage.get("serviceDefs").filter(
       (def) => def.menuPath === subType.key
     );
-    console.log("subMenuIds");
-    console.log(subMenuIds);
     setSubMenu(
       subMenuIds.map((id) => ({
         key: id.serviceCode,
@@ -31,7 +29,6 @@ const SubType = (props) => {
   }, []);
 
   function selected(item) {
-    console.log(item);
     setSelectedOption(item);
   }
 
@@ -44,8 +41,9 @@ const SubType = (props) => {
       <CardCaption>{subType.name}</CardCaption>
       <CardHeader>Choose Complaint Sub-Type</CardHeader>
       <CardText>
-        The complaint type you have chosen has following complaint sub-types.
-        Select the option of your choice from the list given below.
+        {/* The complaint type you have chosen has following complaint sub-types.
+        Select the option of your choice from the list given below. */}
+        {t("CS_COMPLAINT_SUBTYPE_TEXT")}
       </CardText>
 
       <RadioButtons
@@ -55,7 +53,7 @@ const SubType = (props) => {
         onSelect={selected}
       />
       <Link to="/create-complaint/location" onClick={onSave}>
-        <SubmitBar label="Next" />
+        <SubmitBar label={t("PT_COMMONS_NEXT")} />
       </Link>
     </Card>
   );

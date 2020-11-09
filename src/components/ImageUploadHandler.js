@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import CardHeader from "../@egovernments/components/js/CardHeader";
 import CardText from "../@egovernments/components/js/CardText";
 import UploadImages from "../@egovernments/components/js/UploadImages";
@@ -8,6 +9,7 @@ import {
 } from "../@egovernments/digit-utils/services/Filestorage";
 
 const ImageUploaderHandler = (props) => {
+  const { t } = useTranslation();
   const [image, setImage] = useState(null);
   const [uploadedImagesThumbs, setUploadedImagesThumbs] = useState(null);
   const [uploadedImagesIds, setUploadedImagesIds] = useState(null);
@@ -107,10 +109,11 @@ const ImageUploaderHandler = (props) => {
       <CardHeader>{props.header}</CardHeader>
 
       <CardText>
-        Click on the icon below to upload the complaint photos as evidence. You
+        {/* Click on the icon below to upload the complaint photos as evidence. You
         can capture photos directly through your camera or upload from your
         Gallery. If you do not have complaint photo, you can skip the continue
-        for next step.
+        for next step. */}
+        {t("CS_ADDCOMPLAINT_UPLOAD_PHOTO_TEXT")}
       </CardText>
 
       <UploadImages

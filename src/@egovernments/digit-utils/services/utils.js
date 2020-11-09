@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { connectAdvanced } from "react-redux";
+//import { connectAdvanced } from "react-redux";
 import { Storage } from "./Storage";
 
 const citAuth = "c54c09cd-56c5-4193-a59d-76c3867500c8";

@@ -7,8 +7,10 @@ import CardLabel from "../../@egovernments/components/js/CardLabel";
 import TextArea from "../../@egovernments/components/js/TextArea";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Landmark = (props) => {
+  const { t } = useTranslation();
   const [landmark, setLandmark] = useState(null);
 
   function textInput(e) {
@@ -21,12 +23,13 @@ const Landmark = (props) => {
 
   return (
     <Card>
-      <CardSubHeader>Complaint's Location</CardSubHeader>
-      <CardHeader>Provide Landmark</CardHeader>
+      <CardSubHeader>{t("CS_ADDCOMPLAINT_COMPLAINT_LOCATION")}</CardSubHeader>
+      <CardHeader>{t("CS_PROVIDE_LANDMARK")}</CardHeader>
       <CardText>
-        Provide the landmark to help us reach the complaint location easily.
+        {/* Provide the landmark to help us reach the complaint location easily. */}
+        {t("CS_PROVIDE_LANDMARK_TEXT")}
       </CardText>
-      <CardLabel>Landmark</CardLabel>
+      <CardLabel>{t("CS_ADDCOMPLAINT_LANDMARK")}</CardLabel>
       <TextArea onChange={textInput}></TextArea>
       <Link to="/create-complaint/upload-photos" onClick={save}>
         <SubmitBar label="Next" />

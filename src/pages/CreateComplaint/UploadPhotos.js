@@ -10,8 +10,10 @@ import {
   Filestorage,
   Filefetch,
 } from "../../@egovernments/digit-utils/services/Filestorage";
+import { useTranslation } from "react-i18next";
 
 const UploadPhotos = (props) => {
+  const { t } = useTranslation();
   const [image, setImage] = useState(null);
   const [uploadedImagesThumbs, setUploadedImagesThumbs] = useState(null);
   const [uploadedImagesIds, setUploadedImagesIds] = useState(null);
@@ -43,7 +45,7 @@ const UploadPhotos = (props) => {
 
   function addImageThumbnails(thumbnailsData) {
     var keys = Object.keys(thumbnailsData.data);
-    var index = keys.findIndex((key) => key == "fileStoreIds");
+    var index = keys.findIndex((key) => key === "fileStoreIds");
     if (index > -1) {
       keys.splice(index, 1);
     }
@@ -88,7 +90,7 @@ const UploadPhotos = (props) => {
       }
     });
 
-    var index = uploadedImagesIds.findIndex((key) => key == deleteImageKey[0]);
+    var index = uploadedImagesIds.findIndex((key) => key === deleteImageKey[0]);
 
     if (index > -1) {
       var arr = uploadedImagesIds;
@@ -104,13 +106,14 @@ const UploadPhotos = (props) => {
 
   return (
     <Card>
-      <CardHeader>Upload Complaint Photos</CardHeader>
+      <CardHeader>{t("CS_ADDCOMPLAINT_UPLOAD_PHOTO")}</CardHeader>
 
       <CardText>
-        Click on the icon below to upload the complaint photos as evidence. You
+        {/* Click on the icon below to upload the complaint photos as evidence. You
         can capture photos directly through your camera or upload from your
         Gallery. If you do not have complaint photo, you can skip the continue
-        for next step.
+        for next step. */}
+        {t("CS_ADDCOMPLAINT_UPLOAD_PHOTO_TEXT")}
       </CardText>
 
       <UploadImages
@@ -130,7 +133,7 @@ const UploadPhotos = (props) => {
       {props.skip ? (
         <Link to="/create-complaint/details">
           <div className="skipButton">
-            <LinkLabel>Skip and Continue</LinkLabel>
+            <LinkLabel>{t("CORE_COMMON_SKIP_CONTINUE")}</LinkLabel>
           </div>
         </Link>
       ) : null}

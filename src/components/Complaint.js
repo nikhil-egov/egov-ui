@@ -8,7 +8,6 @@ import { ConvertTimestampToDate } from "../@egovernments/digit-utils/services/da
 const Complaint = (props) => {
   let { data } = props;
   let { serviceCode, serviceRequestId, applicationStatus } = data;
-
   const CS_COMMON = "CS_COMMON";
 
   const history = useHistory();
@@ -62,7 +61,6 @@ const Complaint = (props) => {
             "applicationStatus.toLowerCase():",
             applicationStatus.toLowerCase()
           )} */}
-
           {t(`${CS_COMMON}_${applicationStatus}`)}
         </div>
       </div>

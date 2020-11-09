@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import BackButton from "../../@egovernments/components/js/BackButton";
-import ComplaintType from "./ComplaintType";
 import UserOnboarding from "../UserOnboarding/index";
 import SubType from "./SubType";
 import LocationSearch from "./LocationSearch";
@@ -11,12 +10,12 @@ import Address from "./Address";
 import Landmark from "./Landmark";
 import UploadPhotos from "./UploadPhotos";
 import Details from "./Details";
-import Submission from "./Submission";
 import DynamicConfig from "./DynamicConfig";
 import Response from "../Response";
 import { createComplaint } from "../../redux/actions/index";
 import { Storage } from "../../@egovernments/digit-utils/services/Storage";
 import ComplaintTypeConfig from "./ComplaintTypeConfig";
+import ComplaintType from "./ComplaintType";
 
 const CreateComplaint = ({ match, history }) => {
   const dispatch = useDispatch();
@@ -29,10 +28,10 @@ const CreateComplaint = ({ match, history }) => {
   const [complaintType, setComplaintType] = useState(null);
   const [uploadedImageIds, setUploadedImageIds] = useState([]);
 
-  const citAuth = "912f4504-31d2-4e52-8612-08ee0bf9456d";
+  const citAuth = "c54c09cd-56c5-4193-a59d-76c3867500c8";
   Storage.set("citizen.token", citAuth);
   window.sessionStorage.setItem("citizen.token", citAuth);
-  var localityCode = "";
+
   const complaintParams = {
     RequestInfo: {
       apiId: "Rainmaker",
@@ -101,7 +100,6 @@ const CreateComplaint = ({ match, history }) => {
       assignes: [],
       comments: "Street light is not working",
       verificationDocuments: uploadedImageIds.map((url) => {
-        console.log(url);
         return {
           documentType: "PHOTO",
           fileStore: url,
@@ -112,7 +110,7 @@ const CreateComplaint = ({ match, history }) => {
     },
   };
 
-  const [createComplaintParams, setComplaintParams] = useState(complaintParams);
+  //const [createComplaintParams, setComplaintParams] = useState(complaintParams);
 
   useEffect(() => {
     if (appState.complaints && appState.complaints.responseInfo) {
@@ -123,7 +121,6 @@ const CreateComplaint = ({ match, history }) => {
   useEffect(() => {
     (async () => {
       if (details) {
-        console.log(complaintParams);
         await dispatch(createComplaint(complaintParams));
       }
     })();
@@ -154,7 +151,6 @@ const CreateComplaint = ({ match, history }) => {
     imageUrls === null
       ? setUploadedImageIds([])
       : setUploadedImageIds(imageUrls);
-    console.log(imageUrls);
   };
   return (
     <React.Fragment>
@@ -209,18 +205,7 @@ const CreateComplaint = ({ match, history }) => {
         path={match.url + "/dynamic-config"}
         component={(props) => <DynamicConfig />}
       />
-      <p
-        onClick={() => {
-          console.log(createComplaintParams);
-          console.log(pincode);
-          console.log(city);
-          console.log(locality);
-          console.log(landmark);
-          console.log(details);
-          console.log(complaintType);
-          console.log(uploadedImageIds);
-        }}
-      ></p>
+      <p onClick={() => {}}></p>
     </React.Fragment>
   );
 };
