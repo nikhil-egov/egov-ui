@@ -121,7 +121,6 @@ const CreateComplaint = ({ match, history }) => {
   useEffect(() => {
     (async () => {
       if (details) {
-        console.log(complaintParams);
         await dispatch(createComplaint(complaintParams));
       }
     })();
@@ -152,7 +151,6 @@ const CreateComplaint = ({ match, history }) => {
     imageUrls === null
       ? setUploadedImageIds([])
       : setUploadedImageIds(imageUrls);
-    console.log(imageUrls);
   };
   return (
     <React.Fragment>
@@ -207,18 +205,7 @@ const CreateComplaint = ({ match, history }) => {
         path={match.url + "/dynamic-config"}
         component={(props) => <DynamicConfig />}
       />
-      <p
-        onClick={() => {
-          //console.log(createComplaintParams);
-          console.log(pincode);
-          console.log(city);
-          console.log(locality);
-          console.log(landmark);
-          console.log(details);
-          console.log(complaintType);
-          console.log(uploadedImageIds);
-        }}
-      ></p>
+      <p onClick={() => {}}></p>
     </React.Fragment>
   );
 };

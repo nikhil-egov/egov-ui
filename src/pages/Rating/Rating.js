@@ -42,7 +42,6 @@ const RatingAndFeedBack = () => {
       comments: comment,
       verificationDocuments: [],
     };
-    // console.log("complaintDetails:", complaintDetails);
     updateComplaint(complaintDetails);
   };
 

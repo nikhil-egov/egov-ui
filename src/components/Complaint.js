@@ -8,7 +8,6 @@ import { ConvertTimestampToDate } from "../@egovernments/digit-utils/services/da
 const Complaint = (props) => {
   let { data } = props;
   let { serviceCode, serviceRequestId, applicationStatus } = data;
-  // debugger;
   const CS_COMMON = "CS_COMMON";
 
   const history = useHistory();
