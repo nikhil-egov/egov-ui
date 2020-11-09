@@ -60,20 +60,12 @@ const ComplaintDetailsPage = () => {
       Promise.all(historyData)
         .then((values) => {
           setComplaintHistory(values);
-          //setisHistory(true);
         })
         .catch((err) => {
           console.log("err", err);
         });
     }
   }, [historyData]);
-
-  // .then((res) => {
-  //   console.log("res:<--->", res);
-  // })
-  // .catch((err) => {
-  //   console.log("err");
-  // });
 
   let complaintDetails = {};
 
@@ -84,7 +76,6 @@ const ComplaintDetailsPage = () => {
       complaintDetails
     );
   }
-  // console.log("complaintHistory:::::::::::::::::::::", complaintHistory);
   let cityCode = () => state.cityCode.toUpperCase().replace(".", "_");
 
   const getFormatedAddress = ({

@@ -83,7 +83,7 @@ const createComplaint = (complaintParams) => async (dispatch, getState) => {
   };
 
   const res = await Axios(config);
-  console.log("api cal rewspoines", res);
+  console.log("api cal response", res);
   dispatch({
     type: CREATE_COMPLAINT,
     payload: res.data,

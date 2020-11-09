@@ -18,8 +18,6 @@ import Body from "./@egovernments/components/js/Body";
 import TopBar from "./@egovernments/components/js/TopBar";
 
 import AppContainer from "./@egovernments/components/js/AppContainer";
-// import { ReOpen } from "./components/reopen";
-// import Reason from "./pages/ReopenComplaint/Reason";
 import ReasonPage from "./pages/ReopenComplaint/Reason";
 import AddtionalDetails from "./pages/ReopenComplaint/AddtionalDetails";
 import UploadPhoto from "./pages/ReopenComplaint/UploadPhoto";
