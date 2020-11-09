@@ -17,7 +17,6 @@ const ComplaintTypeConfig = () => {
   const history = useHistory();
 
   const { handleSubmit, register, errors } = useForm({ defaultValues: {} });
-  console.log("errors:", errors);
 
   const pageConfig = useSelector(
     (state) => state.config[Pages.PGR_COMPLAINT_TYPE]
@@ -36,7 +35,6 @@ const ComplaintTypeConfig = () => {
   };
 
   const selected = (val) => {
-    console.log("on click", val);
     Storage.set("complaintType", val.menuPath);
   };
 

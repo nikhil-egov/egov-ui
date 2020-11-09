@@ -113,11 +113,6 @@ const ComplaintDetailsPage = () => {
     };
   };
 
-  // const handleBackClick = () => {
-  //   console.log("handleBackClick", handleBackClick);
-
-  // };
-
   return (
     <>
       <BackButton>Back</BackButton>

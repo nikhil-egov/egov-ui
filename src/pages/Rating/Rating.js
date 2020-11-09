@@ -11,10 +11,12 @@ import { useForm } from "react-hook-form";
 import { updateComplaints } from "../../redux/actions/index";
 import { useDispatch } from "react-redux";
 import { Storage } from "../../@egovernments/digit-utils/services/Storage";
+import { useTranslation } from "react-i18next";
 
 const RatingAndFeedBack = () => {
   const { id } = useParams();
   const { handleSubmit } = useForm();
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
 
@@ -54,21 +56,29 @@ const RatingAndFeedBack = () => {
     <React.Fragment>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card>
-          <CardHeader>Help Us Help You</CardHeader>
-          <CardLabel>How would you rate your experience with us?</CardLabel>
+          {/* <CardHeader>Help Us Help You</CardHeader> */}
+          <CardHeader>{t("CS_COMPLAINT_RATE_HELP_TEXT")}</CardHeader>
+          {/* <CardLabel>How would you rate your experience with us?</CardLabel> */}
+          <CardLabel>{t("CS_COMPLAINT_RATE_TEXT")}</CardLabel>
           <Rating
             currentRating={rating}
             maxRating={5}
             onFeedback={(e, ref, i) => feedback(e, ref, i)}
           />
-          <CardLabel>What was good?</CardLabel>
-          <CheckBox onChange={onSelect} label="Service" />
-          <CheckBox onChange={onSelect} label="Resolution time" />
-          <CheckBox onChange={onSelect} label="Quality of work" />
-          <CheckBox onChange={onSelect} label="Others" />
-          <CardLabel>Comments</CardLabel>
+          <CardLabel>{t("CS_FEEDBACK_WHAT_WAS_GOOD")}</CardLabel>
+          <CheckBox onChange={onSelect} label={t("CS_FEEDBACK_SERVICES")} />
+          <CheckBox
+            onChange={onSelect}
+            label={t("CS_FEEDBACK_RESOLUTION_TIME")}
+          />
+          <CheckBox
+            onChange={onSelect}
+            label={t("CS_FEEDBACK_QUALITY_OF_WORK")}
+          />
+          <CheckBox onChange={onSelect} label={t("CS_FEEDBACK_OTHERS")} />
+          <CardLabel>{t("CS_COMMON_COMMENTS")}</CardLabel>
           <TextArea onChange={onComments}></TextArea>
-          <SubmitBar label="Submit" />
+          <SubmitBar label={t("CS_COMMON_SUBMIT")} />
         </Card>
       </form>
     </React.Fragment>

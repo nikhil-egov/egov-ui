@@ -20,7 +20,6 @@ const SubType = (props) => {
     const subMenuIds = Storage.get("serviceDefs").filter(
       (def) => def.menuPath === subType.key
     );
-    console.log(subMenuIds);
     setSubMenu(
       subMenuIds.map((id) => ({
         key: id.serviceCode,
@@ -30,7 +29,6 @@ const SubType = (props) => {
   }, []);
 
   function selected(item) {
-    console.log(item);
     setSelectedOption(item);
   }
 
