@@ -6,6 +6,7 @@ export const getConfig = (
     state,
     repeatClicked,
     handlesubmit,
+    onChange,
     register,
     onSubmit,
     data,
@@ -35,6 +36,8 @@ export const getConfig = (
       value: state[name],
 
       handlesubmit: component === "form" ? handlesubmit : null,
+
+      onChange: component === "input-text" ? onChange : null,
 
       selected: component === "radio-button" ? selected : null,
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import BackButton from "../../@egovernments/components/js/BackButton";
 import Card from "../../@egovernments/components/js/Card";
 import CardHeader from "../../@egovernments/components/js/CardHeader";
@@ -15,6 +15,7 @@ const ReasonPage = () => {
   const { id } = useParams();
   const TRANSLATION_KEY = "CS_REOPEN";
   const [selected, setSelected] = useState("");
+  const history = useHistory();
 
   const onRadioChange = (value) => {
     let reopenDetails = Storage.get(`reopen.${id}`);
@@ -24,7 +25,7 @@ const ReasonPage = () => {
 
   return (
     <>
-      <BackButton>Back</BackButton>
+      <BackButton onClick={() => history.goBack()}>Back</BackButton>
       <Card>
         <CardHeader>{t(`CS_HEADER_REOPEN_COMPLAINT`)}</CardHeader>
         {/* <LanguageSelect /> */}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-
+import { useForm } from "react-hook-form";
 import Card from "../../@egovernments/components/js/Card";
 import CardHeader from "../../@egovernments/components/js/CardHeader";
 import CardText from "../../@egovernments/components/js/CardText";
@@ -14,6 +14,8 @@ import { useTranslation } from "react-i18next";
 const CreateComplaint = (props) => {
   const appState = useSelector((state) => state);
   const history = useHistory();
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => console.log(data);
   const { t } = useTranslation();
   const [localMenu, setLocalMenu] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);

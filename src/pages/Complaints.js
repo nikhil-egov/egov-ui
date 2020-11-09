@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Complaint from "../components/Complaint";
 
 import { searchComplaints } from "../redux/actions";
@@ -11,8 +12,8 @@ import { useTranslation } from "react-i18next";
 const ComplaintsPage = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
+  const history = useHistory();
   const { t } = useTranslation();
-
   const complaints = state.complaints.list;
   const getComplaints = useCallback(() => dispatch(searchComplaints()), [
     dispatch,
@@ -24,7 +25,7 @@ const ComplaintsPage = () => {
 
   return (
     <>
-      <BackButton>Back</BackButton>
+      <BackButton onClick={() => history.goBack()}>Back</BackButton>
       <Header>{t("CS_HOME_MY_COMPLAINTS")}</Header>
       <LanguageSelect />
       {complaints &&

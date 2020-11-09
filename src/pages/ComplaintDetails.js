@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import BackButton from "../@egovernments/components/js/BackButton";
@@ -30,6 +30,7 @@ const ComplaintDetailsPage = () => {
   let { t } = useTranslation();
   let { id } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [complaintHistory, setComplaintHistory] = useState([]);
 
@@ -115,7 +116,7 @@ const ComplaintDetailsPage = () => {
 
   return (
     <>
-      <BackButton>Back</BackButton>
+      <BackButton onClick={() => history.goBack()}>Back</BackButton>
       <Header>{t("CS_HEADER_COMPLAINT_SUMMARY")}</Header>
 
       {Object.keys(complaintDetails).length > 0 && (

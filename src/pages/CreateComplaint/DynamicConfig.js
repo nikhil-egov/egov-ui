@@ -14,13 +14,14 @@ const DynamicConfig = (props) => {
 
   function onSubmit() {}
 
+  function onChange() {
+    console.log("clicked");
+  }
+
   const configParams = {
     config: configState[Pages.TEST],
     state: appState,
-    onChange: abcd,
-    handlesubmit: abcd,
-    selected: abcd,
-    onSubmit,
+    onChange: onChange,
   };
 
   const config = useMemo(() => {

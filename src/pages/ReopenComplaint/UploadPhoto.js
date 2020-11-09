@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "../../@egovernments/components/js/Card";
 import SubmitBar from "../../@egovernments/components/js/SubmitBar";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import ImageUploaderHandler from "../../components/ImageUploadHandler";
 import { Storage } from "../../@egovernments/digit-utils/services/Storage";
 import BackButton from "../../@egovernments/components/js/BackButton";
@@ -11,6 +11,7 @@ const UploadPhoto = () => {
   const { t } = useTranslation();
   let { id } = useParams();
   const [verificationDocuments, setVerificationDocuments] = useState([]);
+  const history = useHistory();
 
   const handleUpload = (ids) => {
     setDocState(ids);
@@ -33,7 +34,7 @@ const UploadPhoto = () => {
 
   return (
     <>
-      <BackButton>Back</BackButton>
+      <BackButton onClick={() => history.goBack()}>Back</BackButton>
       <Card>
         <ImageUploaderHandler
           header={t("CS_ADDCOMPLAINT_UPLOAD_PHOTO")}
