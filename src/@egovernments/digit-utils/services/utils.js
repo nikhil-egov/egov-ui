@@ -2,7 +2,7 @@ import Axios from "axios";
 import { connectAdvanced } from "react-redux";
 import { Storage } from "./Storage";
 
-const citAuth = "912f4504-31d2-4e52-8612-08ee0bf9456d";
+const citAuth = "c54c09cd-56c5-4193-a59d-76c3867500c8";
 
 Storage.set("citizen.token", citAuth);
 window.sessionStorage.setItem("citizen.token", citAuth);

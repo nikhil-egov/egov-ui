@@ -1,6 +1,7 @@
 import InputField from "./@egovernments/react-components/InputField";
 import Select from "./@egovernments/react-components/Select";
 import Button from "./@egovernments/react-components/Button";
+import TextInput from "./@egovernments/components/js/Textinput";
 
 import Form from "./components/Form";
 import FormSection from "./components/FormSection";
@@ -21,4 +22,5 @@ export default {
   "city-mohalla": CityMohalla,
   "radio-button": RadioButtons,
   "submit-bar": SubmitBar,
+  "input-text": TextInput,
 };

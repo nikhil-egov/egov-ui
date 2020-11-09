@@ -58,7 +58,11 @@ const UploadPhotos = (props) => {
   }
 
   function getImage(e) {
-    setImage(e.target.files[0]);
+    if (e.target.files[0].size > 2097152) {
+      alert("File is too big!");
+    } else {
+      setImage(e.target.files[0]);
+    }
   }
 
   async function uploadImage() {

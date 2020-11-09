@@ -1,6 +1,5 @@
 import React from "react";
 import ArrowLeft from "../svg/arrowleft.svg";
-import { withRouter } from "react-router";
 
 const BackButton = (props) => {
   return (
@@ -9,11 +8,11 @@ const BackButton = (props) => {
     //     <p>{props.children}</p>
     // </div>
     // <div className="back-btn2" onClick={props.back}>
-    <div className="back-btn2" onClick={() => props.history.goBack()}>
+    <div className="back-btn2" onClick={props.onClick}>
       <img src={ArrowLeft} alt="Arrow Left" />
       <p>Back</p>
     </div>
   );
 };
 
-export default withRouter(BackButton);
+export default BackButton;
