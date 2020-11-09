@@ -1,15 +1,61 @@
 import Axios from "axios";
+//import { connectAdvanced } from "react-redux";
 import { Storage } from "./Storage";
+
+const citAuth = "7e9a5e34-a13d-44ed-8d30-f2ef54e03a74";
+
+Storage.set("citizen.token", citAuth);
+window.sessionStorage.setItem("citizen.token", citAuth);
 
 Axios.interceptors.request.use((req) => {
   document.body.classList.add("loader");
   return req;
 });
 
-Axios.interceptors.response.use((res) => {
-  document.body.classList.remove("loader");
-  return res;
-});
+Axios.interceptors.response.use(
+  (res) => {
+    document.body.classList.remove("loader");
+    return res;
+  },
+  (err) => {
+    document.body.classList.remove("loader");
+    return err;
+  }
+);
+
+const requestInfo = {
+  apiId: "Rainmaker",
+  action: "",
+  did: 1,
+  key: "",
+  msgId: "20170310130900|en_IN",
+  requesterId: "",
+  ts: 1513579888683,
+  ver: ".01",
+  authToken: Storage.get("citizen.token"),
+};
+
+const userServiceData = {
+  userInfo: {
+    id: 23349,
+    uuid: "530968f3-76b3-4fd1-b09d-9e22eb1f85df",
+    userName: "9404052047",
+    name: "Aniket T",
+    mobileNumber: "9404052047",
+    emailId: "xc@gmail.com",
+    locale: null,
+    type: "CITIZEN",
+    roles: [
+      {
+        name: "Citizen",
+        code: "CITIZEN",
+        tenantId: "pb",
+      },
+    ],
+    active: true,
+    tenantId: "pb",
+  },
+};
 
 export const Request = async ({
   method = "POST",
@@ -17,13 +63,22 @@ export const Request = async ({
   data = {},
   useCache = false,
   params = {},
+  auth,
+  userService,
 }) => {
   let key = "";
   if (method.toUpperCase() === "POST") {
     data.RequestInfo = {
       apiId: "Rainmaker",
     };
+    if (auth) {
+      data.RequestInfo = { ...data.RequestInfo, ...requestInfo };
+    }
+    if (userService) {
+      data.RequestInfo = { ...data.RequestInfo, ...userServiceData };
+    }
   }
+
   if (useCache) {
     key = `${method.toUpperCase()}.${url}.${JSON.stringify(
       params,
@@ -37,7 +92,6 @@ export const Request = async ({
   } else {
     params._ = Date.now();
   }
-
   const res = await Axios({ method, url, data, params });
   if (useCache) {
     Storage.set(key, res.data);
@@ -99,4 +153,21 @@ export const GetEgovLocations = (MdmsRes) => {
       i18nKey: obj.localname,
     })
   );
+};
+
+export const GetServiceDefWithLocalization = (MdmsRes) => {
+  const serviceDef = MdmsRes["RAINMAKER-PGR"].ServiceDefs.map((def) =>
+    def.active
+      ? {
+          name: def.serviceCode,
+          i18nKey:
+            def.menuPath !== ""
+              ? "SERVICEDEFS." + def.serviceCode.toUpperCase()
+              : "Others",
+          ...def,
+        }
+      : null
+  ).filter((o) => o != null);
+  Storage.set("ServiceDefs", serviceDef); //TODO: move this to service, session storage key name is too big currently
+  return serviceDef;
 };

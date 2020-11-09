@@ -7,6 +7,8 @@ import FormSection from "./components/FormSection";
 import FormSectionRepeatGroup from "./components/FormSectionRepeatGroup";
 import Header from "./components/Header";
 import CityMohalla from "./components/CityMohalla";
+import RadioButtons from "./@egovernments/components/js/RadioButtons";
+import SubmitBar from "./@egovernments/components/js/SubmitBar";
 
 export default {
   "input-field": InputField,
@@ -17,4 +19,6 @@ export default {
   "form-section-repeat-group": FormSectionRepeatGroup,
   button: Button,
   "city-mohalla": CityMohalla,
+  "radio-button": RadioButtons,
+  "submit-bar": SubmitBar,
 };

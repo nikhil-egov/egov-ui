@@ -102,6 +102,26 @@ const deltaConfig = {
       ],
     },
   ],
+  "pgr-complaint-subtype": [
+    {
+      id: "form",
+      component: "form",
+      submit: "form-submit",
+      fields: [
+        {
+          name: "dummy_subtype",
+          id: "dummy_subtype",
+          type: "radio",
+          component: "radio-button",
+          placeholder: "",
+          required: true,
+          options: [],
+          __action__: "INSERT_AFTER",
+          __property__: "complaint_sub_type",
+        },
+      ],
+    },
+  ],
 };
 
 ReactDOM.render(

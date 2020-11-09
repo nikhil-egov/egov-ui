@@ -1,0 +1,37 @@
+[
+  {
+    "id": "header",
+    "component": "header",
+    "text": ""
+  },
+  {
+    "id": "form",
+    "component": "form",
+    "submit": "form-submit",
+    "redirectto": "/create-complaint/upload-photos",
+
+    "fields": [
+      {
+        "name": "complaint_sub_type",
+        "id": "complaint_sub_type",
+        "required": true,
+        "type": "radio",
+        "component": "radio-button",
+        "placeholder": "",
+        "options": [],
+        "optionsData": {
+          "type": "sessionStorage",
+          "action": "complaint-subtype"
+        }
+      },
+      {
+        "name": "submit",
+        "id": "submit",
+        "type": "submit",
+        "component": "submit-bar",
+        "placeholder": "",
+        "label": "Next"
+      }
+    ]
+  }
+]

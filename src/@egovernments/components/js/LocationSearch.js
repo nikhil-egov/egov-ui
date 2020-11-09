@@ -7,7 +7,7 @@ const LocationSearch = (props) => {
 
     async function mapScriptCall() {
       script.src =
-        "https://maps.googleapis.com/maps/api/js?key=AIzaSyDdKOqX6EPEX9djPm-vL_8zv0HBF8z0Qjg&callback=initAutocomplete&libraries=places";
+        "https://maps.googleapis.com/maps/api/js?key=AIzaSyAQOd09-vjmk1sXFb_ZQYDz2nlfhXq7Wf8&callback=initAutocomplete&libraries=places";
       script.async = true;
       script.defer = true;
 

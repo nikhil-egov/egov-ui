@@ -16,25 +16,12 @@ const NewComplaintPage = () => {
   const { handleSubmit, register } = useForm({ defaultValues: {} });
   const dispatch = useDispatch();
 
-  // const handleOnChange = (field) => (event) => {
-  //   const { value } = event.target;
-  //   dispatch({ type: "UPDATE_FEILD", payload: { field, value } });
-  // };
-
   const handleRepeatClick = (field) => (event) => {
     event.preventDefault();
     dispatch({ type: "UPDATE_REPEAT", payload: { field } });
   };
 
-  // const handleSubmit = data => {
-  //   // e && e.preventDefault();
-  //   console.log("state", state, data);
-  // }
-  // RegisterFunction('form-submit', handleSubmit);
-
-  const onSubmit = async (data) => {
-    console.log("onSubmit", data);
-  };
+  const onSubmit = async (data) => {};
 
   const configParams = {
     config: pageConfig,

@@ -1,0 +1,26 @@
+[
+    {
+      "id": "form",
+      "component": "form",
+      "submit": "form-submit",
+      "fields": [
+        {
+          "name": "test_radio_view",
+          "id": "test_radio_view",
+          "type": "radio",
+          "component": "radio-button",
+  
+          "options": ["a","b","c","d"]        },
+        {
+          "name": "submit",
+          "id": "submit",
+          "type": "submit",
+          "component": "submit-bar",
+          "placeholder": "",
+          "redirectTo": "/create-complaint/",
+          "label": "Next"
+        }
+      ]
+    }
+  ]
+  
